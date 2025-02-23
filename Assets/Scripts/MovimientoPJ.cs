@@ -4,18 +4,29 @@ using UnityEngine;
 
 public class MovimientoPJ : MonoBehaviour
 {
- 
+
     public float movSpeed;
-    private float movHorizontal;
-    private bool lookingRight;
     public float horizontal;
+    public bool isGround;
+    public bool isJumping = false;
+    public GameObject floor;
+    public static int jumpCount;
+    public float jumpSpeed;
+    Rigidbody2D rb2D;
 
+    void Start()
+    {
+        rb2D = GetComponent<Rigidbody2D>();
+    }
 
-    // Update is called once per frame
     void Update()
     {
-        horizontal = Input.GetAxis("Horizontal");
+        horizontal = Input.GetAxisRaw("Horizontal");
         transform.position += new Vector3(horizontal, 0, 0) * movSpeed * Time.deltaTime;
-    }   
 
+        if (Input.GetButtonDown("Jump") && checkGround.isGround)
+        {
+            rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
+        }
+    }
 }
