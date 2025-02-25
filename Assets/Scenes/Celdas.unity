@@ -498,6 +498,9 @@ MonoBehaviour:
   movSpeed: 10
   horizontal: 0
   jumpSpeed: 6
+  dashingTime: 0.2
+  dashSpeed: 20
+  dashCD: 3
 --- !u!61 &1500105832
 BoxCollider2D:
   m_ObjectHideFlags: 0
