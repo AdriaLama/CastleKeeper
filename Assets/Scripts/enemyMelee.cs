@@ -9,15 +9,9 @@ public class enemyMelee : MonoBehaviour
     public float waitingTime;
     private bool isRight;
     public float speed;
-    public float radiumSearch;
-    public LayerMask capaPlayer;
     public Transform transformPlayer;
     public bool playerInRange = false;
     private Vector3 initialPosition;
-
-
-    public enum EstadosMovimiento {ESPERANDO, SIGUIENDO, REGRESANDO};
-    public EstadosMovimiento estadoActual;
 
     void Start()
     {
@@ -31,8 +25,7 @@ public class enemyMelee : MonoBehaviour
     {
         if (playerInRange)
         {
-            Vector3 direction = (transformPlayer.position - transform.position).normalized;
-            transform.position += direction * speed * Time.deltaTime;
+            transform.position = Vector2.MoveTowards(transform.position, transformPlayer.position, speed * Time.deltaTime);
 
         }
 
