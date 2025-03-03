@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class MovimientoPJ : MonoBehaviour
@@ -9,18 +10,56 @@ public class MovimientoPJ : MonoBehaviour
     public float horizontal;
     public float jumpSpeed;
     Rigidbody2D rb2D;
+    private float baseGravity;
     private bool canDoubleJump;
+    public float dashingTime;
+    public float dashSpeed;
+    public float dashCD;
+    private bool canDash = true;
+    private bool isDashing;
+
 
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
+        baseGravity = rb2D.gravityScale;
     }
 
     void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-        transform.position += new Vector3(horizontal, 0, 0) * movSpeed * Time.deltaTime;
 
+        horizontal = Input.GetAxisRaw("Horizontal");
+
+
+        if (!isDashing)
+        {
+            Jump();
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            StartCoroutine(Dash());
+        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        if (!isDashing)
+        {
+            Move();
+        }
+
+    }
+
+    private void Move()
+    {
+        rb2D.velocity = new Vector2(horizontal * movSpeed, rb2D.velocity.y);
+    }
+
+    private void Jump()
+    {
         if (Input.GetButtonDown("Jump"))
         {
             if (checkGround.isGround)
@@ -28,19 +67,33 @@ public class MovimientoPJ : MonoBehaviour
                 canDoubleJump = true;
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
             }
-            else
+            else if (Input.GetButtonDown("Jump") && canDoubleJump)
             {
-                if (Input.GetButtonDown("Jump"))
-                {
-                    if (canDoubleJump)
-                    {
-                        rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
-                        canDoubleJump = false;
-                    }
-                }
+
+                rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
+                canDoubleJump = false;
+
             }
         }
-
-        
     }
+
+    private IEnumerator Dash()
+    {
+
+        if (horizontal != 0 && canDash)
+        {
+            isDashing = true;
+            canDash = false;
+            rb2D.gravityScale = 0f;
+            rb2D.velocity = new Vector2(horizontal * dashSpeed, 0f);
+            yield return new WaitForSeconds(dashingTime);
+            isDashing = false;
+            rb2D.gravityScale = baseGravity;
+            yield return new WaitForSeconds(dashCD);
+            canDash = true;
+        }
+
+    }
+
 }
+
