@@ -10,7 +10,6 @@ public class EnemyVision : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        Debug.Log("Entro");
         if (collision.CompareTag("Player"))
         {
             sc_enemy.SetPlayerInRange(true);

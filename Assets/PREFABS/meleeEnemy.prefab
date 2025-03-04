@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3872585554782863825}
   m_Layer: 0
   m_Name: meleeEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,9 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba62342fe2059744db55887659a46803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  counter: 0
-  waitingTime: 0
   speed: 0
+  transformPlayer: {fileID: 0}
+  playerInRange: 0
+  colision1: {fileID: 0}
+  colision2: {fileID: 0}
 --- !u!50 &590756427945414508
 Rigidbody2D:
   serializedVersion: 4
