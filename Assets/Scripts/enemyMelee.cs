@@ -5,24 +5,27 @@ using UnityEngine;
 
 public class enemyMelee : MonoBehaviour
 {
-    public float counter;
-    public float waitingTime;
-    private bool isRight;
+
+    private bool isRight = false;
+    private bool isLeft = false;
     public float speed;
     public Transform transformPlayer;
     public bool playerInRange = false;
-    private Vector3 initialPosition;
+    public GameObject colision1;
+    public GameObject colision2;
+    
 
     void Start()
     {
-        counter = waitingTime;
-        initialPosition = transform.position;
+        
+       isRight = true; 
+       
     }
-
-
 
     void Update()
     {
+
+
         if (playerInRange)
         {
             transform.position = Vector2.MoveTowards(transform.position, transformPlayer.position, speed * Time.deltaTime);
@@ -31,27 +34,19 @@ public class enemyMelee : MonoBehaviour
 
        else
        {
-            initialPosition = transform.position;
-
+            
             if (isRight)
             {
                 transform.position += Vector3.right * speed * Time.deltaTime;
 
             }
-            else
+
+            if (isLeft)
             {
                 transform.position += Vector3.left * speed * Time.deltaTime;
 
             }
-            counter -= Time.deltaTime;
-
-            if (counter <= 0)
-            {
-                counter = waitingTime;
-                isRight = !isRight;
-
-            }
-
+            
        }
 
 
@@ -62,4 +57,19 @@ public class enemyMelee : MonoBehaviour
     {
         this.playerInRange = inRange;
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Colision1"))
+        {
+            isRight = true;
+            isLeft = false;
+        }
+        if (collision.gameObject.CompareTag("Colision2"))
+        {
+            isLeft = true;
+            isRight = false;
+        }
+    }
+
 }

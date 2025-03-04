@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Floor
+  - Colision1
+  - Colision2
   layers:
   - Default
   - TransparentFX
