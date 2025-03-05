@@ -17,6 +17,8 @@ public class MovimientoPJ : MonoBehaviour
     public float dashCD;
     private bool canDash = true;
     private bool isDashing;
+    public bool isRight;
+    public bool isLeft;
 
 
     void Start()
@@ -30,6 +32,16 @@ public class MovimientoPJ : MonoBehaviour
 
         horizontal = Input.GetAxisRaw("Horizontal");
 
+        if (horizontal > 0)
+        {
+            isRight = true;
+            isLeft = false;
+        }
+        if (horizontal < 0)
+        {
+            isLeft = true;
+            isRight = false; 
+        }
 
         if (!isDashing)
         {

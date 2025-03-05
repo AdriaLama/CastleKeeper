@@ -52,7 +52,6 @@ public class enemyMelee : MonoBehaviour
 
     }
 
-
     public void SetPlayerInRange(bool inRange)
     {
         this.playerInRange = inRange;
