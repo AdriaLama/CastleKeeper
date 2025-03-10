@@ -19,12 +19,13 @@ public class MovimientoPJ : MonoBehaviour
     private bool isDashing;
     public bool isRight;
     public bool isLeft;
-
+   
 
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
         baseGravity = rb2D.gravityScale;
+       
     }
 
     void Update()
@@ -63,6 +64,7 @@ public class MovimientoPJ : MonoBehaviour
             Move();
         }
 
+      
     }
 
     private void Move()
