@@ -8,6 +8,7 @@ TagManager:
   - Colision1
   - Colision2
   - Enemy
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - Enemy
   - Grapplable
-  - 
+  - Wall
   - 
   - 
   - 

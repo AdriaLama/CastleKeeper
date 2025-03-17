@@ -10,6 +10,7 @@ public class MovimientoPJ : MonoBehaviour
     public float horizontal;
     public float jumpSpeed;
     Rigidbody2D rb2D;
+    private hook hk;
     private float baseGravity;
     private bool canDoubleJump;
     public float dashingTime;
@@ -64,7 +65,6 @@ public class MovimientoPJ : MonoBehaviour
             Move();
         }
 
-      
     }
 
     private void Move()
@@ -109,5 +109,6 @@ public class MovimientoPJ : MonoBehaviour
 
     }
 
+ 
 }
 

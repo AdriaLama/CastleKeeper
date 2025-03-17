@@ -5,46 +5,55 @@ using UnityEngine;
 public class hook : MonoBehaviour
 {
     LineRenderer line;
+    private MovimientoPJ mov;
+    private Rigidbody2D rb2D;
     public LayerMask grapplableMask;
     public float maxDistance;
     public float grappleSpeed;
     public float grappleShootSpeed;
     public bool isGrappling = false;
     public bool retracting = false;
+    public int hookCD;
+    public bool canGrapple = true;
     Vector2 target;
     void Start()
     {
         line = gameObject.GetComponent<LineRenderer>();
+        mov = GetComponent<MovimientoPJ>();
+        rb2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && !isGrappling) 
+        if(Input.GetKeyDown(KeyCode.E) && !isGrappling && canGrapple) 
         {
             StartGrapple();
-        
-        
         
         }
         if (retracting)
         {
             Vector2 grapplePos = Vector2.Lerp(transform.position, target, grappleSpeed * Time.deltaTime);                      
             transform.position = grapplePos;
+            line.enabled = false;
 
+      
 
             if (Vector2.Distance(transform.position, target) < 1f)
             {
                 retracting = false;
                 isGrappling = false;
-                line.enabled = false;
-            
+                line.enabled = false;          
+                rb2D.constraints = RigidbodyConstraints2D.None; 
+                rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+
             }
 
 
         }
     }
-    private void StartGrapple()
+    private IEnumerator StartGrapple()
     { 
        Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
     
@@ -56,12 +65,14 @@ public class hook : MonoBehaviour
             target = hit.point;
             line.enabled = true;
             line.positionCount = 2;
-
+            rb2D.velocity = Vector2.zero; 
+            rb2D.constraints = RigidbodyConstraints2D.FreezePositionX;
             StartCoroutine(Grapple());
+            canGrapple = false;
+            yield return new WaitForSeconds(hookCD);
+            canGrapple = true;
+
         }
-    
-        
-    
     
     }
     IEnumerator Grapple()

@@ -7,11 +7,20 @@ public class checkGround : MonoBehaviour
     public static bool isGround;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        isGround = true;
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            isGround = true;
+        }
+       
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        isGround = false;
+
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            isGround = false;
+        }
+
     }
 }
