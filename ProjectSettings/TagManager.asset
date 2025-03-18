@@ -9,6 +9,8 @@ TagManager:
   - Colision2
   - Enemy
   - Wall
+  - Hook
+  - Grab
   layers:
   - Default
   - TransparentFX
