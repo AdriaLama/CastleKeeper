@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MovimientoPJ : MonoBehaviour
@@ -20,6 +21,7 @@ public class MovimientoPJ : MonoBehaviour
     private bool isDashing;
     public bool isRight;
     public bool isLeft;
+    public int lives;
    
 
     void Start()
@@ -109,6 +111,6 @@ public class MovimientoPJ : MonoBehaviour
 
     }
 
- 
+
 }
 

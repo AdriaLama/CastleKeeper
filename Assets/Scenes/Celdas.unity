@@ -274,8 +274,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127615527}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -11.16, y: 4, z: 0}
-  m_LocalScale: {x: 12.064946, y: 1, z: 1}
+  m_LocalPosition: {x: -0.24, y: 4.15, z: 0}
+  m_LocalScale: {x: 0.76733065, y: 0.8671, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -498,7 +498,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 184761853}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.64, y: -0.9174555, z: 0}
+  m_LocalPosition: {x: -3.66, y: -0.9174555, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1217,6 +1217,7 @@ MonoBehaviour:
   dashCD: 3
   isRight: 0
   isLeft: 0
+  lives: 5
 --- !u!61 &1500105832
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1562,6 +1563,10 @@ PrefabInstance:
       propertyPath: m_LayerOverridePriority
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1496931292381648112, guid: 0752dd7c1453ea94c94cde8ff9e39690, type: 3}
+      propertyPath: pj
+      value: 
+      objectReference: {fileID: 1500105831}
     - target: {fileID: 1496931292381648112, guid: 0752dd7c1453ea94c94cde8ff9e39690, type: 3}
       propertyPath: speed
       value: 5
