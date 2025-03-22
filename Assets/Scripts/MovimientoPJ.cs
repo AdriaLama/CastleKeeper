@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MovimientoPJ : MonoBehaviour
 {
-    public BoxCollider2D vx;
-    public PickItems pi;
+    private BoxCollider2D vx;
+    private PickItems pi;
     public float movSpeed;
     public float horizontal;
     public float jumpSpeed;
@@ -21,7 +21,6 @@ public class MovimientoPJ : MonoBehaviour
     public bool isLeft;
     public float jumpWallx;
     public float jumpWally;
-   
     private bool isTouchingWall;
     private bool isWallJumping;
     public float wallJumpTime = 0.2f;
@@ -72,9 +71,6 @@ public class MovimientoPJ : MonoBehaviour
         {
             Move();
         }
-
-        
-       
     }
 
     private void Move()
@@ -105,7 +101,7 @@ public class MovimientoPJ : MonoBehaviour
         if (isTouchingWall && !checkGround.isGround && pi.hasGrab && Input.GetButtonDown("Jump"))
         {
             isWallJumping = true;
-
+            isTouchingWall = false;
             rb2D.velocity = new Vector2(jumpWallx * -horizontal, jumpWally);
             StartCoroutine(DisableWallJumping());
         }
@@ -146,7 +142,7 @@ public class MovimientoPJ : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         
-        if (collision.gameObject.CompareTag("Wall") && pi.hasGrab)
+        if (collision.gameObject.CompareTag("Wall") && pi.hasGrab && horizontal == -1 || collision.gameObject.CompareTag("Wall") && pi.hasGrab && horizontal == 1)
         {
             isTouchingWall = true;
         }

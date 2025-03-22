@@ -1390,7 +1390,7 @@ MonoBehaviour:
   dashCD: 3
   isRight: 0
   isLeft: 0
-  jumpWallx: 20
+  jumpWallx: 16
   jumpWally: 6
   wallJumpTime: 0.4
 --- !u!61 &1500105832
