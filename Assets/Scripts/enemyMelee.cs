@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class enemyMelee : MonoBehaviour
 {
-    public MovimientoPJ pj;
+   
     private bool isRight = false;
     private bool isLeft = false;
     public float speed;
@@ -17,8 +17,8 @@ public class enemyMelee : MonoBehaviour
 
     void Start()
     {
-       isRight = true; 
-       pj = GetComponent<MovimientoPJ>();
+       isRight = true;
+       speed = Random.Range(2.5f, 6f);
     }
 
     void Update()
@@ -68,7 +68,7 @@ public class enemyMelee : MonoBehaviour
             isLeft = true;
             isRight = false;
         }
-        
     }
 
+   
 }

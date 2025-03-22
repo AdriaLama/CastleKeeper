@@ -21,7 +21,6 @@ public class MovimientoPJ : MonoBehaviour
     private bool isDashing;
     public bool isRight;
     public bool isLeft;
-    public int lives;
    
 
     void Start()
