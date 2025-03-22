@@ -5,7 +5,7 @@ using UnityEngine;
 public class PickItems : MonoBehaviour
 {
     public bool hasHook;
-    private bool hasGrab;
+    public bool hasGrab;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

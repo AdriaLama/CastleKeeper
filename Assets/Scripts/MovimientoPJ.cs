@@ -1,17 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MovimientoPJ : MonoBehaviour
 {
-
+    public BoxCollider2D vx;
+    public PickItems pi;
     public float movSpeed;
     public float horizontal;
     public float jumpSpeed;
     Rigidbody2D rb2D;
-    private hook hk;
     private float baseGravity;
     private bool canDoubleJump;
     public float dashingTime;
@@ -21,19 +19,29 @@ public class MovimientoPJ : MonoBehaviour
     private bool isDashing;
     public bool isRight;
     public bool isLeft;
+    public float jumpWallx;
+    public float jumpWally;
+   
+    private bool isTouchingWall;
+    private bool isWallJumping;
+    public float wallJumpTime = 0.2f;
    
 
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
         baseGravity = rb2D.gravityScale;
-       
+        vx = GetComponent<BoxCollider2D>();
+        pi = GetComponent<PickItems>();
     }
 
     void Update()
     {
-
-        horizontal = Input.GetAxisRaw("Horizontal");
+        
+        if (!isWallJumping)
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
+        }
 
         if (horizontal > 0)
         {
@@ -43,29 +51,30 @@ public class MovimientoPJ : MonoBehaviour
         if (horizontal < 0)
         {
             isLeft = true;
-            isRight = false; 
+            isRight = false;
         }
 
         if (!isDashing)
         {
             Jump();
+            WallJump();
         }
-
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             StartCoroutine(Dash());
         }
-
     }
 
     private void FixedUpdate()
     {
-        if (!isDashing)
+        if (!isDashing && !isWallJumping)
         {
             Move();
         }
 
+        
+       
     }
 
     private void Move()
@@ -82,19 +91,34 @@ public class MovimientoPJ : MonoBehaviour
                 canDoubleJump = true;
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
             }
-            else if (Input.GetButtonDown("Jump") && canDoubleJump)
+            else if (canDoubleJump)
             {
-
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
                 canDoubleJump = false;
-
             }
         }
     }
 
+    private void WallJump()
+    {
+        
+        if (isTouchingWall && !checkGround.isGround && pi.hasGrab && Input.GetButtonDown("Jump"))
+        {
+            isWallJumping = true;
+
+            rb2D.velocity = new Vector2(jumpWallx * -horizontal, jumpWally);
+            StartCoroutine(DisableWallJumping());
+        }
+    }
+
+    private IEnumerator DisableWallJumping()
+    {
+        yield return new WaitForSeconds(wallJumpTime);
+        isWallJumping = false;
+    }
+
     private IEnumerator Dash()
     {
-
         if (horizontal != 0 && canDash)
         {
             isDashing = true;
@@ -107,9 +131,34 @@ public class MovimientoPJ : MonoBehaviour
             yield return new WaitForSeconds(dashCD);
             canDash = true;
         }
-
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall") && pi.hasGrab)
+        {
+            isTouchingWall = true;
+            PhysicsMaterial2D newMaterial = new PhysicsMaterial2D() { friction = 5f };
+            vx.sharedMaterial = newMaterial;
+        }
+    }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        
+        if (collision.gameObject.CompareTag("Wall") && pi.hasGrab)
+        {
+            isTouchingWall = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            isTouchingWall = false;
+            PhysicsMaterial2D newMaterial = new PhysicsMaterial2D() { friction = 0f };
+            vx.sharedMaterial = newMaterial;
+        }
+    }
 }
-
