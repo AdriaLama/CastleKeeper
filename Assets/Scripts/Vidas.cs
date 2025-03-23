@@ -31,6 +31,13 @@ public class Vidas : MonoBehaviour
             StartCoroutine(hit());
             desactivarVida(vidasPlayer);
         }
+        if (collision.gameObject.CompareTag("Bullet") && canHit)
+        {
+            vidasPlayer--;
+            StartCoroutine(hit());
+            desactivarVida(vidasPlayer);
+            Destroy(collision.gameObject);
+        }
     }
     public void desactivarVida(int indice)
     {

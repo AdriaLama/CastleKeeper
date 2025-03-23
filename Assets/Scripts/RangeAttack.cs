@@ -11,6 +11,7 @@ public class RangeAttack : MonoBehaviour
     private GameObject enemy;
     private MovimientoPJ movimientoPj;
     private BoxCollider2D boxCollider;
+    public int countAttacks;
 
     private void Start()
     {
@@ -40,7 +41,13 @@ public class RangeAttack : MonoBehaviour
     {
         if (isTrue && Input.GetKeyDown(KeyCode.Q))
         {
-            Destroy(enemy.gameObject);
+            countAttacks++;
+            if( countAttacks >= 2)
+            {
+                Destroy(enemy.gameObject);
+                countAttacks = 0;
+            }
+            
         }
         if (movimientoPj.isLeft)
         {
