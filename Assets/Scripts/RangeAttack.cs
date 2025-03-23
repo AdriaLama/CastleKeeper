@@ -12,12 +12,16 @@ public class RangeAttack : MonoBehaviour
     private MovimientoPJ movimientoPj;
     private BoxCollider2D boxCollider;
     public int countAttacks;
+    private enemyMelee em;
+    public bool canAttack = true;
+    public float cdAttack;
 
     private void Start()
     {
 
         boxCollider = GetComponent<BoxCollider2D>();
         movimientoPj = GetComponentInParent<MovimientoPJ>();
+        em = GetComponent<enemyMelee>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -26,6 +30,7 @@ public class RangeAttack : MonoBehaviour
         {
             isTrue = true;
             enemy = collision.gameObject;
+            em = enemy.GetComponent<enemyMelee>();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -35,19 +40,20 @@ public class RangeAttack : MonoBehaviour
         {
             isTrue = false;
             enemy = null;
+            em = null;
         }
     }
     private void Update()
     {
         if (isTrue && Input.GetKeyDown(KeyCode.Q))
         {
-            countAttacks++;
-            if( countAttacks >= 2)
+            em.vidasEnemigo--;
+            if(em.vidasEnemigo <= 0)
             {
                 Destroy(enemy.gameObject);
-                countAttacks = 0;
             }
-            
+
+           
         }
         if (movimientoPj.isLeft)
         {
@@ -60,5 +66,5 @@ public class RangeAttack : MonoBehaviour
 
         }
     }
-    
+
 }

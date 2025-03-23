@@ -13,7 +13,7 @@ public class enemyMelee : MonoBehaviour
     public bool playerInRange = false;
     public GameObject colision1;
     public GameObject colision2;
-    
+    public int vidasEnemigo;
 
     void Start()
     {
