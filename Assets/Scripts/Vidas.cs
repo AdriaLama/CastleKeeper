@@ -7,6 +7,7 @@ public class Vidas : MonoBehaviour
     public int vidasPlayer;
     public float vidaCD;
     public bool canHit = true;
+    public GameObject[] vidas;
     void Start()
     {
         
@@ -28,9 +29,13 @@ public class Vidas : MonoBehaviour
         {
             vidasPlayer--;
             StartCoroutine(hit());
-
+            desactivarVida(vidasPlayer);
         }
     }
+    public void desactivarVida(int indice)
+    {
+        vidas[indice].SetActive(false);
 
+    }
    
 }
