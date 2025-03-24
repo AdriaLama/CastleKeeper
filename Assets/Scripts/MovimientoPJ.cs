@@ -6,6 +6,7 @@ public class MovimientoPJ : MonoBehaviour
 {
     private BoxCollider2D vx;
     private PickItems pi;
+    private Vidas vi;
     public float movSpeed;
     public float horizontal;
     public float jumpSpeed;
@@ -32,6 +33,7 @@ public class MovimientoPJ : MonoBehaviour
         baseGravity = rb2D.gravityScale;
         vx = GetComponent<BoxCollider2D>();
         pi = GetComponent<PickItems>();
+        vi = FindObjectOfType<Vidas>();
     }
 
     void Update()
@@ -141,6 +143,11 @@ public class MovimientoPJ : MonoBehaviour
             isTouchingWall = true;
             PhysicsMaterial2D newMaterial = new PhysicsMaterial2D() { friction = 5f };
             vx.sharedMaterial = newMaterial;
+        }
+
+        if (collision.gameObject.CompareTag("Pinchos"))
+        {
+           vi.vidasPlayer = 0;
         }
     }
 
