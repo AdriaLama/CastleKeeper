@@ -42,6 +42,11 @@ public class MovimientoPJ : MonoBehaviour
             horizontal = Input.GetAxisRaw("Horizontal");
         }
 
+        
+
+
+
+
         if (horizontal > 0)
         {
             isRight = true;

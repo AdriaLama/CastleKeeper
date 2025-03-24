@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Vidas : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class Vidas : MonoBehaviour
 
     void Update()
     {
+        if(vidasPlayer <= 0)
+        {
+            Destroy(this.gameObject);
+            SceneManager.LoadScene("MenuPrincipal");
+        }
         
     }
     private IEnumerator hit()
@@ -26,6 +32,12 @@ public class Vidas : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy") && canHit)
+        {
+            vidasPlayer--;
+            StartCoroutine(hit());
+            desactivarVida(vidasPlayer);
+        }
+        if (collision.gameObject.CompareTag("ObjDaño") && canHit)
         {
             vidasPlayer--;
             StartCoroutine(hit());
