@@ -25,6 +25,7 @@ public class MovimientoPJ : MonoBehaviour
     private bool isTouchingWall;
     private bool isWallJumping;
     public float wallJumpTime = 0.2f;
+    public float movSpeedDefault;
    
 
     void Start()
@@ -34,6 +35,7 @@ public class MovimientoPJ : MonoBehaviour
         vx = GetComponent<BoxCollider2D>();
         pi = GetComponent<PickItems>();
         vi = FindObjectOfType<Vidas>();
+        movSpeedDefault = movSpeed;
     }
 
     void Update()
@@ -44,10 +46,15 @@ public class MovimientoPJ : MonoBehaviour
             horizontal = Input.GetAxisRaw("Horizontal");
         }
 
-        
-
-
-
+        if (!checkGroundLineCast())
+        {
+            movSpeed = 6;
+        }
+        else
+        {
+            movSpeed = movSpeedDefault;
+        }
+      
 
         if (horizontal > 0)
         {
@@ -80,6 +87,14 @@ public class MovimientoPJ : MonoBehaviour
         }
     }
 
+    private bool checkGroundLineCast()
+    {   
+        
+       return Physics2D.Linecast(transform.position + Vector3.down * 1.05f, transform.position + Vector3.down * 1.25f);
+
+        
+    }
+
     private void Move()
     {
         rb2D.velocity = new Vector2(horizontal * movSpeed, rb2D.velocity.y);
@@ -89,23 +104,25 @@ public class MovimientoPJ : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            if (checkGround.isGround)
-            {
-                canDoubleJump = true;
-                rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
-            }
-            else if (canDoubleJump)
-            {
+            
+              if (checkGroundLineCast())
+              {
+                    canDoubleJump = true;
+                    rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
+              }
+              else if (canDoubleJump)
+              {
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
                 canDoubleJump = false;
-            }
+              }
+
         }
     }
 
     private void WallJump()
     {
         
-        if (isTouchingWall && !checkGround.isGround && pi.hasGrab && Input.GetButtonDown("Jump"))
+        if (isTouchingWall && !checkGroundLineCast() && pi.hasGrab && Input.GetButtonDown("Jump"))
         {
             isWallJumping = true;
             isTouchingWall = false;
@@ -168,5 +185,11 @@ public class MovimientoPJ : MonoBehaviour
             PhysicsMaterial2D newMaterial = new PhysicsMaterial2D() { friction = 0f };
             vx.sharedMaterial = newMaterial;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position + Vector3.down * 1.05f, transform.position + Vector3.down * 1.25f);
     }
 }
