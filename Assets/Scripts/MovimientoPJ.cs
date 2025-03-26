@@ -88,11 +88,20 @@ public class MovimientoPJ : MonoBehaviour
     }
 
     private bool checkGroundLineCast()
-    {   
-        
-       return Physics2D.Linecast(transform.position + Vector3.down * 1.05f, transform.position + Vector3.down * 1.25f);
+    {
 
-        
+        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position + Vector3.down * 1.05f, transform.position + Vector3.down * 1.25f);
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            
+            if (hit.collider.CompareTag("Floor"))
+            {
+                return true;
+            }
+        }
+        return false; 
+
     }
 
     private void Move()
@@ -104,20 +113,19 @@ public class MovimientoPJ : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            
-              if (checkGroundLineCast())
-              {
-                    canDoubleJump = true;
-                    rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
-              }
-              else if (canDoubleJump)
-              {
+            if (checkGroundLineCast()) 
+            {
+                canDoubleJump = true;
+                rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
+            }
+            else if (canDoubleJump)
+            {
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
                 canDoubleJump = false;
-              }
-
+            }
         }
     }
+
 
     private void WallJump()
     {

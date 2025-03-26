@@ -2,27 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class hook : MonoBehaviour
+public class Hook : MonoBehaviour
 {
-    LineRenderer line;
+    private LineRenderer line;
     private Rigidbody2D rb2D;
     private PickItems pi;
     public LayerMask grapplableMask;
     public float maxDistance;
     public float grappleSpeed;
     public float grappleShootSpeed;
-    public bool isGrappling = false;
-    public bool retracting = false;
-    public float hookCD = 1.5f; // Ajusta el cooldown a un valor razonable
+    public float hookCD = 1.5f;
     private bool canHook = true;
-    Vector2 target;
+    private bool isGrappling = false;
+    private bool retracting = false;
+    private bool hitSomething = false;
+    private Vector2 target;
 
     void Start()
     {
-        line = gameObject.GetComponent<LineRenderer>();
+        line = GetComponent<LineRenderer>();
         rb2D = GetComponent<Rigidbody2D>();
         pi = GetComponent<PickItems>();
-
+        line.enabled = false;
     }
 
     void Update()
@@ -32,13 +33,18 @@ public class hook : MonoBehaviour
             StartCoroutine(StartGrapple());
         }
 
+        if (isGrappling)
+        {
+            line.SetPosition(0, transform.position); 
+        }
+
         if (retracting)
         {
-            Vector2 grapplePos = Vector2.Lerp(transform.position, target, grappleSpeed * Time.deltaTime);
-            transform.position = grapplePos;
-            line.enabled = false;
+            transform.position = Vector2.Lerp(transform.position, target, grappleSpeed * Time.deltaTime);
+            line.SetPosition(0, transform.position);
+            line.SetPosition(1, target);
 
-            if (Vector2.Distance(transform.position, target) < 1f)
+            if (Vector2.Distance(transform.position, target) < 0.5f)
             {
                 retracting = false;
                 isGrappling = false;
@@ -51,48 +57,57 @@ public class hook : MonoBehaviour
 
     private IEnumerator StartGrapple()
     {
-        canHook = false; 
+        canHook = false;
+        hitSomething = false;
 
-        Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, maxDistance, grapplableMask);
+        Vector2 direction = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, maxDistance, grapplableMask);
 
         if (hit.collider != null)
         {
-            isGrappling = true;
             target = hit.point;
-            line.enabled = true;
-            line.positionCount = 2;
-            rb2D.velocity = Vector2.zero;
-            rb2D.constraints = RigidbodyConstraints2D.FreezePositionX;
-            StartCoroutine(Grapple());
+            hitSomething = true;
         }
         else
         {
-            canHook = true; 
+            target = (Vector2)transform.position + direction.normalized * maxDistance;
         }
 
-        yield return new WaitForSeconds(hookCD);
-        canHook = true; 
-    }
-
-    IEnumerator Grapple()
-    {
-        float t = 0;
-        float time = 10;
-
+        isGrappling = true;
+        line.enabled = true;
+        line.positionCount = 2;
         line.SetPosition(0, transform.position);
         line.SetPosition(1, transform.position);
 
-        Vector2 newPos;
+        StartCoroutine(Grapple());
 
-        for (; t < time; t += grappleShootSpeed * Time.deltaTime)
+        yield return new WaitForSeconds(hookCD);
+        canHook = true;
+    }
+
+    private IEnumerator Grapple()
+    {
+        float t = 0;
+        float duration = 0.3f; 
+
+        while (t < 1)
         {
-            newPos = Vector2.Lerp(transform.position, target, t / time);
-            line.SetPosition(0, transform.position);
+            t += Time.deltaTime / duration;
+            Vector2 newPos = Vector2.Lerp(transform.position, target, t);
             line.SetPosition(1, newPos);
             yield return null;
         }
+
         line.SetPosition(1, target);
-        retracting = true;
+
+        if (hitSomething)
+        {
+            retracting = true;
+        }
+        else
+        {
+            isGrappling = false;
+            line.enabled = false;
+        }
     }
 }
