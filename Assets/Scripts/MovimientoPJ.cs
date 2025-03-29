@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MovimientoPJ : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class MovimientoPJ : MonoBehaviour
     private bool isWallJumping;
     public float wallJumpTime = 0.2f;
     public float movSpeedDefault;
+    public bool tutorial;
    
 
     void Start()
@@ -77,6 +79,8 @@ public class MovimientoPJ : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
+
+        DoorTutorial();
     }
 
     private void FixedUpdate()
@@ -161,6 +165,21 @@ public class MovimientoPJ : MonoBehaviour
         }
     }
 
+    public void DoorTutorial()
+    {
+        if (tutorial)
+        {
+            SceneManager.LoadScene("MenuPrincipal");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("DoorTutorial"))
+        {
+            tutorial = true;
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall") && pi.hasGrab)

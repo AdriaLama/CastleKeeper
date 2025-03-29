@@ -15,6 +15,8 @@ TagManager:
   - Bullet
   - "ObjDa\xF1o"
   - Pinchos
+  - DoorTutorial
+  - EnemyRange
   layers:
   - Default
   - TransparentFX
