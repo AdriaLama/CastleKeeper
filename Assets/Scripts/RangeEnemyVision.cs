@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyVision : MonoBehaviour
+public class RangeEnemyVision : MonoBehaviour
 {
-    public enemyMelee sc_enemy;
+    public rangeEnemy re_enemy;
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
         if (collision.CompareTag("Player"))
         {
-            sc_enemy.SetPlayerInRange(true);
+            re_enemy.SetPlayerInRange(true);
         }
     }
 
@@ -18,8 +18,7 @@ public class EnemyVision : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            sc_enemy.SetPlayerInRange(false);
+            re_enemy.SetPlayerInRange(false);
         }
     }
-
 }

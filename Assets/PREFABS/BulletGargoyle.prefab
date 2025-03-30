@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4943634443950070608}
   - component: {fileID: -6625348800298167389}
-  - component: {fileID: 7160074639761770948}
   - component: {fileID: 6146115218780587806}
   - component: {fileID: -7501259537485337492}
+  - component: {fileID: -895724449570076226}
   m_Layer: 0
   m_Name: BulletGargoyle
   m_TagString: Bullet
@@ -87,19 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7160074639761770948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5992879094504785519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8518bc02a1cde842adae88d90325520, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocidad: 5
 --- !u!58 &6146115218780587806
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -162,3 +149,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-895724449570076226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5992879094504785519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32982585069e194b89afb1d05b220fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidad: 5

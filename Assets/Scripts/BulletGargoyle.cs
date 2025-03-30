@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletEnemy : MonoBehaviour
+public class BulletGargoyle : MonoBehaviour
 {
     public float velocidad;
 
     void Update()
     {
-        transform.Translate(Time.deltaTime * velocidad * Vector2.right);
+        transform.Translate(Vector2.right * velocidad * Time.deltaTime);
         Destroy(gameObject, 4f);
     }
-
-
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4990616163135428584}
   - component: {fileID: -6343028984620916541}
   - component: {fileID: -443089070818985678}
-  - component: {fileID: 3720508521151327431}
+  - component: {fileID: 1571575287570770676}
   m_Layer: 6
   m_Name: rangeEnemy
   m_TagString: Enemy
@@ -159,7 +159,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3720508521151327431
+--- !u!114 &1571575287570770676
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,9 +168,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3784254127446467319}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7a684aed4106734f97a240e68a0d1d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 22396d392de8b4e44a8a4d4acc8f427f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  speedDefault: 0
+  transformPlayer: {fileID: 0}
+  playerInRange: 0
+  colision1: {fileID: 0}
+  colision2: {fileID: 0}
+  vidasEnemigo: 0
   controladorDisparo: {fileID: 0}
   distancialinea: 0
   TiempoDeDisparos: 0

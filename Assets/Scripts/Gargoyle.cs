@@ -15,14 +15,12 @@ public class Gargoyle : MonoBehaviour
     public void Update()
     {
       
-
             if(Time.time > TiempoDeDisparos + TiempoDeUltimaBala)
             {
                 TiempoDeUltimaBala = Time.time;
                 Invoke(nameof(Disparar), TiempoDeDisparos);
             }
-           
-        
+         
     }
 
     public void Disparar()

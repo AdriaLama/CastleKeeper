@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4990616163135428584}
   - component: {fileID: -6343028984620916541}
   - component: {fileID: -443089070818985678}
-  - component: {fileID: 3720508521151327431}
+  - component: {fileID: -382412526425041197}
   m_Layer: 6
   m_Name: Gargola
   m_TagString: Enemy
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4990616163135428584
 SpriteRenderer:
@@ -159,7 +159,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3720508521151327431
+--- !u!114 &-382412526425041197
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -7,6 +7,7 @@ public class rangeEnemy : MonoBehaviour
     private bool isRight = false;
     private bool isLeft = false;
     public float speed;
+    public float speedDefault;
     public Transform transformPlayer;
     public bool playerInRange = false;
     public GameObject colision1;
@@ -17,24 +18,40 @@ public class rangeEnemy : MonoBehaviour
     public float TiempoDeDisparos;
     public float TiempoDeUltimaBala;
     public GameObject balaEnemigo;
+    private SpriteRenderer sr;
+    private Vector2 direccionDisparo;
 
     void Start()
     {
         isRight = true;
+        speedDefault = speed;
+        sr = GetComponent<SpriteRenderer>();
+
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (playerInRange)
         {
-            transform.position = Vector2.zero;
+            speed = 0;
+
+            direccionDisparo = (transformPlayer.position - transform.position).normalized;
+
+            if (transformPlayer.position.x < transform.position.x)
+            {
+                sr.flipX = true;
+            }
+            else
+            {
+                sr.flipX = false;
+            }
+
             if (Time.time > TiempoDeDisparos + TiempoDeUltimaBala)
             {
                 TiempoDeUltimaBala = Time.time;
                 Invoke(nameof(Disparar), TiempoDeDisparos);
             }
-
+          
         
         }
         else
@@ -42,14 +59,16 @@ public class rangeEnemy : MonoBehaviour
 
             if (isRight)
             {
+                speed = speedDefault;
                 transform.position += Vector3.right * speed * Time.deltaTime;
-
+                sr.flipX = false;
             }
 
             if (isLeft)
             {
+                speed = speedDefault;
                 transform.position += Vector3.left * speed * Time.deltaTime;
-
+                sr.flipX = true;
             }
 
         }
@@ -57,7 +76,8 @@ public class rangeEnemy : MonoBehaviour
 
     public void Disparar()
     {
-        Instantiate(balaEnemigo, controladorDisparo.position, controladorDisparo.rotation);
+        GameObject nuevaBala = Instantiate(balaEnemigo, controladorDisparo.position, controladorDisparo.rotation);
+        nuevaBala.GetComponent<BulletEnemyRange>().SetDireccion(direccionDisparo);
     }
 
     public void SetPlayerInRange(bool inRange)

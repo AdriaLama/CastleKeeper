@@ -21,7 +21,6 @@ public class RangeAttack : MonoBehaviour
 
     private void Start()
     {
-
         boxCollider = GetComponent<BoxCollider2D>();
         movimientoPj = GetComponentInParent<MovimientoPJ>();
         em = GetComponent<enemyMelee>();
@@ -62,26 +61,35 @@ public class RangeAttack : MonoBehaviour
     }
     private void Update()
     {
-        if (isTrue && Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && canAttack)
         {
-            em.vidasEnemigo--;
-            
-            if(em.vidasEnemigo <= 0)
+            if (isTrue)
             {
-                Destroy(enemy.gameObject);
-            }
-        }
+                em.vidasEnemigo--;
+                canAttack = false;
 
-        if (isTrueRange && Input.GetKeyDown(KeyCode.Q))
-        {
-            re.vidasEnemigo--;
+                if (em.vidasEnemigo <= 0)
+                {
+                    Destroy(enemy.gameObject);
+                }
 
-            if (re.vidasEnemigo <= 0)
-            {
-                Destroy(enemyRange.gameObject);
+                StartCoroutine(RangeAttackCD());
             }
 
+            if (isTrueRange)
+            {
+                re.vidasEnemigo--;
+                canAttack = false;
+
+                if (re.vidasEnemigo <= 0)
+                {
+                    Destroy(enemyRange.gameObject);
+                }
+
+                StartCoroutine(RangeAttackCD());
+            }
         }
+        
         if (movimientoPj.isLeft)
         {
             boxCollider.offset = new Vector2(-2.11f, boxCollider.offset.y);
@@ -92,6 +100,13 @@ public class RangeAttack : MonoBehaviour
             boxCollider.offset = new Vector2(2.11f, boxCollider.offset.y);
 
         }
+    }
+
+    private IEnumerator RangeAttackCD()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(cdAttack);
+        canAttack = true;
     }
 
 }

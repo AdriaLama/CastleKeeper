@@ -14,21 +14,29 @@ public class enemyMelee : MonoBehaviour
     public GameObject colision1;
     public GameObject colision2;
     public int vidasEnemigo;
+    private SpriteRenderer sr;
 
     void Start()
     {
        isRight = true;
        speed = Random.Range(2.5f, 6f);
+       sr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-
-
         if (playerInRange)
         {
             transform.position = Vector2.MoveTowards(transform.position, transformPlayer.position, speed * Time.deltaTime);
 
+            if (transformPlayer.position.x < transform.position.x)
+            {
+                sr.flipX = true;
+            }
+            else
+            {
+                sr.flipX = false;
+            }
         }
 
        else
@@ -37,13 +45,13 @@ public class enemyMelee : MonoBehaviour
             if (isRight)
             {
                 transform.position += Vector3.right * speed * Time.deltaTime;
-
+                sr.flipX = false;
             }
 
             if (isLeft)
             {
                 transform.position += Vector3.left * speed * Time.deltaTime;
-
+                sr.flipX = true;
             }
             
        }

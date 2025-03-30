@@ -56,8 +56,7 @@ public class MovimientoPJ : MonoBehaviour
         {
             movSpeed = movSpeedDefault;
         }
-      
-
+     
         if (horizontal > 0)
         {
             isRight = true;
