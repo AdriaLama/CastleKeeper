@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7790349252210236908}
   - component: {fileID: 1775391306002268352}
+  - component: {fileID: -6519661119114619619}
   m_Layer: 3
   m_Name: rangeTrampTecho
   m_TagString: Untagged
@@ -77,3 +78,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-6519661119114619619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4643507839265135992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a76bad20941d024f977c15072a6319b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tr: {fileID: 0}

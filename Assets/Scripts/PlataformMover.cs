@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PlatformMover : MonoBehaviour
 {
-    public Transform puntoA, puntoB; // Puntos de movimiento
-    public float velocidad = 2f; // Velocidad de la plataforma
+    public Transform puntoA, puntoB; 
+    public float velocidad; 
 
     private Vector3 destino;
 
@@ -25,7 +25,7 @@ public class PlatformMover : MonoBehaviour
         }
     }
 
-    // Cuando el jugador toca la plataforma, se vuelve hijo de ella
+  
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -34,10 +34,10 @@ public class PlatformMover : MonoBehaviour
         }
     }
 
-    // Cuando el jugador sale de la plataforma, se suelta
+
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && gameObject.activeInHierarchy && collision.gameObject != null)
         {
             collision.transform.SetParent(null);
         }

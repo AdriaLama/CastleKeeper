@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class rangeTrampaTecho : MonoBehaviour
 {
-    private bool playerInRange;
-
-    void Start()
+    public trampaTecho tr;
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+
+        if (collision.CompareTag("Player"))
+        {
+            tr.SetPlayerInRange(true);
+        }
     }
 
-    
-    void Update()
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        
+        if (collision.CompareTag("Player"))
+        {
+            tr.SetPlayerInRange(false);
+        }
     }
 }

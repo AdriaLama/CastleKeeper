@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7282651920812907159}
   - component: {fileID: 1997675475624127881}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Colision1
   m_TagString: Colision1
   m_Icon: {fileID: 0}
