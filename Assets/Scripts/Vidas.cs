@@ -50,6 +50,12 @@ public class Vidas : MonoBehaviour
             desactivarVida(vidasPlayer);
             Destroy(collision.gameObject);
         }
+        if (collision.gameObject.CompareTag("PinchosPlataforma") && canHit)
+        {
+            vidasPlayer--;
+            StartCoroutine(hit());
+            desactivarVida(vidasPlayer);
+        }
     }
     public void desactivarVida(int indice)
     {

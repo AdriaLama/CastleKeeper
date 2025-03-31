@@ -20,28 +20,27 @@ public class trampaTecho : MonoBehaviour
 
     void Update()
     {
-        // Si el jugador está en rango y no estamos en cooldown, la trampa cae
+
         if (playerInRange && !isInCooldown && !isReturning && !isFalling)
         {
             isFalling = true;
         }
 
-        // Movimiento de caída
+
         if (isFalling)
         {
             transform.Translate(Vector2.down * speed * Time.deltaTime);
         }
 
-        // Movimiento de retorno
+
         if (isReturning)
         {
             transform.position = Vector3.MoveTowards(transform.position, initialPosition, speedUp * Time.deltaTime);
 
-            // Si ya regresó a su posición inicial
             if (Vector3.Distance(transform.position, initialPosition) < 0.01f)
             {
                 isReturning = false;
-                isInCooldown = false; // Fin del cooldown cuando regresa a posición
+                StartCoroutine(FinishCooldown());
             }
         }
     }
@@ -56,15 +55,11 @@ public class trampaTecho : MonoBehaviour
         if (collision.gameObject.CompareTag("Floor") && isFalling)
         {
             isFalling = false;
-            StartCoroutine(InitiateCooldown());
+            isInCooldown = true;
+            isReturning = true;
+
         }
     }
-
-    public void SetPlayerInRange(bool inRange)
-    {
-        this.playerInRange = inRange;
-    }
-
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -74,14 +69,17 @@ public class trampaTecho : MonoBehaviour
         }
     }
 
-    private IEnumerator InitiateCooldown()
-    {
-        isInCooldown = true;
 
-        // Esperar antes de comenzar a subir
+    public void SetPlayerInRange(bool inRange)
+    {
+        this.playerInRange = inRange;
+    }
+
+    private IEnumerator FinishCooldown()
+    {
+
         yield return new WaitForSeconds(cooldownTrampa);
 
-        // Comenzar a subir de regreso
-        isReturning = true;
+        isInCooldown = false;
     }
 }

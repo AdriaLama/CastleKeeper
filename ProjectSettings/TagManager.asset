@@ -17,6 +17,7 @@ TagManager:
   - Pinchos
   - DoorTutorial
   - EnemyRange
+  - PinchosPlataforma
   layers:
   - Default
   - TransparentFX
