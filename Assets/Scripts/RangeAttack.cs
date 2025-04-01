@@ -18,8 +18,8 @@ public class RangeAttack : MonoBehaviour
     private rangeEnemy re;
     public bool canAttack = true;
     public float cdAttack;
-    [SerializeField]
-    public Animator animator;
+    private float cdHitAnimation = 1.2f;
+    private Animator animator;
 
     private void Start()
     {
@@ -27,7 +27,7 @@ public class RangeAttack : MonoBehaviour
         movimientoPj = GetComponentInParent<MovimientoPJ>();
         em = GetComponent<enemyMelee>();
         re = GetComponent<rangeEnemy>();
-        animator = GetComponent<Animator>();
+        animator = FindObjectOfType<Animator>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -78,7 +78,7 @@ public class RangeAttack : MonoBehaviour
                 }
 
                 StartCoroutine(RangeAttackCD());
-                animator.SetBool("Hit", false);
+                
 
             }
 
@@ -93,6 +93,7 @@ public class RangeAttack : MonoBehaviour
                 }
 
                 StartCoroutine(RangeAttackCD());
+
             }
         }
         
@@ -111,8 +112,11 @@ public class RangeAttack : MonoBehaviour
     private IEnumerator RangeAttackCD()
     {
         canAttack = false;
+        yield return new WaitForSeconds(cdHitAnimation);
+        animator.SetBool("Hit", false);
         yield return new WaitForSeconds(cdAttack);
         canAttack = true;
     }
+  
 
 }

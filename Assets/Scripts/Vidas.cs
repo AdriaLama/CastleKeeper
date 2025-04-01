@@ -10,11 +10,10 @@ public class Vidas : MonoBehaviour
     public bool canHit = true;
     public bool hasHit;
     public GameObject[] vidas;
-    [SerializeField]
     private Animator animator;
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = FindObjectOfType<Animator>();
     }
 
     void Update()

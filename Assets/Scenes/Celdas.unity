@@ -15873,6 +15873,7 @@ MonoBehaviour:
   countAttacks: 0
   canAttack: 1
   cdAttack: 1.2
+  animator: {fileID: 173933616}
 --- !u!61 &1081572869
 BoxCollider2D:
   m_ObjectHideFlags: 0

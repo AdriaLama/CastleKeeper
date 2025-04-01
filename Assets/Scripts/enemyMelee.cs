@@ -16,12 +16,14 @@ public class enemyMelee : MonoBehaviour
     public int vidasEnemigo;
     private SpriteRenderer sr;
     private Animator animator;
+    private RangeAttack ra;
 
     void Start()
     {
        isRight = true;
        sr = GetComponent<SpriteRenderer>();
        animator = GetComponent<Animator>();
+       ra = GetComponent<RangeAttack>();
     }
 
     void Update()
@@ -56,7 +58,7 @@ public class enemyMelee : MonoBehaviour
             }
 
             animator.SetBool("Attack", false);
-        }
+       }
 
       
 
