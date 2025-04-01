@@ -18,7 +18,6 @@ public class RangeAttack : MonoBehaviour
     private rangeEnemy re;
     public bool canAttack = true;
     public float cdAttack;
-    private float cdHitAnimation = 1.2f;
     private Animator animator;
 
     private void Start()
@@ -27,7 +26,7 @@ public class RangeAttack : MonoBehaviour
         movimientoPj = GetComponentInParent<MovimientoPJ>();
         em = GetComponent<enemyMelee>();
         re = GetComponent<rangeEnemy>();
-        animator = FindObjectOfType<Animator>();
+        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -68,9 +67,20 @@ public class RangeAttack : MonoBehaviour
         {
             if (isTrue)
             {
+                em.ReceiveHit(); 
                 em.vidasEnemigo--;
                 canAttack = false;
-                animator.SetBool("Hit", true);
+
+                if (em.sr.flipX)
+                {
+                    em.rb.velocity = new Vector2(5, 5);
+                   
+                }
+                if (!(em.sr.flipX))
+                {
+                    em.rb.velocity = new Vector2(-5 ,5);
+                    
+                }
 
                 if (em.vidasEnemigo <= 0)
                 {
@@ -78,7 +88,7 @@ public class RangeAttack : MonoBehaviour
                 }
 
                 StartCoroutine(RangeAttackCD());
-                
+
 
             }
 
@@ -112,8 +122,6 @@ public class RangeAttack : MonoBehaviour
     private IEnumerator RangeAttackCD()
     {
         canAttack = false;
-        yield return new WaitForSeconds(cdHitAnimation);
-        animator.SetBool("Hit", false);
         yield return new WaitForSeconds(cdAttack);
         canAttack = true;
     }

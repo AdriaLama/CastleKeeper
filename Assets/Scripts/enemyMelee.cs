@@ -6,24 +6,28 @@ using UnityEngine;
 public class enemyMelee : MonoBehaviour
 {
    
-    private bool isRight = false;
-    private bool isLeft = false;
+    public bool isRight = false;
+    public bool isLeft = false;
     public float speed;
     public Transform transformPlayer;
     public bool playerInRange = false;
     public GameObject colision1;
     public GameObject colision2;
     public int vidasEnemigo;
-    private SpriteRenderer sr;
+    public SpriteRenderer sr;
     private Animator animator;
     private RangeAttack ra;
+    public Rigidbody2D rb;
+    private float cdHitAnimation = 1.2f;
 
     void Start()
     {
        isRight = true;
        sr = GetComponent<SpriteRenderer>();
        animator = GetComponent<Animator>();
-       ra = GetComponent<RangeAttack>();
+       ra = FindObjectOfType<RangeAttack>();
+       rb = GetComponent<Rigidbody2D>();
+       
     }
 
     void Update()
@@ -60,8 +64,18 @@ public class enemyMelee : MonoBehaviour
             animator.SetBool("Attack", false);
        }
 
-      
+    }
 
+    public void ReceiveHit()
+    {
+        animator.SetBool("Hit", true);
+        StartCoroutine(ResetHitAnimation());
+    }
+
+    private IEnumerator ResetHitAnimation()
+    {
+        yield return new WaitForSeconds(cdHitAnimation); 
+        animator.SetBool("Hit", false);
     }
 
     public void SetPlayerInRange(bool inRange)

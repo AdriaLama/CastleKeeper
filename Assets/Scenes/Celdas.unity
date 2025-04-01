@@ -763,11 +763,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &173933616 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 495531601418518980, guid: 0752dd7c1453ea94c94cde8ff9e39690, type: 3}
-  m_PrefabInstance: {fileID: 1666379084}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &184761853
 GameObject:
   m_ObjectHideFlags: 0
@@ -10748,7 +10743,6 @@ MonoBehaviour:
   - {fileID: 1429243084}
   - {fileID: 573348547}
   - {fileID: 647864509}
-  animator: {fileID: 173933616}
 --- !u!1 &630069205
 GameObject:
   m_ObjectHideFlags: 0
@@ -15873,7 +15867,6 @@ MonoBehaviour:
   countAttacks: 0
   canAttack: 1
   cdAttack: 1.2
-  animator: {fileID: 173933616}
 --- !u!61 &1081572869
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19779,6 +19772,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9067433498921626158, guid: 0752dd7c1453ea94c94cde8ff9e39690, type: 3}
       propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9067433498921626158, guid: 0752dd7c1453ea94c94cde8ff9e39690, type: 3}
+      propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9070270691446871805, guid: 0752dd7c1453ea94c94cde8ff9e39690, type: 3}
