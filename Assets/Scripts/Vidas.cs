@@ -8,10 +8,13 @@ public class Vidas : MonoBehaviour
     public int vidasPlayer;
     public float vidaCD;
     public bool canHit = true;
+    public bool hasHit;
     public GameObject[] vidas;
+    [SerializeField]
+    private Animator animator;
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -36,6 +39,13 @@ public class Vidas : MonoBehaviour
             vidasPlayer--;
             StartCoroutine(hit());
             desactivarVida(vidasPlayer);
+            hasHit = true;
+            if (hasHit)
+            {
+                animator.SetBool("Attack", true);
+                hasHit = false;
+            }
+           
         }
         if (collision.gameObject.CompareTag("ObjDaño") && canHit)
         {

@@ -15,12 +15,13 @@ public class enemyMelee : MonoBehaviour
     public GameObject colision2;
     public int vidasEnemigo;
     private SpriteRenderer sr;
+    private Animator animator;
 
     void Start()
     {
        isRight = true;
-       speed = Random.Range(2.5f, 6f);
        sr = GetComponent<SpriteRenderer>();
+       animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -53,9 +54,11 @@ public class enemyMelee : MonoBehaviour
                 transform.position += Vector3.left * speed * Time.deltaTime;
                 sr.flipX = true;
             }
-            
-       }
 
+            animator.SetBool("Attack", false);
+        }
+
+      
 
     }
 
