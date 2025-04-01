@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/ASSETS/Pixel2DCastleTileset/Sprites/anim_light3.png.meta
 guid: 66ccc38c5cd908a41a6b315e44ab8658
+========
+guid: 5dad671b9f272e84fb3fcdc2431a88d3
+>>>>>>>> Stashed changes:Assets/ASSETS/Pixel2DCastleTileset/Sprites/anim_light2.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -138,7 +142,11 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
+<<<<<<<< Updated upstream:Assets/ASSETS/Pixel2DCastleTileset/Sprites/anim_light3.png.meta
     spriteID: 5d0266fe7f64ba747a7308b96fbe0c04
+========
+    spriteID: 016d4c8b660aa2a40b9a8d0fb2a6d122
+>>>>>>>> Stashed changes:Assets/ASSETS/Pixel2DCastleTileset/Sprites/anim_light2.png.meta
     internalID: 0
     vertices: []
     indices: 
