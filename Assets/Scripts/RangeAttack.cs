@@ -67,7 +67,11 @@ public class RangeAttack : MonoBehaviour
         {
             if (isTrue)
             {
-                em.ReceiveHit(); 
+                if(em.vidasEnemigo > 0)
+                {
+                    em.ReceiveHit();
+                }
+               
                 em.vidasEnemigo--;
                 canAttack = false;
 
@@ -84,7 +88,8 @@ public class RangeAttack : MonoBehaviour
 
                 if (em.vidasEnemigo <= 0)
                 {
-                    Destroy(enemy.gameObject);
+                    em.enemyDead();
+                    Destroy(enemy.gameObject, 1.40f);
                 }
 
                 StartCoroutine(RangeAttackCD());

@@ -55,7 +55,7 @@ public class enemyMelee : MonoBehaviour
                 sr.flipX = false;
             }
 
-            if (isLeft)
+            else if (isLeft)
             {
                 transform.position += Vector3.left * speed * Time.deltaTime;
                 sr.flipX = true;
@@ -66,6 +66,12 @@ public class enemyMelee : MonoBehaviour
 
     }
 
+    public void enemyDead()
+    {
+        animator.SetBool("Hit", false);  
+        animator.SetBool("Attack", false); 
+        animator.SetBool("Dead", true);   
+    }
     public void ReceiveHit()
     {
         animator.SetBool("Hit", true);
