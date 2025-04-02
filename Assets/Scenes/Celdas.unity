@@ -175,7 +175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 35372776}
   - component: {fileID: 35372777}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 41992904}
   - component: {fileID: 41992905}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: CAJA DE PINCHOS
   m_TagString: Pinchos
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 49838968}
   - component: {fileID: 49838969}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -521,7 +521,7 @@ GameObject:
   m_Component:
   - component: {fileID: 161304817}
   - component: {fileID: 161304818}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -605,7 +605,7 @@ GameObject:
   m_Component:
   - component: {fileID: 162812326}
   - component: {fileID: 162812327}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -689,7 +689,7 @@ GameObject:
   m_Component:
   - component: {fileID: 170553039}
   - component: {fileID: 170553040}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -931,7 +931,7 @@ GameObject:
   m_Component:
   - component: {fileID: 215902897}
   - component: {fileID: 215902898}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1167,7 +1167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 404779211}
   - component: {fileID: 404779212}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4108,7 +4108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 439941996}
   - component: {fileID: 439941997}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4192,7 +4192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 444989325}
   - component: {fileID: 444989324}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10205,7 +10205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 523662595}
   - component: {fileID: 523662596}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10289,7 +10289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 524875626}
   - component: {fileID: 524875627}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10493,7 +10493,7 @@ GameObject:
   m_Component:
   - component: {fileID: 554276515}
   - component: {fileID: 554276516}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14361,7 +14361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 690616136}
   - component: {fileID: 690616135}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14445,7 +14445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 758939270}
   - component: {fileID: 758939269}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14605,7 +14605,7 @@ GameObject:
   m_Component:
   - component: {fileID: 825902766}
   - component: {fileID: 825902767}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14689,7 +14689,7 @@ GameObject:
   m_Component:
   - component: {fileID: 852713427}
   - component: {fileID: 852713428}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14806,7 +14806,7 @@ GameObject:
   m_Component:
   - component: {fileID: 883172921}
   - component: {fileID: 883172922}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14890,7 +14890,7 @@ GameObject:
   m_Component:
   - component: {fileID: 901288176}
   - component: {fileID: 901288177}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14974,7 +14974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 910243112}
   - component: {fileID: 910243113}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15134,7 +15134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 920030040}
   - component: {fileID: 920030039}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: CAJA DE PINCHOS (2)
   m_TagString: Pinchos
   m_Icon: {fileID: 0}
@@ -15173,7 +15173,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.0300694, y: -0.5356362}
+  m_Offset: {x: 0.84532714, y: -0.5356362}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -15184,7 +15184,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 27.369759, y: 1.0824046}
+  m_Size: {x: 16.232471, y: 1.0824046}
   m_EdgeRadius: 0
 --- !u!4 &920030040
 Transform:
@@ -15221,7 +15221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 925791365}
   - component: {fileID: 925791366}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15305,7 +15305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 925982652}
   - component: {fileID: 925982653}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15458,7 +15458,7 @@ GameObject:
   m_Component:
   - component: {fileID: 996656427}
   - component: {fileID: 996656428}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15659,7 +15659,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1019855826}
   - component: {fileID: 1019855827}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15743,7 +15743,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1020365127}
   - component: {fileID: 1020365128}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15864,9 +15864,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrue: 0
   isTrueRange: 0
-  countAttacks: 0
   canAttack: 1
-  cdAttack: 1.2
+  cdAttack: 1.6
 --- !u!61 &1081572869
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15922,7 +15921,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1112049501}
   - component: {fileID: 1112049502}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16090,7 +16089,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1136507645}
   - component: {fileID: 1136507646}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16174,7 +16173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1147486451}
   - component: {fileID: 1147486452}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16370,7 +16369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1225941383}
   - component: {fileID: 1225941382}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16454,7 +16453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1233523923}
   - component: {fileID: 1233523924}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16696,7 +16695,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1265383122}
   - component: {fileID: 1265383123}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16876,7 +16875,7 @@ GameObject:
   - component: {fileID: 1289233947}
   - component: {fileID: 1289233946}
   - component: {fileID: 1289233945}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: TIlemap Walls
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -18598,7 +18597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1509235337}
   - component: {fileID: 1509235338}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18682,7 +18681,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1532273077}
   - component: {fileID: 1532273078}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18850,7 +18849,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1545119278}
   - component: {fileID: 1545119279}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19018,7 +19017,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1575702365}
   - component: {fileID: 1575702364}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: CAJA DE PINCHOS (1)
   m_TagString: Pinchos
   m_Icon: {fileID: 0}
@@ -19112,7 +19111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1591101443}
   - component: {fileID: 1591101444}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19196,7 +19195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1596319180}
   - component: {fileID: 1596319181}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19290,7 +19289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1618634044}
   - component: {fileID: 1618634045}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19374,7 +19373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1627496713}
   - component: {fileID: 1627496714}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20849,7 +20848,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1861903475}
   - component: {fileID: 1861903476}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20933,7 +20932,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1985192390}
   - component: {fileID: 1985192391}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21101,7 +21100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1996863225}
   - component: {fileID: 1996863226}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21185,7 +21184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2065211237}
   - component: {fileID: 2065211236}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21269,7 +21268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2071595636}
   - component: {fileID: 2071595637}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21437,7 +21436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2098355880}
   - component: {fileID: 2098355881}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21521,7 +21520,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2132604458}
   - component: {fileID: 2132604459}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: PINCHOS (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

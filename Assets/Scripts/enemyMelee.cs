@@ -8,6 +8,7 @@ public class enemyMelee : MonoBehaviour
    
     public bool isRight = false;
     public bool isLeft = false;
+    private bool isPinchos = false;
     public float speed;
     public Transform transformPlayer;
     public bool playerInRange = false;
@@ -64,6 +65,15 @@ public class enemyMelee : MonoBehaviour
             animator.SetBool("Attack", false);
        }
 
+        if (isPinchos)
+        {
+            speed = 0;
+            vidasEnemigo = 0;
+            enemyDead();
+            Destroy(gameObject, 1.4f);
+            isPinchos = false;
+        }
+
     }
 
     public void enemyDead()
@@ -103,5 +113,13 @@ public class enemyMelee : MonoBehaviour
         }
     }
 
-   
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Pinchos"))
+        {
+            isPinchos = true;
+        }
+    }
+
+
 }

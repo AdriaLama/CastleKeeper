@@ -13,7 +13,6 @@ public class RangeAttack : MonoBehaviour
     private GameObject enemyRange;
     private MovimientoPJ movimientoPj;
     private BoxCollider2D boxCollider;
-    public int countAttacks;
     private enemyMelee em;
     private rangeEnemy re;
     public bool canAttack = true;
@@ -75,19 +74,24 @@ public class RangeAttack : MonoBehaviour
                 em.vidasEnemigo--;
                 canAttack = false;
 
-                if (em.sr.flipX)
+                if (em.vidasEnemigo >= 1)
                 {
-                    em.rb.velocity = new Vector2(5, 5);
-                   
+                    if (em.sr.flipX)
+                    {
+                        em.rb.velocity = new Vector2(4, 5);
+
+                    }
+                    if (!(em.sr.flipX))
+                    {
+                        em.rb.velocity = new Vector2(-4, 5);
+
+                    }
                 }
-                if (!(em.sr.flipX))
-                {
-                    em.rb.velocity = new Vector2(-5 ,5);
-                    
-                }
+               
 
                 if (em.vidasEnemigo <= 0)
                 {
+                    em.speed = 0;
                     em.enemyDead();
                     Destroy(enemy.gameObject, 1.40f);
                 }
@@ -99,6 +103,7 @@ public class RangeAttack : MonoBehaviour
 
             if (isTrueRange)
             {
+                re.speed = 0;
                 re.vidasEnemigo--;
                 canAttack = false;
 
@@ -110,6 +115,8 @@ public class RangeAttack : MonoBehaviour
                 StartCoroutine(RangeAttackCD());
 
             }
+
+           
         }
         
         if (movimientoPj.isLeft)
