@@ -17982,6 +17982,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gargola
       objectReference: {fileID: 0}
+    - target: {fileID: 3784254127446467319, guid: 9f959105c2787eb4baf56b099a035c5a, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3784254127446467319, guid: 9f959105c2787eb4baf56b099a035c5a, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 4162770607040356923, guid: 9f959105c2787eb4baf56b099a035c5a, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -19795,7 +19803,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1677473548}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: ControladorDisparo
   m_TagString: Untagged
   m_Icon: {fileID: 0}

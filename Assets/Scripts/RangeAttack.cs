@@ -78,12 +78,12 @@ public class RangeAttack : MonoBehaviour
                 {
                     if (em.sr.flipX)
                     {
-                        em.rb.velocity = new Vector2(4, 5);
+                        em.rb.velocity = new Vector2(5, 3);
 
                     }
                     if (!(em.sr.flipX))
                     {
-                        em.rb.velocity = new Vector2(-4, 5);
+                        em.rb.velocity = new Vector2(-5, 3);
 
                     }
                 }
