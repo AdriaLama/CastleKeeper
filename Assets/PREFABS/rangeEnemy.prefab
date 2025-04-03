@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -6343028984620916541}
   - component: {fileID: -443089070818985678}
   - component: {fileID: 1571575287570770676}
+  - component: {fileID: 4604786701501412670}
   m_Layer: 6
   m_Name: rangeEnemy
   m_TagString: EnemyRange
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3784254127446467319}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 6.1448994, y: 6.1448994, z: 6.1448994}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.6226415, g: 0.43340153, b: 0.12041651, a: 1}
+  m_Sprite: {fileID: 1333199823, guid: d39014c00e616c545bd8587f8b5aef4e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -123,7 +124,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
+    oldSize: {x: 0.41, y: 0.31}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -183,3 +184,24 @@ MonoBehaviour:
   TiempoDeDisparos: 0
   TiempoDeUltimaBala: 0
   balaEnemigo: {fileID: 0}
+--- !u!95 &4604786701501412670
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784254127446467319}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: db3a9a9b23038324cbfb61f5a2801894, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

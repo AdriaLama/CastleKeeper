@@ -20,12 +20,14 @@ public class rangeEnemy : MonoBehaviour
     public GameObject balaEnemigo;
     private SpriteRenderer sr;
     private Vector2 direccionDisparo;
+    private Animator animator;
 
     void Start()
     {
         isRight = true;
         speedDefault = speed;
         sr = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
     }
 
@@ -56,6 +58,8 @@ public class rangeEnemy : MonoBehaviour
         }
         else
         {
+
+
 
             if (isRight)
             {
