@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,9 +12,11 @@ public class Vidas : MonoBehaviour
     public bool hasHit;
     public GameObject[] vidas;
     private Animator animator;
+  
     void Start()
     {
         animator = FindObjectOfType<Animator>();
+  
     }
 
     void Update()
@@ -51,6 +54,7 @@ public class Vidas : MonoBehaviour
             vidasPlayer--;
             StartCoroutine(hit());
             desactivarVida(vidasPlayer);
+           
         }
         if (collision.gameObject.CompareTag("Bullet") && canHit)
         {
@@ -58,14 +62,17 @@ public class Vidas : MonoBehaviour
             StartCoroutine(hit());
             desactivarVida(vidasPlayer);
             Destroy(collision.gameObject);
+            
         }
         if (collision.gameObject.CompareTag("PinchosPlataforma") && canHit)
         {
             vidasPlayer--;
             StartCoroutine(hit());
             desactivarVida(vidasPlayer);
+           
         }
     }
+
     public void desactivarVida(int indice)
     {
         vidas[indice].SetActive(false);

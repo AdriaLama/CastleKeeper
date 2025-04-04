@@ -26,7 +26,6 @@ public class enemyMelee : MonoBehaviour
        isRight = true;
        sr = GetComponent<SpriteRenderer>();
        animator = GetComponent<Animator>();
-       ra = FindObjectOfType<RangeAttack>();
        rb = GetComponent<Rigidbody2D>();
        
     }
@@ -35,7 +34,9 @@ public class enemyMelee : MonoBehaviour
     {
         if (playerInRange)
         {
-            transform.position = Vector2.MoveTowards(transform.position, transformPlayer.position, speed * Time.deltaTime);
+            Vector2 position = new Vector2(transformPlayer.position.x, transform.position.y);
+            transform.position = Vector2.MoveTowards(transform.position, position, speed * Time.deltaTime);
+
 
             if (transformPlayer.position.x < transform.position.x)
             {

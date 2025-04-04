@@ -21,6 +21,7 @@ public class rangeEnemy : MonoBehaviour
     private SpriteRenderer sr;
     private Vector2 direccionDisparo;
     private Animator animator;
+    private float cdHitAnimation = 1.2f;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class rangeEnemy : MonoBehaviour
     {
         if (playerInRange)
         {
+            animator.SetBool("Attack", true);
             speed = 0;
 
             direccionDisparo = (transformPlayer.position - transform.position).normalized;
@@ -59,8 +61,6 @@ public class rangeEnemy : MonoBehaviour
         else
         {
 
-
-
             if (isRight)
             {
                 speed = speedDefault;
@@ -75,9 +75,28 @@ public class rangeEnemy : MonoBehaviour
                 sr.flipX = true;
             }
 
+            animator.SetBool("Attack", false);
+
         }
     }
 
+    public void enemyDead()
+    {
+        animator.SetBool("Hit", false);
+        animator.SetBool("Attack", false);
+        animator.SetBool("Dead", true);
+    }
+    public void ReceiveHit()
+    {
+        animator.SetBool("Hit", true);
+        StartCoroutine(ResetHitAnimation());
+    }
+
+    private IEnumerator ResetHitAnimation()
+    {
+        yield return new WaitForSeconds(cdHitAnimation);
+        animator.SetBool("Hit", false);
+    }
     public void Disparar()
     {
         GameObject nuevaBala = Instantiate(balaEnemigo, controladorDisparo.position, controladorDisparo.rotation);
