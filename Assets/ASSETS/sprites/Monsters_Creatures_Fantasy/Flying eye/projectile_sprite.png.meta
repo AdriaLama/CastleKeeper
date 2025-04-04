@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d7489ec08cd5b9a4ba931cc0c83fdc23
+guid: db2a0d0ec5f09e54b92e14a8de6f9edc
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Death_0
+      name: projectile_sprite_3
       rect:
         serializedVersion: 2
-        x: 57
-        y: 58
-        width: 41
-        height: 31
+        x: 243
+        y: 6
+        width: 39
+        height: 37
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,19 +124,124 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d6920999db308e3459187dad7462be06
-      internalID: 998648122
+      spriteID: 495df94716de5b946b25be74a10919f4
+      internalID: 575564337
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Death_1
+      name: projectile_sprite_5
       rect:
         serializedVersion: 2
-        x: 219
-        y: 51
-        width: 19
+        x: 288
+        y: 3
+        width: 93
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d58b9c1b7f7c1c2488c3c97f171ad7b7
+      internalID: 404008599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_sprite_6
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 088f00c2b9bbda642bcce00da16557c1
+      internalID: -1177018093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_sprite_7
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1ec61013a45fbc43a348d7c70f507ef
+      internalID: -331801936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_sprite_8
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 973397da053bf47469606fac75553ed3
+      internalID: -1062018836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_sprite_9
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 16
+        width: 21
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc2e423e58ebf124f8edbff383a39211
+      internalID: -1870592070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: projectile_sprite_15
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 11
+        width: 31
         height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -145,20 +250,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f4961eb81db7cb046b9a7ad2ba8b6013
-      internalID: 1006521159
+      spriteID: f6e786c77634aa1439202e8fb2011ad1
+      internalID: 471632400
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Death_2
+      name: projectile_sprite_23
       rect:
         serializedVersion: 2
-        x: 350
-        y: 49
-        width: 56
-        height: 13
+        x: 306
+        y: 4
+        width: 4
+        height: 4
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,29 +271,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1767963692cda2c488c18bf5d238c1a0
-      internalID: 693738033
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Death_3
-      rect:
-        serializedVersion: 2
-        x: 503
-        y: 49
-        width: 49
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 835b6a9f0dd7a0343aa8e08b5243a081
-      internalID: -1788187926
+      spriteID: d27bafd277ac40b46aa08b26666fa167
+      internalID: 1577876582
       vertices: []
       indices: 
       edges: []
@@ -204,10 +288,30 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Death_0: 998648122
-      Death_1: 1006521159
-      Death_2: 693738033
-      Death_3: -1788187926
+      projectile_sprite_0: -195670484
+      projectile_sprite_1: 945973992
+      projectile_sprite_10: 922579434
+      projectile_sprite_11: 1757506451
+      projectile_sprite_12: -1083693493
+      projectile_sprite_13: -229483770
+      projectile_sprite_14: -708493316
+      projectile_sprite_15: 471632400
+      projectile_sprite_16: -1310770716
+      projectile_sprite_17: -1365922733
+      projectile_sprite_18: 2041511682
+      projectile_sprite_19: 1070845234
+      projectile_sprite_2: 1331042155
+      projectile_sprite_20: -1267784982
+      projectile_sprite_21: 396706082
+      projectile_sprite_22: 643921208
+      projectile_sprite_23: 1577876582
+      projectile_sprite_3: 575564337
+      projectile_sprite_4: 1256346945
+      projectile_sprite_5: 404008599
+      projectile_sprite_6: -1177018093
+      projectile_sprite_7: -331801936
+      projectile_sprite_8: -1062018836
+      projectile_sprite_9: -1870592070
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

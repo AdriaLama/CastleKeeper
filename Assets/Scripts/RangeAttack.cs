@@ -103,13 +103,19 @@ public class RangeAttack : MonoBehaviour
 
             if (isTrueRange)
             {
+                if (re.vidasEnemigo > 0)
+                {
+                    re.ReceiveHit();
+                }
                 re.speed = 0;
                 re.vidasEnemigo--;
                 canAttack = false;
 
                 if (re.vidasEnemigo <= 0)
                 {
-                    Destroy(enemyRange.gameObject);
+                    re.speed = 0;
+                    re.enemyDead();
+                    Destroy(enemyRange.gameObject, 0.5f);
                 }
 
                 StartCoroutine(RangeAttackCD());

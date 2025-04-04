@@ -8,10 +8,11 @@ public class MovimientoPJ : MonoBehaviour
     private BoxCollider2D vx;
     private PickItems pi;
     private Vidas vi;
+    public SpriteRenderer sr;
     public float movSpeed;
     public float horizontal;
     public float jumpSpeed;
-    Rigidbody2D rb2D;
+    public Rigidbody2D rb2D;
     private float baseGravity;
     private bool canDoubleJump;
     public float dashingTime;
@@ -37,6 +38,7 @@ public class MovimientoPJ : MonoBehaviour
         vx = GetComponent<BoxCollider2D>();
         pi = GetComponent<PickItems>();
         vi = FindObjectOfType<Vidas>();
+        sr = GetComponent<SpriteRenderer>();
         movSpeedDefault = movSpeed;
     }
 
@@ -61,11 +63,13 @@ public class MovimientoPJ : MonoBehaviour
         {
             isRight = true;
             isLeft = false;
+            sr.flipX = true;
         }
         if (horizontal < 0)
         {
             isLeft = true;
             isRight = false;
+            sr.flipX = false;
         }
 
         if (!isDashing)

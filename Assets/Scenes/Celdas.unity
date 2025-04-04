@@ -21493,7 +21493,7 @@ PrefabInstance:
       objectReference: {fileID: 1500105835}
     - target: {fileID: 1571575287570770676, guid: 6f869601692ce9f4eb994049c611813b, type: 3}
       propertyPath: TiempoDeDisparos
-      value: 2
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 1571575287570770676, guid: 6f869601692ce9f4eb994049c611813b, type: 3}
       propertyPath: controladorDisparo
