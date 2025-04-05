@@ -214,7 +214,7 @@ MonoBehaviour:
   vidasEnemigo: 2
   controladorDisparo: {fileID: 8935923834035139310}
   distancialinea: 0
-  TiempoDeDisparos: 2
+  TiempoDeDisparos: 1.2
   TiempoDeUltimaBala: 0
   balaEnemigo: {fileID: 4924299713697082463, guid: 6d4c370da69ec224297ea8ef2c632fbb, type: 3}
 --- !u!95 &4604786701501412670

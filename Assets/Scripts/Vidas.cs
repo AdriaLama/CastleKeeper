@@ -42,12 +42,12 @@ public class Vidas : MonoBehaviour
             StartCoroutine(hit());
             desactivarVida(vidasPlayer);
             hasHit = true;
-            if (hasHit)
+            if (hasHit && animator != null)
             {
                 animator.SetBool("Attack", true);
                 hasHit = false;
             }
-           
+
         }
         if (collision.gameObject.CompareTag("ObjDaño") && canHit)
         {

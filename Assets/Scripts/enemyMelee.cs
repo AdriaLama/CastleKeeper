@@ -9,6 +9,7 @@ public class enemyMelee : MonoBehaviour
     public bool isRight = false;
     public bool isLeft = false;
     private bool isPinchos = false;
+    private bool isJaula = false;
     public float speed;
     public Transform transformPlayer;
     public bool playerInRange = false;
@@ -74,6 +75,14 @@ public class enemyMelee : MonoBehaviour
             Destroy(gameObject, 1.4f);
             isPinchos = false;
         }
+        if (isJaula)
+        {
+            speed = 0;
+            vidasEnemigo = 0;
+            enemyDead();
+            Destroy(gameObject, 1.4f);
+            isJaula = false;
+        }
 
     }
 
@@ -119,6 +128,10 @@ public class enemyMelee : MonoBehaviour
         if (collision.gameObject.CompareTag("Pinchos"))
         {
             isPinchos = true;
+        }
+        if (collision.gameObject.CompareTag("Jaula"))
+        {
+            isJaula = true;
         }
     }
 
