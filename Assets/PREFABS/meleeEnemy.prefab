@@ -35,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 3691880523378333812}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9067433498921626158
 SpriteRenderer:
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -5136907784365218492, guid: 6476cc48bbe16b74787eeac87231bd5d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -101,12 +101,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba62342fe2059744db55887659a46803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  isRight: 0
+  isLeft: 0
+  speed: 3
   transformPlayer: {fileID: 0}
   playerInRange: 0
   colision1: {fileID: 0}
   colision2: {fileID: 0}
-  vidasEnemigo: 2
+  vidasEnemigo: 3
+  sr: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!61 &-3872585554782863825
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -139,7 +143,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03978123, y: 0.12239508}
+  m_Offset: {x: -0.039868146, y: 0.11665668}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5555555, y: 0}
@@ -150,7 +154,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.11942268, y: 0.25096324}
+  m_Size: {x: 0.11593217, y: 0.24747045}
   m_EdgeRadius: 0
 --- !u!50 &2483087523138790947
 Rigidbody2D:
@@ -218,7 +222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 810937555889983862, guid: 3c751cf21c7b57f47b2b88780783492f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.22
+      value: -3.231
       objectReference: {fileID: 0}
     - target: {fileID: 810937555889983862, guid: 3c751cf21c7b57f47b2b88780783492f, type: 3}
       propertyPath: m_LocalPosition.z

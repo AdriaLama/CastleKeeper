@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
 
 public class enemyMelee : MonoBehaviour
@@ -20,14 +21,24 @@ public class enemyMelee : MonoBehaviour
     private Animator animator;
     private RangeAttack ra;
     public Rigidbody2D rb;
+    private BoxCollider2D bx;
     private float cdHitAnimation = 1.2f;
+    
+
+
 
     void Start()
     {
-       isRight = true;
+        if (speed != 0)
+        {
+            isRight = true;
+        }
+      
        sr = GetComponent<SpriteRenderer>();
        animator = GetComponent<Animator>();
        rb = GetComponent<Rigidbody2D>();
+       bx = GetComponent<BoxCollider2D>();
+       
        
     }
 
@@ -38,15 +49,22 @@ public class enemyMelee : MonoBehaviour
             Vector2 position = new Vector2(transformPlayer.position.x, transform.position.y);
             transform.position = Vector2.MoveTowards(transform.position, position, speed * Time.deltaTime);
 
+            speed = 3;
 
             if (transformPlayer.position.x < transform.position.x)
             {
                 sr.flipX = true;
+               
             }
             else
             {
                 sr.flipX = false;
+               
+             
             }
+          
+             animator.SetBool("Attack", true);
+              
         }
 
        else
@@ -56,16 +74,28 @@ public class enemyMelee : MonoBehaviour
             {
                 transform.position += Vector3.right * speed * Time.deltaTime;
                 sr.flipX = false;
+               
             }
 
             else if (isLeft)
             {
                 transform.position += Vector3.left * speed * Time.deltaTime;
                 sr.flipX = true;
+               
             }
 
             animator.SetBool("Attack", false);
        }
+
+        if (sr.flipX)
+        {
+            bx.offset = new Vector2(0.04f, bx.offset.y);
+        }
+
+        if (!sr.flipX)
+        {
+            bx.offset = new Vector2(-0.04f, bx.offset.y);
+        }
 
         if (isPinchos)
         {
@@ -82,6 +112,12 @@ public class enemyMelee : MonoBehaviour
             enemyDead();
             Destroy(gameObject, 1.4f);
             isJaula = false;
+        }
+
+        if (speed == 0)
+        {
+            animator.SetBool("Idle", true);
+           
         }
 
     }
