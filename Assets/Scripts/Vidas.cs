@@ -42,7 +42,7 @@ public class Vidas : MonoBehaviour
             StartCoroutine(hit());
             desactivarVida(vidasPlayer);
             hasHit = true;
-            if (hasHit && animator != null)
+            if (hasHit)
             {
                 animator.SetBool("Attack", true);
                 hasHit = false;
