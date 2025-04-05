@@ -18,6 +18,7 @@ TagManager:
   - DoorTutorial
   - EnemyRange
   - PinchosPlataforma
+  - Jaula
   layers:
   - Default
   - TransparentFX

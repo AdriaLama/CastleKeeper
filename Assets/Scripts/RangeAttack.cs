@@ -18,6 +18,8 @@ public class RangeAttack : MonoBehaviour
     public bool canAttack = true;
     public float cdAttack;
     private Animator animator;
+    private bool isJaula = false;
+    public bool JaulaFall = false;
 
     private void Start()
     {
@@ -43,6 +45,11 @@ public class RangeAttack : MonoBehaviour
             enemyRange = collision.gameObject;
             re = enemyRange.GetComponent<rangeEnemy>();
         }
+
+        if (collision.gameObject.CompareTag("Jaula"))
+        {
+            isJaula = true;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -58,6 +65,10 @@ public class RangeAttack : MonoBehaviour
             isTrueRange = false;
             enemyRange = null;
             re = null;
+        }
+        if (collision.gameObject.CompareTag("Jaula"))
+        {
+            isJaula = false;
         }
     }
     private void Update()
@@ -122,7 +133,10 @@ public class RangeAttack : MonoBehaviour
 
             }
 
-           
+            if (isJaula)
+            {
+                JaulaFall = true;
+            }
         }
         
         if (movimientoPj.isLeft)
@@ -143,6 +157,8 @@ public class RangeAttack : MonoBehaviour
         yield return new WaitForSeconds(cdAttack);
         canAttack = true;
     }
+
   
+
 
 }
