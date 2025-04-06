@@ -14231,7 +14231,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.23300001, y: 0.8171829}
   m_AnchorMax: {x: 0.37471774, y: 1}
-  m_AnchoredPosition: {x: 2.8304443, y: 0}
+  m_AnchoredPosition: {x: 2.8304138, y: 0}
   m_SizeDelta: {x: -7.5965004, y: 0.9828}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &647864511
@@ -14569,7 +14569,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.23956455, y: 0.8171829}
   m_AnchorMax: {x: 0.37800002, y: 1}
-  m_AnchoredPosition: {x: -3.4173737, y: 0}
+  m_AnchoredPosition: {x: -3.4173584, y: 0}
   m_SizeDelta: {x: 5.1052628, y: 3.131292}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &797578032
@@ -18388,7 +18388,6 @@ MonoBehaviour:
   wallJumpTime: 0.4
   movSpeedDefault: 0
   tutorial: 0
-  wallSlideSpeed: 2
 --- !u!61 &1500105832
 BoxCollider2D:
   m_ObjectHideFlags: 0
