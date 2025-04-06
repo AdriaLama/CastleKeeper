@@ -7,19 +7,14 @@ public class GameManager : MonoBehaviour
 {
     public void Play()
     {
+        SceneManager.LoadScene("Sala1");
+    }
+
+    public void GoToTutorial()
+    {
         SceneManager.LoadScene("Celdas");
     }
-
-    public void GoToControlsMenu()
-    {
-        SceneManager.LoadScene("MenuControles");
-    }
-    public void BackToMenu()
-    {
-        SceneManager.LoadScene("MenuPrincipal");
-    }
-
-public void Quit()
+    public void Quit()
     {
 
         Application.Quit();
