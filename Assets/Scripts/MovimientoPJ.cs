@@ -29,7 +29,9 @@ public class MovimientoPJ : MonoBehaviour
     public float wallJumpTime = 0.2f;
     public float movSpeedDefault;
     public bool tutorial;
-   
+
+
+    public float wallSlideSpeed = 1f;
 
     void Start()
     {
@@ -44,7 +46,6 @@ public class MovimientoPJ : MonoBehaviour
 
     void Update()
     {
-        
         if (!isWallJumping)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
@@ -58,7 +59,7 @@ public class MovimientoPJ : MonoBehaviour
         {
             movSpeed = movSpeedDefault;
         }
-     
+
         if (horizontal > 0)
         {
             isRight = true;
@@ -84,6 +85,9 @@ public class MovimientoPJ : MonoBehaviour
         }
 
         DoorTutorial();
+
+       
+        WallSlide();
     }
 
     private void FixedUpdate()
@@ -96,19 +100,16 @@ public class MovimientoPJ : MonoBehaviour
 
     private bool checkGroundLineCast()
     {
-
         RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position + Vector3.down * 1.05f, transform.position + Vector3.down * 1.25f);
 
         foreach (RaycastHit2D hit in hits)
         {
-            
             if (hit.collider.CompareTag("Floor"))
             {
                 return true;
             }
         }
-        return false; 
-
+        return false;
     }
 
     private void Move()
@@ -120,7 +121,7 @@ public class MovimientoPJ : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            if (checkGroundLineCast()) 
+            if (checkGroundLineCast())
             {
                 canDoubleJump = true;
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
@@ -133,10 +134,8 @@ public class MovimientoPJ : MonoBehaviour
         }
     }
 
-
     private void WallJump()
     {
-        
         if (isTouchingWall && !checkGroundLineCast() && pi.hasGrab && Input.GetButtonDown("Jump"))
         {
             isWallJumping = true;
@@ -168,6 +167,15 @@ public class MovimientoPJ : MonoBehaviour
         }
     }
 
+    // NUEVO: Lógica del deslizamiento por la pared
+    private void WallSlide()
+    {
+        if (isTouchingWall && !checkGroundLineCast() && !isWallJumping && horizontal != 0)
+        {
+            rb2D.velocity = new Vector2(rb2D.velocity.x, Mathf.Clamp(rb2D.velocity.y, -wallSlideSpeed, float.MaxValue));
+        }
+    }
+
     public void DoorTutorial()
     {
         if (tutorial)
@@ -183,6 +191,7 @@ public class MovimientoPJ : MonoBehaviour
             tutorial = true;
         }
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall") && pi.hasGrab)
@@ -194,14 +203,13 @@ public class MovimientoPJ : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Pinchos"))
         {
-           vi.vidasPlayer = 0;
+            vi.vidasPlayer = 0;
         }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        
-        if (collision.gameObject.CompareTag("Wall") && pi.hasGrab && horizontal == -1 || collision.gameObject.CompareTag("Wall") && pi.hasGrab && horizontal == 1)
+        if (collision.gameObject.CompareTag("Wall") && pi.hasGrab && (horizontal == -1 || horizontal == 1))
         {
             isTouchingWall = true;
         }
