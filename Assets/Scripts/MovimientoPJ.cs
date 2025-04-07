@@ -63,13 +63,13 @@ public class MovimientoPJ : MonoBehaviour
         {
             isRight = true;
             isLeft = false;
-            sr.flipX = true;
+            sr.flipX = false;
         }
         if (horizontal < 0)
         {
             isLeft = true;
             isRight = false;
-            sr.flipX = false;
+            sr.flipX = true;
         }
 
         if (!isDashing)
@@ -217,9 +217,4 @@ public class MovimientoPJ : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + Vector3.down * 1.05f, transform.position + Vector3.down * 1.25f);
-    }
 }
