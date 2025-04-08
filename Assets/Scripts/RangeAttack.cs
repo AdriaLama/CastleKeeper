@@ -141,12 +141,12 @@ public class RangeAttack : MonoBehaviour
         
         if (movimientoPj.isLeft)
         {
-            boxCollider.offset = new Vector2(-2.11f, boxCollider.offset.y);
+            boxCollider.offset = new Vector2(-0.58f, boxCollider.offset.y);
             
         }
         if (movimientoPj.isRight)
         {
-            boxCollider.offset = new Vector2(2.11f, boxCollider.offset.y);
+            boxCollider.offset = new Vector2(0.58f, boxCollider.offset.y);
 
         }
     }

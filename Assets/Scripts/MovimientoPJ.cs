@@ -94,10 +94,10 @@ public class MovimientoPJ : MonoBehaviour
         }
     }
 
-    private bool checkGroundLineCast()
+    public bool checkGroundLineCast()
     {
 
-        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position + Vector3.down * 1.05f, transform.position + Vector3.down * 1.25f);
+        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position + Vector3.down * 1.05f, transform.position + Vector3.down * 1.85f);
 
         foreach (RaycastHit2D hit in hits)
         {
@@ -215,6 +215,18 @@ public class MovimientoPJ : MonoBehaviour
             PhysicsMaterial2D newMaterial = new PhysicsMaterial2D() { friction = 0f };
             vx.sharedMaterial = newMaterial;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+
+        // Punto inicial y final del Linecast, deben coincidir con los usados en checkGroundLineCast()
+        Vector3 start = transform.position + Vector3.down * 1.05f;
+        Vector3 end = transform.position + Vector3.down * 1.85f;
+
+        // Dibuja la línea en la escena
+        Gizmos.DrawLine(start, end);
     }
 
 }
