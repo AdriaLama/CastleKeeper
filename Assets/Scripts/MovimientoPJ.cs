@@ -24,7 +24,6 @@ public class MovimientoPJ : MonoBehaviour
     public bool isLeft;
     public float jumpWallx;
     public float jumpWally;
-    private bool isTouchingWall;
     private bool isWallJumping;
     public float wallJumpTime = 0.2f;
     public float movSpeedDefault;
@@ -97,11 +96,20 @@ public class MovimientoPJ : MonoBehaviour
     private bool checkGroundLineCast()
     {
 
-        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 1.35f);
+        RaycastHit2D[] hit1 = Physics2D.LinecastAll(transform.position + Vector3.down * 0.80f + Vector3.right * 0.40f, transform.position + Vector3.right * 0.40f + Vector3.down * 1.35f);
+        RaycastHit2D[] hit2 = Physics2D.LinecastAll(transform.position + Vector3.down * 0.80f + Vector3.left * 0.40f, transform.position + Vector3.left * 0.40f + Vector3.down * 1.35f);
 
-        foreach (RaycastHit2D hit in hits)
+        foreach (RaycastHit2D hit in hit1)
         {
             
+            if (hit.collider.CompareTag("Floor"))
+            {
+                return true;
+            }
+        }
+        foreach (RaycastHit2D hit in hit2)
+        {
+
             if (hit.collider.CompareTag("Floor"))
             {
                 return true;
@@ -113,35 +121,52 @@ public class MovimientoPJ : MonoBehaviour
 
     private bool checkRightWallLineCast()
     {
+        
+        RaycastHit2D[] hitsTop = Physics2D.LinecastAll(transform.position + Vector3.up * 0.65f, transform.position + Vector3.up * 0.65f + Vector3.right * 0.90f);
+        RaycastHit2D[] hitsBottom = Physics2D.LinecastAll(transform.position + Vector3.down * 0.65f, transform.position + Vector3.down * 0.65f + Vector3.right * 0.90f);
 
-        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, transform.position + Vector3.down * 0.90f);
-
-        foreach (RaycastHit2D hit in hits)
+        foreach (RaycastHit2D hit in hitsTop)
         {
-
             if (hit.collider.CompareTag("Wall"))
             {
                 return true;
             }
         }
-        return false;
 
+        foreach (RaycastHit2D hit in hitsBottom)
+        {
+            if (hit.collider.CompareTag("Wall"))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
+
     private bool checkLeftWallLineCast()
     {
+        
+        RaycastHit2D[] hitsTop = Physics2D.LinecastAll(transform.position + Vector3.up * 0.65f, transform.position + Vector3.up * 0.65f + Vector3.left * 0.90f);
+        RaycastHit2D[] hitsBottom = Physics2D.LinecastAll(transform.position + Vector3.down * 0.65f, transform.position + Vector3.down * 0.65f + Vector3.left * 0.90f);
 
-        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, transform.position + Vector3.down * 0.90f);
-
-        foreach (RaycastHit2D hit in hits)
+        foreach (RaycastHit2D hit in hitsTop)
         {
-
             if (hit.collider.CompareTag("Wall"))
             {
                 return true;
             }
         }
-        return false;
 
+        foreach (RaycastHit2D hit in hitsBottom)
+        {
+            if (hit.collider.CompareTag("Wall"))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void Move()
@@ -169,12 +194,23 @@ public class MovimientoPJ : MonoBehaviour
 
     private void WallJump()
     {
-        
-        if (isTouchingWall && !checkGroundLineCast() && pi.hasGrab && Input.GetButtonDown("Jump"))
+        if (!checkGroundLineCast() && pi.hasGrab && Input.GetButtonDown("Jump"))
         {
             isWallJumping = true;
-            isTouchingWall = false;
-            rb2D.velocity = new Vector2(jumpWallx * -horizontal, jumpWally);
+
+            if (checkRightWallLineCast())
+            {
+                
+                rb2D.velocity = new Vector2(-jumpWallx, jumpWally);
+                sr.flipX = false;
+            }
+            else if (checkLeftWallLineCast())
+            {
+               
+                rb2D.velocity = new Vector2(jumpWallx, jumpWally);
+                sr.flipX = true;
+            }
+
             StartCoroutine(DisableWallJumping());
         }
     }
@@ -220,7 +256,6 @@ public class MovimientoPJ : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall") && pi.hasGrab)
         {
-            isTouchingWall = true;
             PhysicsMaterial2D newMaterial = new PhysicsMaterial2D() { friction = 5f };
             vx.sharedMaterial = newMaterial;
         }
@@ -231,20 +266,11 @@ public class MovimientoPJ : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        
-        if (collision.gameObject.CompareTag("Wall") && pi.hasGrab && horizontal == -1 || collision.gameObject.CompareTag("Wall") && pi.hasGrab && horizontal == 1)
-        {
-            isTouchingWall = true;
-        }
-    }
-
+ 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            isTouchingWall = false;
             PhysicsMaterial2D newMaterial = new PhysicsMaterial2D() { friction = 0f };
             vx.sharedMaterial = newMaterial;
         }
@@ -253,8 +279,11 @@ public class MovimientoPJ : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 1.35f);
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * 0.90f);
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.left * 0.90f);
+        Gizmos.DrawLine(transform.position + Vector3.down * 0.80f + Vector3.right * 0.40f, transform.position + Vector3.right * 0.40f + Vector3.down * 1.35f);
+        Gizmos.DrawLine(transform.position + Vector3.down * 0.80f + Vector3.left * 0.40f, transform.position + Vector3.left * 0.40f + Vector3.down * 1.35f);
+        Gizmos.DrawLine(transform.position + Vector3.up * 0.65f, transform.position + Vector3.up * 0.65f + Vector3.right * 0.90f);
+        Gizmos.DrawLine(transform.position + Vector3.up * 0.65f, transform.position + Vector3.up * 0.65f + Vector3.left * 0.90f);
+        Gizmos.DrawLine(transform.position + Vector3.down * 0.65f, transform.position + Vector3.down * 0.65f + Vector3.right * 0.90f);
+        Gizmos.DrawLine(transform.position + Vector3.down * 0.65f, transform.position + Vector3.down * 0.65f + Vector3.left * 0.90f);
     }
 }

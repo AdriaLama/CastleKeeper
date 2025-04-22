@@ -10737,6 +10737,7 @@ MonoBehaviour:
   vidaCD: 3
   canHit: 1
   hasHit: 0
+  playerHit: 0
   vidas:
   - {fileID: 379872372}
   - {fileID: 914273587}
@@ -18255,7 +18256,7 @@ MonoBehaviour:
   dashCD: 3
   isRight: 0
   isLeft: 0
-  jumpWallx: 16
+  jumpWallx: 12
   jumpWally: 6
   wallJumpTime: 0.4
   movSpeedDefault: 0
