@@ -97,7 +97,7 @@ public class MovimientoPJ : MonoBehaviour
     private bool checkGroundLineCast()
     {
 
-        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position + Vector3.down * 1.05f, transform.position + Vector3.down * 1.25f);
+        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 1.35f);
 
         foreach (RaycastHit2D hit in hits)
         {
@@ -108,6 +108,39 @@ public class MovimientoPJ : MonoBehaviour
             }
         }
         return false; 
+
+    }
+
+    private bool checkRightWallLineCast()
+    {
+
+        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, transform.position + Vector3.down * 0.90f);
+
+        foreach (RaycastHit2D hit in hits)
+        {
+
+            if (hit.collider.CompareTag("Wall"))
+            {
+                return true;
+            }
+        }
+        return false;
+
+    }
+    private bool checkLeftWallLineCast()
+    {
+
+        RaycastHit2D[] hits = Physics2D.LinecastAll(transform.position, transform.position + Vector3.down * 0.90f);
+
+        foreach (RaycastHit2D hit in hits)
+        {
+
+            if (hit.collider.CompareTag("Wall"))
+            {
+                return true;
+            }
+        }
+        return false;
 
     }
 
@@ -220,6 +253,8 @@ public class MovimientoPJ : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + Vector3.down * 1.05f, transform.position + Vector3.down * 1.25f);
+        Gizmos.DrawLine(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 1.35f);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * 0.90f);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.left * 0.90f);
     }
 }

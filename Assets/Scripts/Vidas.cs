@@ -10,6 +10,7 @@ public class Vidas : MonoBehaviour
     public float vidaCD;
     public bool canHit = true;
     public bool hasHit;
+    public bool playerHit;
     public GameObject[] vidas;
     private Animator animator;
   
@@ -41,6 +42,7 @@ public class Vidas : MonoBehaviour
             vidasPlayer--;
             StartCoroutine(hit());
             desactivarVida(vidasPlayer);
+            playerHit = true;
 
         }
         if (collision.gameObject.CompareTag("ObjDaño") && canHit)
@@ -48,7 +50,8 @@ public class Vidas : MonoBehaviour
             vidasPlayer--;
             StartCoroutine(hit());
             desactivarVida(vidasPlayer);
-           
+            playerHit = true;
+
         }
         if (collision.gameObject.CompareTag("Bullet") && canHit)
         {
@@ -56,14 +59,16 @@ public class Vidas : MonoBehaviour
             StartCoroutine(hit());
             desactivarVida(vidasPlayer);
             Destroy(collision.gameObject);
-            
+            playerHit = true;
+
         }
         if (collision.gameObject.CompareTag("PinchosPlataforma") && canHit)
         {
             vidasPlayer--;
             StartCoroutine(hit());
             desactivarVida(vidasPlayer);
-           
+            playerHit = true;
+
         }
     }
 
