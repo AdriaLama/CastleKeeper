@@ -5,14 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public bool isPaused = false;
+    public GameObject pauseMenuUI;
     public void Play()
     {
         SceneManager.LoadScene("Sala1");
+        Time.timeScale = 1f;
     }
 
     public void GoToTutorial()
     {
-        SceneManager.LoadScene("Celdas");
+        SceneManager.LoadScene("Tutorial");
+        Time.timeScale = 1f;
+    }
+
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene("MenuPrincipal");
     }
     public void Quit()
     {
@@ -21,5 +30,37 @@ public class GameManager : MonoBehaviour
 
     }
 
- 
+    public void Update()
+    {
+        
+            if (Input.GetButtonDown("Cancel"))
+            {
+                if (SceneManager.GetActiveScene().name == "Sala1" || SceneManager.GetActiveScene().name == "Tutorial")
+                {
+                    isPaused = !isPaused;
+                    if (isPaused)
+                    {
+                        Paused();
+                    }
+                    else if (!isPaused)
+                    {
+                        Continue();
+                    }
+
+                }
+            }
+    }
+
+    public void Paused()
+    {
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void Continue()
+    {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
 }

@@ -157,6 +157,11 @@ public class enemyMelee : MonoBehaviour
             isLeft = true;
             isRight = false;
         }
+
+        if (collision.gameObject.CompareTag("Jaula"))
+        {
+            isJaula = true;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -165,10 +170,7 @@ public class enemyMelee : MonoBehaviour
         {
             isPinchos = true;
         }
-        if (collision.gameObject.CompareTag("Jaula"))
-        {
-            isJaula = true;
-        }
+        
     }
 
 
