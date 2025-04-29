@@ -8,6 +8,7 @@ public class MovimientoPJ : MonoBehaviour
     private BoxCollider2D vx;
     private PickItems pi;
     private Vidas vi;
+    private Hook hk;
     public SpriteRenderer sr;
     public float movSpeed;
     public float horizontal;
@@ -28,6 +29,7 @@ public class MovimientoPJ : MonoBehaviour
     public float wallJumpTime = 0.2f;
     public float movSpeedDefault;
     public bool tutorial;
+    private bool isMoving;
    
 
     void Start()
@@ -38,13 +40,14 @@ public class MovimientoPJ : MonoBehaviour
         pi = GetComponent<PickItems>();
         vi = FindObjectOfType<Vidas>();
         sr = GetComponent<SpriteRenderer>();
+        hk = GetComponent<Hook>();
         movSpeedDefault = movSpeed;
     }
 
     void Update()
     {
         
-        if (!isWallJumping)
+        if (!isWallJumping && !hk.isGrappling)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
         }
@@ -170,8 +173,9 @@ public class MovimientoPJ : MonoBehaviour
     }
 
     private void Move()
-    {
+    {   
         rb2D.velocity = new Vector2(horizontal * movSpeed, rb2D.velocity.y);
+
     }
 
     private void Jump()
@@ -196,19 +200,21 @@ public class MovimientoPJ : MonoBehaviour
     {
         if (!checkGroundLineCast() && pi.hasGrab && Input.GetButtonDown("Jump"))
         {
-            isWallJumping = true;
+            
 
             if (checkRightWallLineCast())
             {
                 
                 rb2D.velocity = new Vector2(-jumpWallx, jumpWally);
                 sr.flipX = false;
+                isWallJumping = true;
             }
             else if (checkLeftWallLineCast())
             {
                
                 rb2D.velocity = new Vector2(jumpWallx, jumpWally);
                 sr.flipX = true;
+                isWallJumping = true;
             }
 
             StartCoroutine(DisableWallJumping());

@@ -13,7 +13,7 @@ public class Hook : MonoBehaviour
     public float grappleShootSpeed;
     public float hookCD = 1.5f;
     private bool canHook = true;
-    private bool isGrappling = false;
+    public bool isGrappling = false;
     private bool retracting = false;
     private bool hitSomething = false;
     private Vector2 target;
@@ -44,7 +44,7 @@ public class Hook : MonoBehaviour
             line.SetPosition(0, transform.position);
             line.SetPosition(1, target);
 
-            if (Vector2.Distance(transform.position, target) < 1f)
+            if (Vector2.Distance(transform.position, target) < 1.5f)
             {
                 retracting = false;
                 isGrappling = false;
