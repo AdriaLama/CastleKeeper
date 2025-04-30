@@ -125,8 +125,9 @@ public class enemyMelee : MonoBehaviour
     public void enemyDead()
     {
         animator.SetBool("Hit", false);  
-        animator.SetBool("Attack", false); 
-        animator.SetBool("Dead", true);   
+        animator.SetBool("Attack", false);
+        animator.SetBool("Dead", true);
+        speed = 0;
     }
     public void ReceiveHit()
     {

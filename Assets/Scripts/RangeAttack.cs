@@ -17,7 +17,6 @@ public class RangeAttack : MonoBehaviour
     private rangeEnemy re;
     public bool canAttack = true;
     public float cdAttack;
-    private Animator animator;
     private bool isJaula = false;
     public bool JaulaFall = false;
 
@@ -75,6 +74,9 @@ public class RangeAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q) && canAttack)
         {
+            movimientoPj.animator.SetBool("Attack", true);
+            StartCoroutine(ResetAttackAnimation());
+
             if (isTrue)
             {
                 if(em.vidasEnemigo > 0)
@@ -137,16 +139,18 @@ public class RangeAttack : MonoBehaviour
             {
                 JaulaFall = true;
             }
+
+           
         }
         
         if (movimientoPj.isLeft)
         {
-            boxCollider.offset = new Vector2(-2.11f, boxCollider.offset.y);
+            boxCollider.offset = new Vector2(-1.5f, boxCollider.offset.y);
             
         }
         if (movimientoPj.isRight)
         {
-            boxCollider.offset = new Vector2(2.11f, boxCollider.offset.y);
+            boxCollider.offset = new Vector2(1.5f, boxCollider.offset.y);
 
         }
     }
@@ -157,8 +161,14 @@ public class RangeAttack : MonoBehaviour
         yield return new WaitForSeconds(cdAttack);
         canAttack = true;
     }
+    private IEnumerator ResetAttackAnimation()
+    {
+        yield return new WaitForSeconds(0.3f);
+        movimientoPj.animator.SetBool("Attack", false);
+    }
 
-  
+
+
 
 
 }
