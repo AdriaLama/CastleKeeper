@@ -117,17 +117,17 @@ public class enemyMelee : MonoBehaviour
         if (speed == 0)
         {
             animator.SetBool("Idle", true);
-           
-        }
 
+        }
     }
 
     public void enemyDead()
     {
         animator.SetBool("Hit", false);  
         animator.SetBool("Attack", false);
+        animator.SetBool("Idle", false);
         animator.SetBool("Dead", true);
-        speed = 0;
+
     }
     public void ReceiveHit()
     {
@@ -170,9 +170,8 @@ public class enemyMelee : MonoBehaviour
         if (collision.gameObject.CompareTag("Pinchos"))
         {
             isPinchos = true;
+
         }
-        
+     
     }
-
-
 }
