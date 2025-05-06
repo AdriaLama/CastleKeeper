@@ -29,10 +29,10 @@ public class MovimientoPJ : MonoBehaviour
     public float jumpWallx;
     public float jumpWally;
     private bool isWallJumping = false;
-    public float wallJumpTime = 0.2f;
+    public float wallJumpTime;
     public float movSpeedDefault;
     public bool tutorial;
-    private bool isKnock = false;
+    public bool isKnock = false;
 
 
    
@@ -80,13 +80,13 @@ public class MovimientoPJ : MonoBehaviour
             sr.flipX = true;
         }
 
-        if (!isDashing)
+        if (!isDashing && !isKnock)
         {
             Jump();
             WallJump();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isKnock)
         {
             StartCoroutine(Dash());
         }
@@ -99,8 +99,9 @@ public class MovimientoPJ : MonoBehaviour
 
         if (vi.playerHit && vi.vidasPlayer >= 1)
         {
-            StartCoroutine(Knockback(1f, 5f, 3f));
-            vi.playerHit = false; 
+            StartCoroutine(Knockback(0.6f, 5f, 3f));
+            vi.playerHit = false;
+            
         }
 
         DoorTutorial();
@@ -319,7 +320,7 @@ public class MovimientoPJ : MonoBehaviour
         }
 
         isKnock = false;
-
+        
     }
 
 

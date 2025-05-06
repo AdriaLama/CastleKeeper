@@ -6,18 +6,22 @@ using UnityEngine.UI;
 public class PantallaRoja : MonoBehaviour
 {
     private Vidas vd;
+    private MovimientoPJ pj;
     public Image Sangre;
     private float r;
     private float g;
     private float b;
     private float a;
+
     void Start()
     {
-        vd = FindObjectOfType<Vidas>();
+        
         r = Sangre.color.r;
         g = Sangre.color.g;
         b = Sangre.color.b;
         a = Sangre.color.a;
+
+        pj = FindObjectOfType<MovimientoPJ>();
     }
 
     void Update()
@@ -26,13 +30,12 @@ public class PantallaRoja : MonoBehaviour
         a = Mathf.Clamp(a, 0f, 0.15f);
         ChangeColor();
 
-        if (vd.playerHit)
+        if (pj.isKnock)
         {
             a += 0.15f;
             a = Mathf.Clamp(a, 0f, 0.15f);
             ChangeColor();
-            vd.playerHit = false;
-          
+           
         }
     }
 
