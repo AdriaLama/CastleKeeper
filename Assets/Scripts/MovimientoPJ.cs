@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,6 +32,7 @@ public class MovimientoPJ : MonoBehaviour
     public float wallJumpTime = 0.2f;
     public float movSpeedDefault;
     public bool tutorial;
+    private bool isKnock = false;
 
 
    
@@ -95,12 +97,18 @@ public class MovimientoPJ : MonoBehaviour
            
         }
 
+        if (vi.playerHit && vi.vidasPlayer >= 1)
+        {
+            StartCoroutine(Knockback(1f, 5f, 3f));
+            vi.playerHit = false; 
+        }
+
         DoorTutorial();
     }
 
     private void FixedUpdate()
     {
-        if (!isDashing && !isWallJumping)
+        if (!isDashing && !isWallJumping && !isKnock)
         {
             Move();
         }
@@ -115,7 +123,7 @@ public class MovimientoPJ : MonoBehaviour
         foreach (RaycastHit2D hit in hit1)
         {
             
-            if (hit.collider.CompareTag("Floor"))
+            if (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Wall"))
             {
                 return true;
             }
@@ -123,7 +131,7 @@ public class MovimientoPJ : MonoBehaviour
         foreach (RaycastHit2D hit in hit2)
         {
 
-            if (hit.collider.CompareTag("Floor"))
+            if (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Wall"))
             {
                 return true;
             }
@@ -289,8 +297,31 @@ public class MovimientoPJ : MonoBehaviour
         }
     }
 
- 
-   
+    private IEnumerator Knockback(float duration, float powerX, float powerY)
+    {
+        float timer = 0;
+
+        isKnock = true;
+        
+        if (sr.flipX) 
+        {
+            rb2D.velocity = new Vector2(powerX, powerY);
+        }
+        else 
+        {
+            rb2D.velocity = new Vector2(-powerX, powerY);
+        }
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        isKnock = false;
+
+    }
+
 
     private void OnDrawGizmos()
     {

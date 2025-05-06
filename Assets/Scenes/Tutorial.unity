@@ -10966,9 +10966,9 @@ MonoBehaviour:
   dashCD: 2
   isRight: 0
   isLeft: 0
-  jumpWallx: 15
-  jumpWally: 6
-  wallJumpTime: 0.5
+  jumpWallx: 10
+  jumpWally: 7
+  wallJumpTime: 0.4
   movSpeedDefault: 0
   tutorial: 0
 --- !u!50 &535004207
@@ -22791,7 +22791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vidasPlayer: 5
-  vidaCD: 3
+  vidaCD: 2
   canHit: 1
   hasHit: 0
   playerHit: 0

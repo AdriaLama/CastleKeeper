@@ -23,6 +23,7 @@ public class enemyMelee : MonoBehaviour
     public Rigidbody2D rb;
     private BoxCollider2D bx;
     private float cdHitAnimation = 1.2f;
+    private Vidas vd;
     
 
 
@@ -38,6 +39,7 @@ public class enemyMelee : MonoBehaviour
        animator = GetComponent<Animator>();
        rb = GetComponent<Rigidbody2D>();
        bx = GetComponent<BoxCollider2D>();
+       vd = FindObjectOfType<Vidas>();
        
        
     }
@@ -54,16 +56,21 @@ public class enemyMelee : MonoBehaviour
             if (transformPlayer.position.x < transform.position.x)
             {
                 sr.flipX = true;
-               
+
             }
             else
             {
                 sr.flipX = false;
-               
-             
+
+
             }
-          
-             animator.SetBool("Attack", true);
+
+            if (vd.canHit)
+            { 
+                animator.SetBool("Attack", true);
+            }
+            
+            
               
         }
 
@@ -118,6 +125,11 @@ public class enemyMelee : MonoBehaviour
         {
             animator.SetBool("Idle", true);
 
+        }
+
+        if (vidasEnemigo <= 0)
+        {
+            speed = 0;
         }
     }
 
