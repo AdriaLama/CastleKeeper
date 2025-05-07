@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 2956866772952191029}
   - component: {fileID: -2739104005399475492}
   - component: {fileID: -7951826813166866730}
-  - component: {fileID: 9190641214700501370}
+  - component: {fileID: -3300943335660829436}
+  - component: {fileID: -662100460527324912}
   m_Layer: 0
   m_Name: BossSala1
   m_TagString: Untagged
@@ -159,7 +160,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &9190641214700501370
+--- !u!95 &-3300943335660829436
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4233983095465251904}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ccee253ff083e9e45ac8d4d553de6318, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-662100460527324912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,12 +190,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4233983095465251904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba62342fe2059744db55887659a46803, type: 3}
+  m_Script: {fileID: 11500000, guid: 8baed9b61661acf4fb69d753d88d435f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isRight: 0
   isLeft: 0
-  speed: 0
+  speed: 5
   transformPlayer: {fileID: 0}
   playerInRange: 0
   colision1: {fileID: 0}
