@@ -13,7 +13,7 @@ public class PlatformMover : MonoBehaviour
 
     void Start()
     {
-        velocidad0 = 0;
+        velocidad0 = velocidadDefault;
         destino = puntoB.position;
     }
 
@@ -33,7 +33,7 @@ public class PlatformMover : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.transform.SetParent(transform);
-            velocidad0 = velocidadDefault;
+           
         }
     }
 
