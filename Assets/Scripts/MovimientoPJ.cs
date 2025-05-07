@@ -118,8 +118,9 @@ public class MovimientoPJ : MonoBehaviour
     private bool checkGroundLineCast()
     {
 
-        RaycastHit2D[] hit1 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.right * 0.30f, transform.position + Vector3.right * 0.30f + Vector3.down * 1.75f);
-        RaycastHit2D[] hit2 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.left * 0.55f, transform.position + Vector3.left * 0.55f + Vector3.down * 1.75f);
+        RaycastHit2D[] hit1 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.right * 0.80f, transform.position + Vector3.right * 0.80f + Vector3.down * 1.75f);
+        RaycastHit2D[] hit2 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.left * 0.80f, transform.position + Vector3.left * 0.80f + Vector3.down * 1.75f);
+        RaycastHit2D[] hit3 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f, transform.position + Vector3.down * 1.75f);
 
         foreach (RaycastHit2D hit in hit1)
         {
@@ -130,6 +131,15 @@ public class MovimientoPJ : MonoBehaviour
             }
         }
         foreach (RaycastHit2D hit in hit2)
+        {
+
+            if (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Wall"))
+            {
+                return true;
+            }
+        }
+
+        foreach (RaycastHit2D hit in hit3)
         {
 
             if (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Wall"))
@@ -151,6 +161,12 @@ public class MovimientoPJ : MonoBehaviour
         {
             if (hit.collider.CompareTag("Wall"))
             {
+                PhysicsMaterial2D newMaterial = new PhysicsMaterial2D()
+                {
+                    friction = 5f
+                };
+                vx.sharedMaterial = newMaterial;
+
                 return true;
                 
             }
@@ -160,7 +176,13 @@ public class MovimientoPJ : MonoBehaviour
         {
             if (hit.collider.CompareTag("Wall"))
             {
-           
+
+                PhysicsMaterial2D newMaterial = new PhysicsMaterial2D()
+                {
+                    friction = 5f
+                };
+                vx.sharedMaterial = newMaterial;
+
                 return true;
                
             }
@@ -179,6 +201,12 @@ public class MovimientoPJ : MonoBehaviour
         {
             if (hit.collider.CompareTag("Wall"))
             {
+                PhysicsMaterial2D newMaterial = new PhysicsMaterial2D()
+                {
+                    friction = 5f
+                };
+                vx.sharedMaterial = newMaterial;
+
                 return true;
             }
         }
@@ -187,6 +215,13 @@ public class MovimientoPJ : MonoBehaviour
         {
             if (hit.collider.CompareTag("Wall"))
             {
+
+                PhysicsMaterial2D newMaterial = new PhysicsMaterial2D()
+                {
+                    friction = 5f
+                };
+                vx.sharedMaterial = newMaterial;
+
                 return true;
             }
         }
@@ -295,11 +330,7 @@ public class MovimientoPJ : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Wall") && pi.hasGrab)
         {
-            PhysicsMaterial2D newMaterial = new PhysicsMaterial2D()
-            { 
-                friction = 5f 
-            };
-            vx.sharedMaterial = newMaterial;
+            
         }
 
         if (collision.gameObject.CompareTag("Pinchos"))
@@ -312,11 +343,7 @@ public class MovimientoPJ : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-            PhysicsMaterial2D newMaterial = new PhysicsMaterial2D() 
-            {
-                friction = 0f 
-            };
-            vx.sharedMaterial = newMaterial;
+            
         }
     }
 
@@ -349,8 +376,9 @@ public class MovimientoPJ : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.right * 0.30f, transform.position + Vector3.right * 0.30f + Vector3.down * 1.75f);
-        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.left * 0.55f, transform.position + Vector3.left * 0.55f + Vector3.down * 1.75f);
+        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.right * 0.80f, transform.position + Vector3.right * 0.80f + Vector3.down * 1.75f);
+        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.left * 0.80f, transform.position + Vector3.left * 0.80f + Vector3.down * 1.75f);
+        Gizmos.DrawLine(transform.position + Vector3.down * 1f, transform.position + Vector3.down * 1.75f);
         Gizmos.DrawLine(transform.position , transform.position + Vector3.right * 0.90f);
         Gizmos.DrawLine(transform.position , transform.position + Vector3.left * 0.90f);
         Gizmos.DrawLine(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 0.80f + Vector3.right * 0.90f);

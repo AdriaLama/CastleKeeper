@@ -88,14 +88,14 @@ public class rangeEnemy : MonoBehaviour
     }
     public void ReceiveHit()
     {
-        animator.SetBool("Hit", true);
+        sr.color = Color.red;
         StartCoroutine(ResetHitAnimation());
     }
 
     private IEnumerator ResetHitAnimation()
     {
         yield return new WaitForSeconds(cdHitAnimation);
-        animator.SetBool("Hit", false);
+        sr.color = Color.white;
     }
     public void Disparar()
     {

@@ -65,13 +65,18 @@ public class enemyMelee : MonoBehaviour
 
             }
 
-            if (vd.canHit)
-            { 
+            if (vd != null && vd.canHit)
+            {
                 animator.SetBool("Attack", true);
+
             }
-            
-            
-              
+            else
+            {
+                animator.SetBool("Attack", false);
+            }
+
+
+
         }
 
        else
@@ -145,14 +150,14 @@ public class enemyMelee : MonoBehaviour
     }
     public void ReceiveHit()
     {
-        animator.SetBool("Hit", true);
+        sr.color = Color.red;
         StartCoroutine(ResetHitAnimation());
     }
 
     private IEnumerator ResetHitAnimation()
     {
-        yield return new WaitForSeconds(cdHitAnimation); 
-        animator.SetBool("Hit", false);
+        yield return new WaitForSeconds(cdHitAnimation);
+        sr.color = Color.white;
     }
 
     public void SetPlayerInRange(bool inRange)

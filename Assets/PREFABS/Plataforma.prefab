@@ -145,4 +145,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puntoA: {fileID: 0}
   puntoB: {fileID: 0}
-  velocidad: 2
+  velocidadDefault: 4
