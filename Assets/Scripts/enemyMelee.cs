@@ -130,6 +130,8 @@ public class enemyMelee : MonoBehaviour
         if (vidasEnemigo <= 0)
         {
             speed = 0;
+            bx.enabled = false;
+            rb.bodyType = RigidbodyType2D.Static;
         }
     }
 

@@ -292,9 +292,31 @@ public class MovimientoPJ : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+        if (collision.gameObject.CompareTag("Wall") && pi.hasGrab)
+        {
+            PhysicsMaterial2D newMaterial = new PhysicsMaterial2D()
+            { 
+                friction = 5f 
+            };
+            vx.sharedMaterial = newMaterial;
+        }
+
         if (collision.gameObject.CompareTag("Pinchos"))
         {
-           vi.vidasPlayer = 0;
+            vi.vidasPlayer = 0;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            PhysicsMaterial2D newMaterial = new PhysicsMaterial2D() 
+            {
+                friction = 0f 
+            };
+            vx.sharedMaterial = newMaterial;
         }
     }
 
