@@ -118,14 +118,14 @@ public class MovimientoPJ : MonoBehaviour
     private bool checkGroundLineCast()
     {
 
-        RaycastHit2D[] hit1 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.right * 0.80f, transform.position + Vector3.right * 0.80f + Vector3.down * 1.75f);
-        RaycastHit2D[] hit2 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.left * 0.80f, transform.position + Vector3.left * 0.80f + Vector3.down * 1.75f);
+        RaycastHit2D[] hit1 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.right * 0.90f, transform.position + Vector3.right * 0.90f + Vector3.down * 1.75f);
+        RaycastHit2D[] hit2 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.left * 0.90f, transform.position + Vector3.left * 0.90f + Vector3.down * 1.75f);
         RaycastHit2D[] hit3 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f, transform.position + Vector3.down * 1.75f);
 
         foreach (RaycastHit2D hit in hit1)
         {
             
-            if (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Wall"))
+            if (hit.collider.CompareTag("Floor"))
             {
                 return true;
             }
@@ -133,7 +133,7 @@ public class MovimientoPJ : MonoBehaviour
         foreach (RaycastHit2D hit in hit2)
         {
 
-            if (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Wall"))
+            if (hit.collider.CompareTag("Floor"))
             {
                 return true;
             }
@@ -142,7 +142,7 @@ public class MovimientoPJ : MonoBehaviour
         foreach (RaycastHit2D hit in hit3)
         {
 
-            if (hit.collider.CompareTag("Floor") || hit.collider.CompareTag("Wall"))
+            if (hit.collider.CompareTag("Floor"))
             {
                 return true;
             }
@@ -376,8 +376,8 @@ public class MovimientoPJ : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.right * 0.80f, transform.position + Vector3.right * 0.80f + Vector3.down * 1.75f);
-        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.left * 0.80f, transform.position + Vector3.left * 0.80f + Vector3.down * 1.75f);
+        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.right * 0.90f, transform.position + Vector3.right * 0.90f + Vector3.down * 1.75f);
+        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.left * 0.90f, transform.position + Vector3.left * 0.90f + Vector3.down * 1.75f);
         Gizmos.DrawLine(transform.position + Vector3.down * 1f, transform.position + Vector3.down * 1.75f);
         Gizmos.DrawLine(transform.position , transform.position + Vector3.right * 0.90f);
         Gizmos.DrawLine(transform.position , transform.position + Vector3.left * 0.90f);

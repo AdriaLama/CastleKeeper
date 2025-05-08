@@ -138928,7 +138928,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839929730}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.5, y: -1.6, z: 0}
+  m_LocalPosition: {x: -193.9, y: 4.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -139110,7 +139110,7 @@ MonoBehaviour:
   isRight: 0
   isLeft: 0
   jumpWallx: 10
-  jumpWally: 7
+  jumpWally: 8
   wallJumpTime: 0.4
   movSpeedDefault: 0
   tutorial: 0

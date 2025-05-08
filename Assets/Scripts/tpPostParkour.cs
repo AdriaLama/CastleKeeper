@@ -7,10 +7,10 @@ public class tpPostParkour : MonoBehaviour
     public Transform player;
     public float stairsX;
     public float stairsY;
-    private Vidas vd;
+  
     void Start()
     {
-        vd = FindObjectOfType<Vidas>();
+        
     }
 
     
@@ -24,6 +24,7 @@ public class tpPostParkour : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             player.transform.position = new Vector2(stairsX, stairsY);
+
 
         }
     }
