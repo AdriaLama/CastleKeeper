@@ -19,6 +19,7 @@ TagManager:
   - EnemyRange
   - PinchosPlataforma
   - Jaula
+  - Checkpoint1
   layers:
   - Default
   - TransparentFX
