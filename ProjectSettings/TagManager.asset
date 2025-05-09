@@ -20,6 +20,7 @@ TagManager:
   - PinchosPlataforma
   - Jaula
   - Checkpoint1
+  - Pendulum
   layers:
   - Default
   - TransparentFX
