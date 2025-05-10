@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: -7951826813166866730}
   - component: {fileID: -3300943335660829436}
   - component: {fileID: -662100460527324912}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BossSala1
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,7 +124,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.4, y: 0.93}
+    oldSize: {x: 0.43, y: 0.6}
     newSize: {x: 1.4, y: 0.93}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -198,8 +198,11 @@ MonoBehaviour:
   speed: 5
   transformPlayer: {fileID: 0}
   playerInRange: 0
-  colision1: {fileID: 0}
-  colision2: {fileID: 0}
+  detectionRange: 8
   vidasEnemigo: 10
   sr: {fileID: 0}
   rb: {fileID: 0}
+  attackCooldown: 0
+  currentAttackCooldown: 0
+  castDuration: 0
+  spellDuration: 0

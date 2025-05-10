@@ -78,6 +78,14 @@ public class Vidas : MonoBehaviour
             playerHit = true;
 
         }
+        if (collision.gameObject.CompareTag("Boss") && canHit)
+        {
+            vidasPlayer--;
+            StartCoroutine(hit());
+            desactivarVida(vidasPlayer);
+            playerHit = true;
+
+        }
     }
 
     public void desactivarVida(int indice)

@@ -21,6 +21,8 @@ TagManager:
   - Jaula
   - Checkpoint1
   - Pendulum
+  - tp1
+  - tp2
   layers:
   - Default
   - TransparentFX
