@@ -7,6 +7,8 @@ public class tpPostParkour : MonoBehaviour
     public Transform player;
     public float stairsX;
     public float stairsY;
+    public GameObject tp1;
+    public GameObject tp2;
   
     void Start()
     {
@@ -21,6 +23,7 @@ public class tpPostParkour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+       
         if (collision.gameObject.CompareTag("Player"))
         {
             player.transform.position = new Vector2(stairsX, stairsY);
