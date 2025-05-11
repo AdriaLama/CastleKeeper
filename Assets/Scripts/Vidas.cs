@@ -33,7 +33,7 @@ public class Vidas : MonoBehaviour
         }
 
     }
-    private IEnumerator hit()
+    public IEnumerator hit()
     {
         canHit = false;
         yield return new WaitForSeconds(vidaCD);

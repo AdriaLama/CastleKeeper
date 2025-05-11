@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class BossSala1 : MonoBehaviour
 {
@@ -197,6 +198,10 @@ public class BossSala1 : MonoBehaviour
             if (collision.CompareTag("Player"))
             {
                 vd.vidasPlayer--;
+                vd.StartCoroutine(vd.hit());
+                vd.desactivarVida(vd.vidasPlayer);
+                vd.playerHit = true;
+
 
             }
 

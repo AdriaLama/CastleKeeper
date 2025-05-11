@@ -3325,8 +3325,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -662100460527324912, guid: 8026149ac5579e24fbb83c14fa1df524, type: 3}
       propertyPath: radioAtaque
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -662100460527324912, guid: 8026149ac5579e24fbb83c14fa1df524, type: 3}
+      propertyPath: transformPlayer
+      value: 
+      objectReference: {fileID: 590029438}
     - target: {fileID: -662100460527324912, guid: 8026149ac5579e24fbb83c14fa1df524, type: 3}
       propertyPath: controladorAtaque
       value: 
