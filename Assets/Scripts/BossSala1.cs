@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
 public class BossSala1 : MonoBehaviour
@@ -20,6 +21,8 @@ public class BossSala1 : MonoBehaviour
     public Transform controladorAtaque;
     public float radioAtaque;
     public GameObject magic;
+    public GameObject doorFinish;
+    private bool doorSpawned = false;
 
 
     private float cdHitAnimation = 1.2f;
@@ -166,6 +169,9 @@ public class BossSala1 : MonoBehaviour
                 }
             }
         }
+
+        CheckDoorSpawn();
+
     }
 
     private void ResetAllAnimations()
@@ -177,6 +183,14 @@ public class BossSala1 : MonoBehaviour
         animator.SetBool("DeathBoss", false);
         animator.SetBool("CastBoss", false);
         animator.SetBool("SpellBoss", false);
+    }
+
+    private void doorSpawn()
+    {
+        if (vidasEnemigo <= 0)
+        {
+            doorFinish.SetActive(true);
+        }
     }
 
     private IEnumerator PerformAttack()
@@ -256,13 +270,19 @@ public class BossSala1 : MonoBehaviour
         isDead = true;
         ResetAllAnimations();
         animator.SetBool("DeathBoss", true);
+
+        if (doorFinish != null && !doorSpawned)
+        {
+            
+            doorFinish.SetActive(true);
+            doorSpawned = true;
+        }
+
         Destroy(gameObject, 0.8f);
         speed = 0;
         bx.enabled = false;
         rb.bodyType = RigidbodyType2D.Static;
     }
-
-
 
     public void ReceiveHit()
     {
@@ -293,6 +313,17 @@ public class BossSala1 : MonoBehaviour
         else
         {
             animator.SetBool("WalkBoss", true);
+        }
+    }
+
+    private void CheckDoorSpawn()
+    {
+       
+        if (vidasEnemigo <= 0 && !doorSpawned && doorFinish != null)
+        {
+            
+            doorFinish.SetActive(true);
+            doorSpawned = true;
         }
     }
 

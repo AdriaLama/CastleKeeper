@@ -117,6 +117,7 @@ public class MovimientoPJ : MonoBehaviour
         }
 
         DoorTutorial();
+        BossDoor();
     }
 
     private void FixedUpdate()
