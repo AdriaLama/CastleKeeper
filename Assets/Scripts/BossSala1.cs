@@ -251,7 +251,7 @@ public class BossSala1 : MonoBehaviour
         isDead = true;
         ResetAllAnimations();
         animator.SetBool("DeathBoss", true);
-
+        Destroy(gameObject, 0.8f);
         speed = 0;
         bx.enabled = false;
         rb.bodyType = RigidbodyType2D.Static;

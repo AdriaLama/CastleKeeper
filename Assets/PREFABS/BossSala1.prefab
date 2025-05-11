@@ -199,7 +199,7 @@ MonoBehaviour:
   transformPlayer: {fileID: 0}
   playerInRange: 0
   detectionRange: 20
-  vidasEnemigo: 10
+  vidasEnemigo: 5
   sr: {fileID: 0}
   rb: {fileID: 0}
   controladorAtaque: {fileID: 0}
