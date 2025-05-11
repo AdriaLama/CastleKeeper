@@ -12,24 +12,26 @@ public class Vidas : MonoBehaviour
     public bool hasHit;
     public bool playerHit;
     public GameObject[] vidas;
-    private Animator animator;
     public GameObject gameOverUI;
+    private Animator animator;
+
 
     void Start()
     {
         animator = FindObjectOfType<Animator>();
+
     }
 
     void Update()
     {
-        if(vidasPlayer <= 0)
+        if (vidasPlayer <= 0)
         {
-            gameOverUI.SetActive(true); 
-            Time.timeScale = 0f; 
+            gameOverUI.SetActive(true);
+            Time.timeScale = 0f;
             Destroy(this.gameObject);
-            
+
         }
-        
+
     }
     private IEnumerator hit()
     {
@@ -90,17 +92,17 @@ public class Vidas : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("CorazonExtra"))
         {
-            if(vidasPlayer < 5)
+            if (vidasPlayer < 5)
             {
                 vidasPlayer++;
                 activarVida(vidasPlayer - 1);
                 Destroy(collision.gameObject);
 
             }
-          
-        }
-    }
 
+        }
+
+    }
     public void desactivarVida(int indice)
     {
         vidas[indice].SetActive(false);

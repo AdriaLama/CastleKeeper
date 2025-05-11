@@ -19,7 +19,7 @@ public class RangeAttack : MonoBehaviour
     private bool isJaula = false;
     public bool JaulaFall = false;
 
-    
+
     private PlayerSoundController soundController;
 
     private void Start()
@@ -37,10 +37,10 @@ public class RangeAttack : MonoBehaviour
             movimientoPj.animator.SetBool("Attack", true);
             StartCoroutine(ResetAttackAnimation());
 
-           
+
             soundController?.PlayAttackSound();
 
-            
+
             if (isTrue && enemy != null && em != null)
             {
                 if (em.vidasEnemigo > 0)
@@ -65,10 +65,10 @@ public class RangeAttack : MonoBehaviour
                     }
                 }
 
-               
+
             }
 
-    
+
             if (isTrue && boss != null && te != null)
             {
                 if (te.vidasEnemigo > 0)
@@ -83,10 +83,10 @@ public class RangeAttack : MonoBehaviour
                     }
                 }
 
-               
+
             }
 
-          
+
             if (isTrueRange && enemyRange != null && re != null)
             {
                 if (re.vidasEnemigo > 0)
@@ -103,17 +103,17 @@ public class RangeAttack : MonoBehaviour
                     }
                 }
 
-             
+
             }
 
-           
+
             if (isJaula)
             {
                 JaulaFall = true;
             }
         }
 
-       
+
         if (movimientoPj.isLeft)
         {
             boxCollider.offset = new Vector2(-1.5f, boxCollider.offset.y);

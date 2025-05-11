@@ -202,7 +202,10 @@ MonoBehaviour:
   vidasEnemigo: 10
   sr: {fileID: 0}
   rb: {fileID: 0}
-  attackCooldown: 0
-  currentAttackCooldown: 0
-  castDuration: 0
-  spellDuration: 0
+  controladorAtaque: {fileID: 0}
+  radioAtaque: 5
+  magic: {fileID: 8397875019533096829, guid: 34b0182342e5ab54d899bcc3fb194242, type: 3}
+  attackCooldown: 2
+  currentAttackCooldown: 1.5
+  castDuration: 2
+  spellDuration: 2

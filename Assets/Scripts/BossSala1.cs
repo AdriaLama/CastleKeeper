@@ -10,12 +10,16 @@ public class BossSala1 : MonoBehaviour
 
     public Transform transformPlayer;
     public bool playerInRange = false;
-    public float detectionRange = 8f;
+    public float detectionRange = 100f;
     public int vidasEnemigo;
     public SpriteRenderer sr;
     private Animator animator;
     public Rigidbody2D rb;
     private BoxCollider2D bx;
+    public Transform controladorAtaque;
+    public float radioAtaque;
+    public GameObject magic;
+
 
     private float cdHitAnimation = 1.2f;
     private Vidas vd;
@@ -28,15 +32,6 @@ public class BossSala1 : MonoBehaviour
     public float castDuration;
     public float spellDuration;
 
-    private string currentState;
-    private const string IDLE_ANIMATION = "IdleBoss";
-    private const string WALK_ANIMATION = "WalkBoss";
-    private const string ATTACK_ANIMATION = "AttackBoss";
-    private const string HURT_ANIMATION = "HurtBoss";
-    private const string DEATH_ANIMATION = "DeathBoss";
-    private const string CAST_ANIMATION = "CastBoss";
-    private const string SPELL_ANIMATION = "SpellBoss";
-
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -47,7 +42,6 @@ public class BossSala1 : MonoBehaviour
 
         if (transformPlayer == null)
         {
-
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
@@ -60,25 +54,26 @@ public class BossSala1 : MonoBehaviour
             isRight = true;
         }
 
-        ChangeAnimationState(IDLE_ANIMATION);
+
+        ResetAllAnimations();
+
+        animator.SetBool("IdleBoss", true);
     }
 
     void Update()
     {
-
-
-
         if (isDead || vidasEnemigo <= 0)
         {
-            if (currentState != DEATH_ANIMATION)
+            if (!animator.GetBool("DeathBoss"))
             {
-                ChangeAnimationState(DEATH_ANIMATION);
+                ResetAllAnimations();
+                animator.SetBool("DeathBoss", true);
                 enemyDead();
             }
             return;
         }
 
-        if (currentState == HURT_ANIMATION)
+        if (animator.GetBool("HurtBoss"))
         {
             return;
         }
@@ -87,7 +82,6 @@ public class BossSala1 : MonoBehaviour
         {
             currentAttackCooldown -= Time.deltaTime;
         }
-
 
         if (transformPlayer != null)
         {
@@ -102,26 +96,23 @@ public class BossSala1 : MonoBehaviour
                 Vector2 position = new Vector2(transformPlayer.position.x, transform.position.y);
                 transform.position = Vector2.MoveTowards(transform.position, position, speed * Time.deltaTime);
 
-
                 if (transformPlayer.position.x < transform.position.x)
                 {
                     sr.flipX = false;
-
                 }
                 else
                 {
                     sr.flipX = true;
-
                 }
 
-
-                if (currentState != WALK_ANIMATION)
+                if (!animator.GetBool("WalkBoss"))
                 {
-                    ChangeAnimationState(WALK_ANIMATION);
+                    ResetAllAnimations();
+                    animator.SetBool("WalkBoss", true);
                 }
 
                 float distanceToPlayer = Vector2.Distance(transform.position, transformPlayer.position);
-                if (distanceToPlayer < 2.0f && currentAttackCooldown <= 0)
+                if (distanceToPlayer < 5.0f && currentAttackCooldown <= 0)
                 {
                     isAttacking = true;
 
@@ -135,7 +126,6 @@ public class BossSala1 : MonoBehaviour
                     }
 
                     useSpellAttack = !useSpellAttack;
-
                     currentAttackCooldown = attackCooldown;
                 }
             }
@@ -144,9 +134,10 @@ public class BossSala1 : MonoBehaviour
         {
             if (speed > 0 && !isAttacking)
             {
-                if (currentState != WALK_ANIMATION)
+                if (!animator.GetBool("WalkBoss"))
                 {
-                    ChangeAnimationState(WALK_ANIMATION);
+                    ResetAllAnimations();
+                    animator.SetBool("WalkBoss", true);
                 }
 
                 if (isRight)
@@ -160,34 +151,31 @@ public class BossSala1 : MonoBehaviour
                     sr.flipX = true;
                 }
 
-
                 if (sr.flipX)
                 {
                     bx.offset = new Vector2(1f, bx.offset.y);
                 }
-
-
-
             }
-
-
             else if (!isAttacking)
             {
-                if (currentState != IDLE_ANIMATION)
+                if (!animator.GetBool("IdleBoss"))
                 {
-                    ChangeAnimationState(IDLE_ANIMATION);
+                    ResetAllAnimations();
+                    animator.SetBool("IdleBoss", true);
                 }
             }
         }
     }
 
-    void ChangeAnimationState(string newState)
+    private void ResetAllAnimations()
     {
-        if (currentState == newState) return;
-
-        animator.Play(newState);
-
-        currentState = newState;
+        animator.SetBool("IdleBoss", false);
+        animator.SetBool("WalkBoss", false);
+        animator.SetBool("AttackBoss", false);
+        animator.SetBool("HurtBoss", false);
+        animator.SetBool("DeathBoss", false);
+        animator.SetBool("CastBoss", false);
+        animator.SetBool("SpellBoss", false);
     }
 
     private IEnumerator PerformAttack()
@@ -195,14 +183,34 @@ public class BossSala1 : MonoBehaviour
         float originalSpeed = speed;
         speed = 0;
 
-        ChangeAnimationState(ATTACK_ANIMATION);
+        ResetAllAnimations();
+        animator.SetBool("AttackBoss", true);
 
         yield return new WaitForSeconds(1.0f);
 
-        float distanceToPlayer = Vector2.Distance(transform.position, transformPlayer.position);
-        if (distanceToPlayer < 2.0f && vd.canHit)
+
+        Collider2D[] objetos = Physics2D.OverlapCircleAll(controladorAtaque.position, radioAtaque);
+
+
+        foreach (Collider2D collision in objetos)
         {
-            vd.vidasPlayer--;
+            if (collision.CompareTag("Player"))
+            {
+                vd.vidasPlayer--;
+
+            }
+
+        }
+
+
+        ResetAllAnimations();
+        if (speed > 0)
+        {
+            animator.SetBool("WalkBoss", true);
+        }
+        else
+        {
+            animator.SetBool("IdleBoss", true);
         }
 
         speed = originalSpeed;
@@ -214,18 +222,24 @@ public class BossSala1 : MonoBehaviour
         float originalSpeed = speed;
         speed = 0;
 
-        ChangeAnimationState(CAST_ANIMATION);
+        ResetAllAnimations();
+        animator.SetBool("CastBoss", true);
 
         yield return new WaitForSeconds(castDuration);
 
-        ChangeAnimationState(SPELL_ANIMATION);
 
-        yield return new WaitForSeconds(spellDuration);
+        Vector3 targetPosition = transformPlayer.position;
+        GameObject ability = Instantiate(magic, targetPosition, Quaternion.identity);
 
-        float distanceToPlayer = Vector2.Distance(transform.position, transformPlayer.position);
-        if (distanceToPlayer < 4.0f && vd.canHit)
+        ResetAllAnimations();
+
+        if (speed > 0)
         {
-            vd.vidasPlayer--;
+            animator.SetBool("WalkBoss", true);
+        }
+        else
+        {
+            animator.SetBool("IdleBoss", true);
         }
 
         speed = originalSpeed;
@@ -235,18 +249,21 @@ public class BossSala1 : MonoBehaviour
     public void enemyDead()
     {
         isDead = true;
-        ChangeAnimationState(DEATH_ANIMATION);
+        ResetAllAnimations();
+        animator.SetBool("DeathBoss", true);
 
         speed = 0;
         bx.enabled = false;
         rb.bodyType = RigidbodyType2D.Static;
     }
 
+
+
     public void ReceiveHit()
     {
         if (isDead) return;
 
-        vidasEnemigo--;
+
 
         if (vidasEnemigo <= 0)
         {
@@ -254,7 +271,8 @@ public class BossSala1 : MonoBehaviour
             return;
         }
 
-        ChangeAnimationState(HURT_ANIMATION);
+        ResetAllAnimations();
+        animator.SetBool("HurtBoss", true);
         StartCoroutine(ResetHitAnimation());
     }
 
@@ -262,20 +280,21 @@ public class BossSala1 : MonoBehaviour
     {
         yield return new WaitForSeconds(cdHitAnimation);
 
+        ResetAllAnimations();
         if (speed == 0)
         {
-            ChangeAnimationState(IDLE_ANIMATION);
+            animator.SetBool("IdleBoss", true);
         }
         else
         {
-            ChangeAnimationState(WALK_ANIMATION);
+            animator.SetBool("WalkBoss", true);
         }
     }
 
-    public void SetPlayerInRange(bool inRange)
+
+    private void OnDrawGizmos()
     {
-        this.playerInRange = inRange;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(controladorAtaque.position, radioAtaque);
     }
-
-
 }
