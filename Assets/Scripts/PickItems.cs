@@ -7,6 +7,12 @@ public class PickItems : MonoBehaviour
     public bool hasHook;
     public bool hasGrab;
 
+    public void RestaurarObjetos()
+    {
+        hasHook = CheckpointManager.Instance.objetosRecogidos.Contains("Hook");
+        hasGrab = CheckpointManager.Instance.objetosRecogidos.Contains("Grab");
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Hook"))
@@ -21,5 +27,5 @@ public class PickItems : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
-
 }
+

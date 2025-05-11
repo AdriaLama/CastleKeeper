@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class Checkpoints : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Vector2 respawnPosition;
+    public int checkpointID;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            CheckpointManager.Instance.SetCheckpoint(respawnPosition, checkpointID);
+
+            if (checkpointID >= 2)
+            {
+                PickItems pickItems = other.GetComponent<PickItems>();
+                if (pickItems != null)
+                {
+                    if (pickItems.hasHook)
+                        CheckpointManager.Instance.AddObjeto("Hook");
+
+                    if (pickItems.hasGrab)
+                        CheckpointManager.Instance.AddObjeto("Grab");
+                }
+            }
+        }
+
         
     }
 }

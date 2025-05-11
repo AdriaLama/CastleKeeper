@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     public void GoToMenu()
     {
+        CheckpointManager.Instance.ResetData(); 
         SceneManager.LoadScene("MenuPrincipal");
     }
     public void Quit()
@@ -60,6 +61,11 @@ public class GameManager : MonoBehaviour
     public void Continue()
     {
         pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+    }
+    public void OnRetry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
     }
 

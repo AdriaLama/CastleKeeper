@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Vidas : MonoBehaviour
 {
+    public int maxVidas;
     public int vidasPlayer;
     public float vidaCD;
     public bool canHit = true;
@@ -13,19 +14,23 @@ public class Vidas : MonoBehaviour
     public bool playerHit;
     public GameObject[] vidas;
     private Animator animator;
-  
+    public GameObject gameOverUI;
+    private bool isDead = false;
+
     void Start()
     {
         animator = FindObjectOfType<Animator>();
-  
+        vidasPlayer = maxVidas;
     }
 
     void Update()
     {
         if(vidasPlayer <= 0)
         {
+            gameOverUI.SetActive(true); 
+            Time.timeScale = 0f; 
             Destroy(this.gameObject);
-            SceneManager.LoadScene("MenuPrincipal");
+            
         }
         
     }
