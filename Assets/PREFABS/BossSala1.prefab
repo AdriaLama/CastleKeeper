@@ -195,10 +195,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isRight: 0
   isLeft: 0
-  speed: 5
+  speed: 3
   transformPlayer: {fileID: 0}
   playerInRange: 0
-  detectionRange: 8
+  detectionRange: 20
   vidasEnemigo: 10
   sr: {fileID: 0}
   rb: {fileID: 0}
