@@ -32,6 +32,7 @@ public class MovimientoPJ : MonoBehaviour
     public float wallJumpTime;
     public float movSpeedDefault;
     public bool tutorial;
+    public bool bossDoor;
     public bool isKnock = false;
     private bool wasInAir = false;
 
@@ -215,6 +216,13 @@ public class MovimientoPJ : MonoBehaviour
             SceneManager.LoadScene("MenuPrincipal");
         }
     }
+    public void BossDoor()
+    {
+        if (bossDoor)
+        {
+            SceneManager.LoadScene("PruebaJefe");
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -222,6 +230,11 @@ public class MovimientoPJ : MonoBehaviour
         {
             tutorial = true;
         }
+        if (collision.gameObject.CompareTag("BossDoor"))
+        {
+            bossDoor = true;
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

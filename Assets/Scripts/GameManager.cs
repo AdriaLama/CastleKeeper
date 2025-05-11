@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         
             if (Input.GetButtonDown("Cancel"))
             {
-                if (SceneManager.GetActiveScene().name == "Sala1" || SceneManager.GetActiveScene().name == "Tutorial")
+                if (SceneManager.GetActiveScene().name == "Sala1" || SceneManager.GetActiveScene().name == "Tutorial" || SceneManager.GetActiveScene().name == "PruebaJefe")
                 {
                     isPaused = !isPaused;
                     if (isPaused)

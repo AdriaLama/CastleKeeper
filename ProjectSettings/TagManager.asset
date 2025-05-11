@@ -25,6 +25,8 @@ TagManager:
   - tp2
   - CorazonExtra
   - Boss
+  - BossDoor
+  - tp3
   layers:
   - Default
   - TransparentFX

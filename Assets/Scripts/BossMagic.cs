@@ -63,7 +63,6 @@ public class BossMagic : MonoBehaviour
         {
             if (vd != null)
             {
-                vd.vidasPlayer--;
                 hasDamaged = true;
             }
         }
