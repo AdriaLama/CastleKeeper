@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -34,8 +34,8 @@ public class MovimientoPJ : MonoBehaviour
     public bool tutorial;
     public bool isKnock = false;
 
-
-   
+    // 🎧 Sonido
+    private PlayerSoundController soundController;
 
     void Start()
     {
@@ -48,11 +48,12 @@ public class MovimientoPJ : MonoBehaviour
         hk = GetComponent<Hook>();
         animator = GetComponent<Animator>();
         movSpeedDefault = movSpeed;
+
+        soundController = GetComponent<PlayerSoundController>(); // ← Obtener controlador de sonido
     }
 
     void Update()
     {
-        
         if (!isWallJumping && !hk.isGrappling)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
@@ -66,7 +67,7 @@ public class MovimientoPJ : MonoBehaviour
         {
             movSpeed = movSpeedDefault;
         }
-     
+
         if (horizontal > 0)
         {
             isRight = true;
@@ -94,14 +95,12 @@ public class MovimientoPJ : MonoBehaviour
         if (horizontal == 0)
         {
             animator.SetBool("Walk", false);
-           
         }
 
         if (vi.playerHit && vi.vidasPlayer >= 1)
         {
             StartCoroutine(Knockback(0.6f, 5f, 3f));
             vi.playerHit = false;
-            
         }
 
         DoorTutorial();
@@ -115,161 +114,35 @@ public class MovimientoPJ : MonoBehaviour
         }
     }
 
-    private bool checkGroundLineCast()
-    {
-
-        RaycastHit2D[] hit1 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.right * 0.90f, transform.position + Vector3.right * 0.90f + Vector3.down * 1.75f);
-        RaycastHit2D[] hit2 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.left * 0.90f, transform.position + Vector3.left * 0.90f + Vector3.down * 1.75f);
-        RaycastHit2D[] hit3 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f, transform.position + Vector3.down * 1.75f);
-
-        foreach (RaycastHit2D hit in hit1)
-        {
-            
-            if (hit.collider.CompareTag("Floor"))
-            {
-                return true;
-            }
-        }
-        foreach (RaycastHit2D hit in hit2)
-        {
-
-            if (hit.collider.CompareTag("Floor"))
-            {
-                return true;
-            }
-        }
-
-        foreach (RaycastHit2D hit in hit3)
-        {
-
-            if (hit.collider.CompareTag("Floor"))
-            {
-                return true;
-            }
-        }
-        return false; 
-
-    }
-
-    private bool checkRightWallLineCast()
-    {
-        
-        RaycastHit2D[] hitsTop = Physics2D.LinecastAll(transform.position, transform.position + Vector3.right * 0.90f);
-        RaycastHit2D[] hitsBottom = Physics2D.LinecastAll(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 0.80f + Vector3.right * 0.90f);
-
-        foreach (RaycastHit2D hit in hitsTop)
-        {
-            if (hit.collider.CompareTag("Wall"))
-            {
-                PhysicsMaterial2D newMaterial = new PhysicsMaterial2D()
-                {
-                    friction = 5f
-                };
-                vx.sharedMaterial = newMaterial;
-
-                return true;
-                
-            }
-        }
-
-        foreach (RaycastHit2D hit in hitsBottom)
-        {
-            if (hit.collider.CompareTag("Wall"))
-            {
-
-                PhysicsMaterial2D newMaterial = new PhysicsMaterial2D()
-                {
-                    friction = 5f
-                };
-                vx.sharedMaterial = newMaterial;
-
-                return true;
-               
-            }
-        }
-
-        return false;
-    }
-
-    private bool checkLeftWallLineCast()
-    {
-        
-        RaycastHit2D[] hitsTop = Physics2D.LinecastAll(transform.position , transform.position  + Vector3.left * 0.90f);
-        RaycastHit2D[] hitsBottom = Physics2D.LinecastAll(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 0.80f + Vector3.left * 0.90f);
-
-        foreach (RaycastHit2D hit in hitsTop)
-        {
-            if (hit.collider.CompareTag("Wall"))
-            {
-                PhysicsMaterial2D newMaterial = new PhysicsMaterial2D()
-                {
-                    friction = 5f
-                };
-                vx.sharedMaterial = newMaterial;
-
-                return true;
-            }
-        }
-
-        foreach (RaycastHit2D hit in hitsBottom)
-        {
-            if (hit.collider.CompareTag("Wall"))
-            {
-
-                PhysicsMaterial2D newMaterial = new PhysicsMaterial2D()
-                {
-                    friction = 5f
-                };
-                vx.sharedMaterial = newMaterial;
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     private void Move()
-    {   
+    {
         rb2D.velocity = new Vector2(horizontal * movSpeed, rb2D.velocity.y);
         animator.SetBool("Walk", true);
-
     }
 
     private void Jump()
     {
         if (Input.GetButtonDown("Jump"))
         {
-            
-
-            if (checkGroundLineCast()) 
+            if (checkGroundLineCast())
             {
                 canDoubleJump = true;
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
-                
             }
             else if (canDoubleJump)
             {
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
                 canDoubleJump = false;
             }
-
-           
         }
-
-       
     }
-
 
     private void WallJump()
     {
         if (!checkGroundLineCast() && pi.hasGrab && Input.GetButtonDown("Jump"))
         {
-            
-
             if (checkRightWallLineCast() && !isWallJumping)
             {
-                
                 rb2D.velocity = new Vector2(-jumpWallx, jumpWally);
                 sr.flipX = false;
                 isWallJumping = true;
@@ -277,14 +150,11 @@ public class MovimientoPJ : MonoBehaviour
             }
             else if (checkLeftWallLineCast() && !isWallJumping)
             {
-               
                 rb2D.velocity = new Vector2(jumpWallx, jumpWally);
                 sr.flipX = true;
                 isWallJumping = true;
                 StartCoroutine(DisableWallJumping());
             }
-
-            
         }
     }
 
@@ -300,11 +170,17 @@ public class MovimientoPJ : MonoBehaviour
         {
             isDashing = true;
             canDash = false;
+
+            soundController?.PlayDashSound(); // 🔊 Reproducir sonido de dash
+
             rb2D.gravityScale = 0f;
             rb2D.velocity = new Vector2(horizontal * dashSpeed, 0f);
+
             yield return new WaitForSeconds(dashingTime);
+
             isDashing = false;
             rb2D.gravityScale = baseGravity;
+
             yield return new WaitForSeconds(dashCD);
             canDash = true;
         }
@@ -325,14 +201,9 @@ public class MovimientoPJ : MonoBehaviour
             tutorial = true;
         }
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
-        if (collision.gameObject.CompareTag("Wall") && pi.hasGrab)
-        {
-            
-        }
-
         if (collision.gameObject.CompareTag("Pinchos"))
         {
             vi.vidasPlayer = 0;
@@ -341,23 +212,19 @@ public class MovimientoPJ : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            
-        }
+        // Puedes usarlo si necesitas resetear algo al dejar de tocar paredes
     }
 
     private IEnumerator Knockback(float duration, float powerX, float powerY)
     {
         float timer = 0;
-
         isKnock = true;
-        
-        if (sr.flipX) 
+
+        if (sr.flipX)
         {
             rb2D.velocity = new Vector2(powerX, powerY);
         }
-        else 
+        else
         {
             rb2D.velocity = new Vector2(-powerX, powerY);
         }
@@ -369,9 +236,81 @@ public class MovimientoPJ : MonoBehaviour
         }
 
         isKnock = false;
-        
     }
 
+    public bool checkGroundLineCast()
+    {
+        RaycastHit2D[] hit1 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.right * 0.90f, transform.position + Vector3.right * 0.90f + Vector3.down * 1.75f);
+        RaycastHit2D[] hit2 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.left * 0.90f, transform.position + Vector3.left * 0.90f + Vector3.down * 1.75f);
+        RaycastHit2D[] hit3 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f, transform.position + Vector3.down * 1.75f);
+
+        foreach (RaycastHit2D hit in hit1)
+        {
+            if (hit.collider.CompareTag("Floor")) return true;
+        }
+        foreach (RaycastHit2D hit in hit2)
+        {
+            if (hit.collider.CompareTag("Floor")) return true;
+        }
+        foreach (RaycastHit2D hit in hit3)
+        {
+            if (hit.collider.CompareTag("Floor")) return true;
+        }
+
+        return false;
+    }
+
+    private bool checkRightWallLineCast()
+    {
+        RaycastHit2D[] hitsTop = Physics2D.LinecastAll(transform.position, transform.position + Vector3.right * 0.90f);
+        RaycastHit2D[] hitsBottom = Physics2D.LinecastAll(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 0.80f + Vector3.right * 0.90f);
+
+        foreach (RaycastHit2D hit in hitsTop)
+        {
+            if (hit.collider.CompareTag("Wall"))
+            {
+                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
+                return true;
+            }
+        }
+
+        foreach (RaycastHit2D hit in hitsBottom)
+        {
+            if (hit.collider.CompareTag("Wall"))
+            {
+                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool checkLeftWallLineCast()
+    {
+        RaycastHit2D[] hitsTop = Physics2D.LinecastAll(transform.position, transform.position + Vector3.left * 0.90f);
+        RaycastHit2D[] hitsBottom = Physics2D.LinecastAll(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 0.80f + Vector3.left * 0.90f);
+
+        foreach (RaycastHit2D hit in hitsTop)
+        {
+            if (hit.collider.CompareTag("Wall"))
+            {
+                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
+                return true;
+            }
+        }
+
+        foreach (RaycastHit2D hit in hitsBottom)
+        {
+            if (hit.collider.CompareTag("Wall"))
+            {
+                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     private void OnDrawGizmos()
     {
@@ -379,8 +318,8 @@ public class MovimientoPJ : MonoBehaviour
         Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.right * 0.90f, transform.position + Vector3.right * 0.90f + Vector3.down * 1.75f);
         Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.left * 0.90f, transform.position + Vector3.left * 0.90f + Vector3.down * 1.75f);
         Gizmos.DrawLine(transform.position + Vector3.down * 1f, transform.position + Vector3.down * 1.75f);
-        Gizmos.DrawLine(transform.position , transform.position + Vector3.right * 0.90f);
-        Gizmos.DrawLine(transform.position , transform.position + Vector3.left * 0.90f);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * 0.90f);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.left * 0.90f);
         Gizmos.DrawLine(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 0.80f + Vector3.right * 0.90f);
         Gizmos.DrawLine(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 0.80f + Vector3.left * 0.90f);
     }
