@@ -23,6 +23,8 @@ TagManager:
   - Pendulum
   - tp1
   - tp2
+  - CorazonExtra
+  - Boss
   layers:
   - Default
   - TransparentFX

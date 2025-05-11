@@ -19,7 +19,7 @@ public class RangeAttack : MonoBehaviour
     private bool isJaula = false;
     public bool JaulaFall = false;
 
-    // 🎧 Referencia al controlador de sonido
+    
     private PlayerSoundController soundController;
 
     private void Start()
@@ -33,13 +33,14 @@ public class RangeAttack : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q) && canAttack)
         {
+            StartCoroutine(RangeAttackCD());
             movimientoPj.animator.SetBool("Attack", true);
             StartCoroutine(ResetAttackAnimation());
 
-            // 🎧 Reproducir sonido de ataque
+           
             soundController?.PlayAttackSound();
 
-            // Atacar a enemigo cuerpo a cuerpo
+            
             if (isTrue && enemy != null && em != null)
             {
                 if (em.vidasEnemigo > 0)
@@ -64,10 +65,10 @@ public class RangeAttack : MonoBehaviour
                     }
                 }
 
-                StartCoroutine(RangeAttackCD());
+               
             }
 
-            // Atacar al jefe
+    
             if (isTrue && boss != null && te != null)
             {
                 if (te.vidasEnemigo > 0)
@@ -82,10 +83,10 @@ public class RangeAttack : MonoBehaviour
                     }
                 }
 
-                StartCoroutine(RangeAttackCD());
+               
             }
 
-            // Atacar a enemigo a distancia
+          
             if (isTrueRange && enemyRange != null && re != null)
             {
                 if (re.vidasEnemigo > 0)
@@ -102,17 +103,17 @@ public class RangeAttack : MonoBehaviour
                     }
                 }
 
-                StartCoroutine(RangeAttackCD());
+             
             }
 
-            // Activar caída de jaula
+           
             if (isJaula)
             {
                 JaulaFall = true;
             }
         }
 
-        // Posición del box collider para ataque
+       
         if (movimientoPj.isLeft)
         {
             boxCollider.offset = new Vector2(-1.5f, boxCollider.offset.y);

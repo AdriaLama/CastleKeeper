@@ -33,8 +33,9 @@ public class MovimientoPJ : MonoBehaviour
     public float movSpeedDefault;
     public bool tutorial;
     public bool isKnock = false;
+    private bool wasInAir = false;
 
-    // 🎧 Sonido
+   
     private PlayerSoundController soundController;
 
     void Start()
@@ -49,11 +50,13 @@ public class MovimientoPJ : MonoBehaviour
         animator = GetComponent<Animator>();
         movSpeedDefault = movSpeed;
 
-        soundController = GetComponent<PlayerSoundController>(); // ← Obtener controlador de sonido
+        soundController = GetComponent<PlayerSoundController>(); 
     }
 
     void Update()
     {
+        
+
         if (!isWallJumping && !hk.isGrappling)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
@@ -61,11 +64,20 @@ public class MovimientoPJ : MonoBehaviour
 
         if (!checkGroundLineCast())
         {
+            wasInAir = true; 
             movSpeed = 6;
         }
+
         else
         {
             movSpeed = movSpeedDefault;
+
+  
+            if (wasInAir)
+            {
+                animator.SetBool("Jump", false);
+                wasInAir = false;
+            }
         }
 
         if (horizontal > 0)
@@ -124,17 +136,27 @@ public class MovimientoPJ : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
+            animator.SetBool("Jump", true);
             if (checkGroundLineCast())
             {
                 canDoubleJump = true;
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
+                animator.SetBool("Jump", true);
+
             }
             else if (canDoubleJump)
             {
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
                 canDoubleJump = false;
+                StartCoroutine(ResetJumpAnimation());
+
+
             }
         }
+
+        
+        
+        
     }
 
     private void WallJump()
@@ -171,7 +193,7 @@ public class MovimientoPJ : MonoBehaviour
             isDashing = true;
             canDash = false;
 
-            soundController?.PlayDashSound(); // 🔊 Reproducir sonido de dash
+            soundController?.PlayDashSound(); 
 
             rb2D.gravityScale = 0f;
             rb2D.velocity = new Vector2(horizontal * dashSpeed, 0f);
@@ -210,10 +232,6 @@ public class MovimientoPJ : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        // Puedes usarlo si necesitas resetear algo al dejar de tocar paredes
-    }
 
     private IEnumerator Knockback(float duration, float powerX, float powerY)
     {
@@ -240,8 +258,8 @@ public class MovimientoPJ : MonoBehaviour
 
     public bool checkGroundLineCast()
     {
-        RaycastHit2D[] hit1 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.right * 0.90f, transform.position + Vector3.right * 0.90f + Vector3.down * 1.75f);
-        RaycastHit2D[] hit2 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.left * 0.90f, transform.position + Vector3.left * 0.90f + Vector3.down * 1.75f);
+        RaycastHit2D[] hit1 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.right * 0.80f, transform.position + Vector3.right * 0.80f + Vector3.down * 1.75f);
+        RaycastHit2D[] hit2 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.left * 0.80f, transform.position + Vector3.left * 0.80f + Vector3.down * 1.75f);
         RaycastHit2D[] hit3 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f, transform.position + Vector3.down * 1.75f);
 
         foreach (RaycastHit2D hit in hit1)
@@ -312,11 +330,18 @@ public class MovimientoPJ : MonoBehaviour
         return false;
     }
 
+    private IEnumerator ResetJumpAnimation()
+    {
+        animator.SetBool("Jump", false); 
+        yield return null;               
+        animator.SetBool("Jump", true);  
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.right * 0.90f, transform.position + Vector3.right * 0.90f + Vector3.down * 1.75f);
-        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.left * 0.90f, transform.position + Vector3.left * 0.90f + Vector3.down * 1.75f);
+        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.right * 0.80f, transform.position + Vector3.right * 0.80f + Vector3.down * 1.75f);
+        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.left * 0.80f, transform.position + Vector3.left * 0.80f + Vector3.down * 1.75f);
         Gizmos.DrawLine(transform.position + Vector3.down * 1f, transform.position + Vector3.down * 1.75f);
         Gizmos.DrawLine(transform.position, transform.position + Vector3.right * 0.90f);
         Gizmos.DrawLine(transform.position, transform.position + Vector3.left * 0.90f);

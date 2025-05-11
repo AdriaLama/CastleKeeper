@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class Vidas : MonoBehaviour
 {
-    public int maxVidas;
     public int vidasPlayer;
     public float vidaCD;
     public bool canHit = true;
@@ -15,12 +14,10 @@ public class Vidas : MonoBehaviour
     public GameObject[] vidas;
     private Animator animator;
     public GameObject gameOverUI;
-    private bool isDead = false;
 
     void Start()
     {
         animator = FindObjectOfType<Animator>();
-        vidasPlayer = maxVidas;
     }
 
     void Update()
@@ -91,6 +88,17 @@ public class Vidas : MonoBehaviour
             playerHit = true;
 
         }
+        if (collision.gameObject.CompareTag("CorazonExtra"))
+        {
+            if(vidasPlayer < 5)
+            {
+                vidasPlayer++;
+                activarVida(vidasPlayer - 1);
+                Destroy(collision.gameObject);
+
+            }
+          
+        }
     }
 
     public void desactivarVida(int indice)
@@ -98,5 +106,9 @@ public class Vidas : MonoBehaviour
         vidas[indice].SetActive(false);
 
     }
-   
+    public void activarVida(int indice)
+    {
+        vidas[indice].SetActive(true);
+    }
+
 }
