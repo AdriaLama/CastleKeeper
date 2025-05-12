@@ -28,6 +28,7 @@ TagManager:
   - BossDoor
   - tp3
   - DoorFinish
+  - CameraSwitch
   layers:
   - Default
   - TransparentFX
