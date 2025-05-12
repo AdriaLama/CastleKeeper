@@ -51,7 +51,12 @@ public class MovimientoPJ : MonoBehaviour
         animator = GetComponent<Animator>();
         movSpeedDefault = movSpeed;
 
-        soundController = GetComponent<PlayerSoundController>(); 
+        soundController = GetComponent<PlayerSoundController>();
+
+        if (SceneManager.GetActiveScene().name == "PruebaJefe")
+        {
+            transform.position = new Vector2(-9.63f, 16.7f);
+        }
     }
 
     void Update()
