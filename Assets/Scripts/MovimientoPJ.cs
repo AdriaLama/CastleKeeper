@@ -35,8 +35,11 @@ public class MovimientoPJ : MonoBehaviour
     public bool bossDoor;
     public bool isKnock = false;
     private bool wasInAir = false;
+    public float coyoteTime;
+    private float coyoteTimeCounter;
 
-   
+
+
     private PlayerSoundController soundController;
 
     void Start()
@@ -141,14 +144,26 @@ public class MovimientoPJ : MonoBehaviour
 
     private void Jump()
     {
+
+        if (checkGroundLineCast())
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
+
         if (Input.GetButtonDown("Jump"))
         {
             animator.SetBool("Jump", true);
-            if (checkGroundLineCast())
+
+            if (coyoteTimeCounter > 0f)
             {
                 canDoubleJump = true;
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
                 animator.SetBool("Jump", true);
+             
 
             }
             else if (canDoubleJump)
@@ -157,12 +172,9 @@ public class MovimientoPJ : MonoBehaviour
                 canDoubleJump = false;
                 StartCoroutine(ResetJumpAnimation());
 
-
+                coyoteTimeCounter = 0f;
             }
         }
-
-        
-        
         
     }
 
@@ -185,6 +197,7 @@ public class MovimientoPJ : MonoBehaviour
                 StartCoroutine(DisableWallJumping());
             }
         }
+
     }
 
     private IEnumerator DisableWallJumping()
@@ -277,8 +290,8 @@ public class MovimientoPJ : MonoBehaviour
 
     public bool checkGroundLineCast()
     {
-        RaycastHit2D[] hit1 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.right * 0.80f, transform.position + Vector3.right * 0.80f + Vector3.down * 1.75f);
-        RaycastHit2D[] hit2 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.left * 0.80f, transform.position + Vector3.left * 0.80f + Vector3.down * 1.75f);
+        RaycastHit2D[] hit1 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.right * 0.35f, transform.position + Vector3.right * 0.35f + Vector3.down * 1.75f);
+        RaycastHit2D[] hit2 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.left * 0.35f, transform.position + Vector3.left * 0.35f + Vector3.down * 1.75f);
         RaycastHit2D[] hit3 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f, transform.position + Vector3.down * 1.75f);
 
         foreach (RaycastHit2D hit in hit1)
@@ -359,8 +372,8 @@ public class MovimientoPJ : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.right * 0.80f, transform.position + Vector3.right * 0.80f + Vector3.down * 1.75f);
-        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.left * 0.80f, transform.position + Vector3.left * 0.80f + Vector3.down * 1.75f);
+        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.right * 0.35f, transform.position + Vector3.right * 0.35f + Vector3.down * 1.75f);
+        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.left * 0.35f, transform.position + Vector3.left * 0.35f + Vector3.down * 1.75f);
         Gizmos.DrawLine(transform.position + Vector3.down * 1f, transform.position + Vector3.down * 1.75f);
         Gizmos.DrawLine(transform.position, transform.position + Vector3.right * 0.90f);
         Gizmos.DrawLine(transform.position, transform.position + Vector3.left * 0.90f);
