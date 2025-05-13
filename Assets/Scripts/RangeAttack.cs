@@ -14,6 +14,9 @@ public class RangeAttack : MonoBehaviour
     private enemyMelee em;
     private rangeEnemy re;
     private BossSala1 te;
+    private bool attack1;
+    private bool attack2;
+    private bool attack3;
     public bool canAttack = true;
     public float cdAttack;
     private bool isJaula = false;
@@ -35,9 +38,9 @@ public class RangeAttack : MonoBehaviour
         {
             StartCoroutine(RangeAttackCD());
             movimientoPj.animator.SetBool("Attack", true);
-            StartCoroutine(ResetAttackAnimation());
-
-
+           
+            
+            
             soundController?.PlayAttackSound();
 
 
@@ -124,11 +127,7 @@ public class RangeAttack : MonoBehaviour
         }
     }
 
-    private IEnumerator ResetAttackAnimation()
-    {
-        yield return new WaitForSeconds(0.3f);
-        movimientoPj.animator.SetBool("Attack", false);
-    }
+   
 
     private IEnumerator RangeAttackCD()
     {
