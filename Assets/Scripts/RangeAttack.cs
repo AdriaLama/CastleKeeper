@@ -38,6 +38,7 @@ public class RangeAttack : MonoBehaviour
         {
             StartCoroutine(RangeAttackCD());
             movimientoPj.animator.SetBool("Attack", true);
+            StartCoroutine(ResetAttackAnimation());
            
             
             
@@ -127,7 +128,12 @@ public class RangeAttack : MonoBehaviour
         }
     }
 
-   
+    private IEnumerator ResetAttackAnimation()
+    {
+        yield return new WaitForSeconds(0.3f);
+        movimientoPj.animator.SetBool("Attack", false);
+    }
+
 
     private IEnumerator RangeAttackCD()
     {

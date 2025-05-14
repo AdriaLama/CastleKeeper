@@ -29,6 +29,7 @@ TagManager:
   - tp3
   - DoorFinish
   - CameraSwitch
+  - Key
   layers:
   - Default
   - TransparentFX

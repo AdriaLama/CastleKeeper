@@ -8,7 +8,6 @@ public class CheckpointManager : MonoBehaviour
 
     public Vector2 lastCheckpointPosition;
     public int lastCheckpointID = 0;
-    public HashSet<string> objetosRecogidos = new HashSet<string>();
 
     private void Awake()
     {
@@ -35,20 +34,10 @@ public class CheckpointManager : MonoBehaviour
         return lastCheckpointPosition;
     }
 
-    public void AddObjeto(string id)
-    {
-        if(lastCheckpointID >= 2){
-            objetosRecogidos.Add(id);
-        }
-      
-        
-    }
-
     public void ResetData()
     {
         lastCheckpointID = 0;
         lastCheckpointPosition = Vector2.zero;
-        objetosRecogidos.Clear();
     }
 
 }

@@ -14,12 +14,6 @@ public class PlayerRespawnCheckpoint : MonoBehaviour
             {
                 transform.position = pos;
             }
-
-            PickItems pickItems = GetComponent<PickItems>();
-            if (pickItems != null)
-            {
-                pickItems.RestaurarObjetos();
-            }
         }
     }
 

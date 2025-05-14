@@ -12,19 +12,6 @@ public class Checkpoints : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             CheckpointManager.Instance.SetCheckpoint(respawnPosition, checkpointID);
-
-            if (checkpointID >= 2)
-            {
-                PickItems pickItems = other.GetComponent<PickItems>();
-                if (pickItems != null)
-                {
-                    if (pickItems.hasHook)
-                        CheckpointManager.Instance.AddObjeto("Hook");
-
-                    if (pickItems.hasGrab)
-                        CheckpointManager.Instance.AddObjeto("Grab");
-                }
-            }
         }
 
         

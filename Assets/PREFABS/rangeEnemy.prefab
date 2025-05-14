@@ -211,7 +211,7 @@ MonoBehaviour:
   playerInRange: 0
   colision1: {fileID: 0}
   colision2: {fileID: 0}
-  vidasEnemigo: 2
+  vidasEnemigo: 1
   controladorDisparo: {fileID: 8935923834035139310}
   distancialinea: 0
   TiempoDeDisparos: 1.2
