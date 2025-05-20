@@ -319,7 +319,7 @@ public class MovimientoPJ : MonoBehaviour
         {
             if (hit.collider.CompareTag("Wall"))
             {
-                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
+                
                 return true;
             }
         }
@@ -328,7 +328,7 @@ public class MovimientoPJ : MonoBehaviour
         {
             if (hit.collider.CompareTag("Wall"))
             {
-                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
+                
                 return true;
             }
         }
@@ -345,7 +345,7 @@ public class MovimientoPJ : MonoBehaviour
         {
             if (hit.collider.CompareTag("Wall"))
             {
-                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
+                
                 return true;
             }
         }
@@ -354,7 +354,7 @@ public class MovimientoPJ : MonoBehaviour
         {
             if (hit.collider.CompareTag("Wall"))
             {
-                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
+             
                 return true;
             }
         }

@@ -145,6 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puntoA: {fileID: 0}
   puntoB: {fileID: 0}
-  velocidadDefault: 4
+  velocidadDefault: 5
   moveCD: 2.5
   canMove: 0
+  waiting: 0

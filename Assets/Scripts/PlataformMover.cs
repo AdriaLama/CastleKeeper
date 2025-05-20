@@ -47,6 +47,7 @@ public class PlatformMover : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.transform.SetParent(transform);
+            velocidad0 -= 2;
            
         }
     }
@@ -57,6 +58,7 @@ public class PlatformMover : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && gameObject.activeInHierarchy && collision.gameObject != null)
         {
             collision.transform.SetParent(null);
+            velocidad0 += 2;
         }
     }
 
