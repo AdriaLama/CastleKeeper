@@ -37,6 +37,7 @@ public class MovimientoPJ : MonoBehaviour
     private bool wasInAir = false;
     public float coyoteTime;
     private float coyoteTimeCounter;
+    public ParticleSystem particulas;
 
 
 
@@ -94,12 +95,14 @@ public class MovimientoPJ : MonoBehaviour
             isRight = true;
             isLeft = false;
             sr.flipX = false;
+            
         }
         if (horizontal < 0)
         {
             isLeft = true;
             isRight = false;
             sr.flipX = true;
+            
         }
 
         if (!isDashing && !isKnock)
@@ -140,6 +143,12 @@ public class MovimientoPJ : MonoBehaviour
     {
         rb2D.velocity = new Vector2(horizontal * movSpeed, rb2D.velocity.y);
         animator.SetBool("Walk", true);
+
+        if (checkGroundLineCast() && Mathf.Abs(horizontal) > 0.1f)
+        {
+             particulas.Play();
+        }
+       
     }
 
     private void Jump()
