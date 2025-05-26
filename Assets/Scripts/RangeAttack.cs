@@ -14,14 +14,13 @@ public class RangeAttack : MonoBehaviour
     private enemyMelee em;
     private rangeEnemy re;
     private BossSala1 te;
-    private bool attack1;
-    private bool attack2;
-    private bool attack3;
-    public bool canAttack = true;
-    public float cdAttack;
     private bool isJaula = false;
     public bool JaulaFall = false;
 
+    [Header("Combat Settings")]
+    public float[] attackDamage = { 1, 1, 2 }; // Daño por cada ataque del combo
+    public float[] attackKnockback = { 3f, 4f, 6f }; // Knockback por cada ataque
+    public float[] attackRange = { 1.5f, 1.5f, 2f }; // Rango de cada ataque
 
     private PlayerSoundController soundController;
 
@@ -34,112 +33,135 @@ public class RangeAttack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && canAttack)
+        // El input de ataque ahora se maneja en MovimientoPJ
+        // Solo necesitamos verificar si el jugador está atacando y aplicar el daño correspondiente
+
+        if (movimientoPj.IsAttacking())
         {
-            StartCoroutine(RangeAttackCD());
-            movimientoPj.animator.SetBool("Attack", true);
-            StartCoroutine(ResetAttackAnimation());
-           
-            
-            
-            soundController?.PlayAttackSound();
-
-
-            if (isTrue && enemy != null && em != null)
-            {
-                if (em.vidasEnemigo > 0)
-                {
-                    em.ReceiveHit();
-                    em.vidasEnemigo--;
-                    canAttack = false;
-
-                    if (em.vidasEnemigo >= 1)
-                    {
-                        if (em.sr.flipX)
-                            em.rb.velocity = new Vector2(5, 3);
-                        else
-                            em.rb.velocity = new Vector2(-5, 3);
-                    }
-
-                    if (em.vidasEnemigo <= 0)
-                    {
-                        em.speed = 0;
-                        em.enemyDead();
-                        Destroy(enemy.gameObject, 1.40f);
-                    }
-                }
-
-
-            }
-
-
-            if (isTrue && boss != null && te != null)
-            {
-                if (te.vidasEnemigo > 0)
-                {
-                    te.ReceiveHit();
-                    te.vidasEnemigo--;
-                    canAttack = false;
-
-                    if (te.vidasEnemigo <= 0)
-                    {
-                        te.enemyDead();
-                    }
-                }
-
-
-            }
-
-
-            if (isTrueRange && enemyRange != null && re != null)
-            {
-                if (re.vidasEnemigo > 0)
-                {
-                    re.ReceiveHit();
-                    re.speed = 0;
-                    re.vidasEnemigo--;
-                    canAttack = false;
-
-                    if (re.vidasEnemigo <= 0)
-                    {
-                        re.enemyDead();
-                        Destroy(enemyRange.gameObject, 0.5f);
-                    }
-                }
-
-
-            }
-
-
-            if (isJaula)
-            {
-                JaulaFall = true;
-            }
+            int currentCombo = movimientoPj.GetCurrentCombo();
+            ApplyAttackEffects(currentCombo);
         }
 
+        // Ajustar el collider según la dirección y el ataque actual
+        AdjustAttackCollider();
+    }
 
-        if (movimientoPj.isLeft)
+    private void ApplyAttackEffects(int comboStep)
+    {
+        if (comboStep < 1 || comboStep > 3) return;
+
+        int index = comboStep - 1; // Convert to array index
+
+        // Aplicar efectos a enemigo melee
+        if (isTrue && enemy != null && em != null && em.vidasEnemigo > 0)
         {
-            boxCollider.offset = new Vector2(-1.5f, boxCollider.offset.y);
+            ApplyDamageToMeleeEnemy(index);
         }
-        if (movimientoPj.isRight)
+
+        // Aplicar efectos a boss
+        if (isTrue && boss != null && te != null && te.vidasEnemigo > 0)
         {
-            boxCollider.offset = new Vector2(1.5f, boxCollider.offset.y);
+            ApplyDamageToBoss(index);
+        }
+
+        // Aplicar efectos a enemigo de rango
+        if (isTrueRange && enemyRange != null && re != null && re.vidasEnemigo > 0)
+        {
+            ApplyDamageToRangeEnemy(index);
+        }
+
+        // Aplicar efectos a jaula
+        if (isJaula)
+        {
+            JaulaFall = true;
         }
     }
 
-    private IEnumerator ResetAttackAnimation()
+    private void ApplyDamageToMeleeEnemy(int attackIndex)
     {
-        yield return new WaitForSeconds(0.3f);
-        movimientoPj.animator.SetBool("Attack", false);
+        em.ReceiveHit();
+        em.vidasEnemigo -= (int)attackDamage[attackIndex];
+
+        if (em.vidasEnemigo >= 1)
+        {
+            float knockbackForce = attackKnockback[attackIndex];
+
+            // Aplicar knockback más fuerte para ataques posteriores del combo
+            if (em.sr.flipX)
+                em.rb.velocity = new Vector2(knockbackForce, 3);
+            else
+                em.rb.velocity = new Vector2(-knockbackForce, 3);
+        }
+
+        if (em.vidasEnemigo <= 0)
+        {
+            em.speed = 0;
+            em.enemyDead();
+            Destroy(enemy.gameObject, 1.40f);
+        }
+
+        Debug.Log($"Ataque {attackIndex + 1} aplicado a enemigo melee. Daño: {attackDamage[attackIndex]}");
     }
 
-
-    private IEnumerator RangeAttackCD()
+    private void ApplyDamageToBoss(int attackIndex)
     {
-        canAttack = false;
-        yield return new WaitForSeconds(cdAttack);
-        canAttack = true;
+        te.ReceiveHit();
+        te.vidasEnemigo -= (int)attackDamage[attackIndex];
+
+        if (te.vidasEnemigo <= 0)
+        {
+            te.enemyDead();
+        }
+
+        Debug.Log($"Ataque {attackIndex + 1} aplicado a boss. Daño: {attackDamage[attackIndex]}");
+    }
+
+    private void ApplyDamageToRangeEnemy(int attackIndex)
+    {
+        re.ReceiveHit();
+        re.speed = 0;
+        re.vidasEnemigo -= (int)attackDamage[attackIndex];
+
+        if (re.vidasEnemigo <= 0)
+        {
+            re.enemyDead();
+            Destroy(enemyRange.gameObject, 0.5f);
+        }
+
+        Debug.Log($"Ataque {attackIndex + 1} aplicado a enemigo de rango. Daño: {attackDamage[attackIndex]}");
+    }
+
+    private void AdjustAttackCollider()
+    {
+        if (movimientoPj.IsAttacking())
+        {
+            int currentCombo = movimientoPj.GetCurrentCombo();
+            if (currentCombo >= 1 && currentCombo <= 3)
+            {
+                float range = attackRange[currentCombo - 1];
+
+                if (movimientoPj.isLeft)
+                {
+                    boxCollider.offset = new Vector2(-range, boxCollider.offset.y);
+                }
+                if (movimientoPj.isRight)
+                {
+                    boxCollider.offset = new Vector2(range, boxCollider.offset.y);
+                }
+            }
+        }
+        else
+        {
+            // Posición por defecto del collider
+            if (movimientoPj.isLeft)
+            {
+                boxCollider.offset = new Vector2(-1.5f, boxCollider.offset.y);
+            }
+            if (movimientoPj.isRight)
+            {
+                boxCollider.offset = new Vector2(1.5f, boxCollider.offset.y);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -197,6 +219,16 @@ public class RangeAttack : MonoBehaviour
         if (collision.gameObject.CompareTag("Jaula"))
         {
             isJaula = false;
+        }
+    }
+
+    // Método para debugging - mostrar información del combo actual
+    private void OnGUI()
+    {
+        if (movimientoPj != null && movimientoPj.IsAttacking())
+        {
+            GUI.Label(new Rect(10, 10, 200, 20), $"Combo Actual: {movimientoPj.GetCurrentCombo()}");
+            GUI.Label(new Rect(10, 30, 200, 20), $"Atacando: {movimientoPj.IsAttacking()}");
         }
     }
 }

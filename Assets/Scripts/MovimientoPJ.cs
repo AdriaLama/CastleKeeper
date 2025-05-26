@@ -37,9 +37,16 @@ public class MovimientoPJ : MonoBehaviour
     private bool wasInAir = false;
     public float coyoteTime;
     private float coyoteTimeCounter;
-    public ParticleSystem particulas;
 
-
+    // Sistema de Combo
+    [Header("Combat System")]
+    public bool isAttacking = false;
+    public int currentCombo = 0;
+    public float comboWindow = 1.0f;
+    public float attackCooldown = 0.1f;
+    private float lastAttackTime;
+    private bool canAttack = true;
+    private Coroutine comboResetCoroutine;
 
     private PlayerSoundController soundController;
 
@@ -65,24 +72,27 @@ public class MovimientoPJ : MonoBehaviour
 
     void Update()
     {
-        
-
-        if (!isWallJumping && !hk.isGrappling)
+        // Input de movimiento (solo si no está atacando)
+        if (!isWallJumping && !hk.isGrappling && !isAttacking)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
         }
-
-        if (!checkGroundLineCast())
+        else if (isAttacking)
         {
-            wasInAir = true; 
-            movSpeed = 6;
+            horizontal = 0;
         }
 
+        // Lógica de suelo y aire
+        if (!checkGroundLineCast())
+        {
+            wasInAir = true;
+            movSpeed = 6;
+            animator.SetBool("Grounded", false);
+        }
         else
         {
             movSpeed = movSpeedDefault;
-
-  
+            animator.SetBool("Grounded", true);
             if (wasInAir)
             {
                 animator.SetBool("Jump", false);
@@ -90,37 +100,46 @@ public class MovimientoPJ : MonoBehaviour
             }
         }
 
-        if (horizontal > 0)
+        // Dirección del personaje
+        if (horizontal > 0 && !isAttacking)
         {
             isRight = true;
             isLeft = false;
             sr.flipX = false;
-            
         }
-        if (horizontal < 0)
+        if (horizontal < 0 && !isAttacking)
         {
             isLeft = true;
             isRight = false;
             sr.flipX = true;
-            
         }
 
-        if (!isDashing && !isKnock)
+        // Salto y Wall Jump
+        if (!isDashing && !isKnock && !isAttacking)
         {
             Jump();
             WallJump();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isKnock)
+        // Dash
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isKnock && !isAttacking)
         {
             StartCoroutine(Dash());
         }
 
-        if (horizontal == 0)
+        // Sistema de Combo
+        HandleCombatInput();
+
+        // Animación de caminar/correr
+        if (horizontal == 0 || isAttacking)
         {
-            animator.SetBool("Walk", false);
+            animator.SetBool("Run", false);
         }
 
+        // Actualizar parámetro de velocidad en Y para animaciones de aire
+        animator.SetFloat("AirSpeedY", rb2D.velocity.y);
+
+        // Knockback del jugador
         if (vi.playerHit && vi.vidasPlayer >= 1)
         {
             StartCoroutine(Knockback(0.6f, 5f, 3f));
@@ -131,9 +150,141 @@ public class MovimientoPJ : MonoBehaviour
         BossDoor();
     }
 
+    private void HandleCombatInput()
+    {
+        // Input de ataque (Q key)
+        if (Input.GetKeyDown(KeyCode.Q) && canAttack && !isKnock && !isDashing)
+        {
+            PerformAttack();
+        }
+    }
+
+    private void PerformAttack()
+    {
+        // Detener el coroutine de reset si existe
+        if (comboResetCoroutine != null)
+        {
+            StopCoroutine(comboResetCoroutine);
+        }
+
+        // Verificar si podemos continuar el combo
+        if (Time.time - lastAttackTime > comboWindow)
+        {
+            currentCombo = 0;
+        }
+
+        // Incrementar combo
+        currentCombo++;
+        if (currentCombo > 3) currentCombo = 1;
+
+        // Resetear todas las animaciones de ataque primero
+        ResetAllAttackAnimations();
+
+        // Ejecutar ataque según el combo actual
+        switch (currentCombo)
+        {
+            case 1:
+                ExecuteAttack1();
+                break;
+            case 2:
+                ExecuteAttack2();
+                break;
+            case 3:
+                ExecuteAttack3();
+                break;
+        }
+
+        // Actualizar tiempo del último ataque
+        lastAttackTime = Time.time;
+        canAttack = false;
+
+        // Reproducir sonido de ataque
+        soundController?.PlayAttackSound();
+
+        // Iniciar coroutine para resetear combo
+        comboResetCoroutine = StartCoroutine(ResetComboAfterDelay());
+
+        // Cooldown de ataque
+        StartCoroutine(AttackCooldown());
+    }
+
+    private void ResetAllAttackAnimations()
+    {
+        // Resetear todos los parámetros de ataque
+        animator.SetBool("Attack1", false);
+        animator.SetBool("Attack2", false);
+        animator.SetBool("Attack3", false);
+    }
+
+    private void ExecuteAttack1()
+    {
+        Debug.Log("Ejecutando Ataque 1");
+        animator.SetBool("Attack1", true);
+        isAttacking = true;
+
+        StartCoroutine(EndAttackAfterDelay(0.5f, "Attack1"));
+    }
+
+    private void ExecuteAttack2()
+    {
+        Debug.Log("Ejecutando Ataque 2");
+        animator.SetBool("Attack2", true);
+        isAttacking = true;
+
+        StartCoroutine(EndAttackAfterDelay(0.6f, "Attack2"));
+    }
+
+    private void ExecuteAttack3()
+    {
+        Debug.Log("Ejecutando Ataque 3");
+        animator.SetBool("Attack3", true);
+        isAttacking = true;
+
+        StartCoroutine(EndAttackAfterDelay(0.8f, "Attack3"));
+        StartCoroutine(ResetComboAfterAttack3());
+    }
+
+    private IEnumerator EndAttackAfterDelay(float delay, string attackParam)
+    {
+        yield return new WaitForSeconds(delay);
+        isAttacking = false;
+        animator.SetBool(attackParam, false);
+    }
+
+    private IEnumerator AttackCooldown()
+    {
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
+    }
+
+    private IEnumerator ResetComboAfterDelay()
+    {
+        yield return new WaitForSeconds(comboWindow);
+        currentCombo = 0;
+        ResetAllAttackAnimations();
+        Debug.Log("Combo reseteado por tiempo");
+    }
+
+    private IEnumerator ResetComboAfterAttack3()
+    {
+        yield return new WaitForSeconds(1.0f);
+        currentCombo = 0;
+        Debug.Log("Combo completado - Reseteado");
+    }
+
+    public int GetCurrentCombo()
+    {
+        return currentCombo;
+    }
+
+    public bool IsAttacking()
+    {
+        return isAttacking;
+    }
+
     private void FixedUpdate()
     {
-        if (!isDashing && !isWallJumping && !isKnock)
+        if (!isDashing && !isWallJumping && !isKnock && !isAttacking)
         {
             Move();
         }
@@ -142,18 +293,14 @@ public class MovimientoPJ : MonoBehaviour
     private void Move()
     {
         rb2D.velocity = new Vector2(horizontal * movSpeed, rb2D.velocity.y);
-        animator.SetBool("Walk", true);
-
-        if (checkGroundLineCast() && Mathf.Abs(horizontal) > 0.1f)
+        if (horizontal != 0)
         {
-             particulas.Play();
+            animator.SetBool("Run", true);
         }
-       
     }
 
     private void Jump()
     {
-
         if (checkGroundLineCast())
         {
             coyoteTimeCounter = coyoteTime;
@@ -165,26 +312,20 @@ public class MovimientoPJ : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            animator.SetBool("Jump", true);
-
             if (coyoteTimeCounter > 0f)
             {
                 canDoubleJump = true;
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
                 animator.SetBool("Jump", true);
-             
-
             }
             else if (canDoubleJump)
             {
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
                 canDoubleJump = false;
-                StartCoroutine(ResetJumpAnimation());
-
+                animator.SetBool("Jump", true);
                 coyoteTimeCounter = 0f;
             }
         }
-        
     }
 
     private void WallJump()
@@ -196,6 +337,7 @@ public class MovimientoPJ : MonoBehaviour
                 rb2D.velocity = new Vector2(-jumpWallx, jumpWally);
                 sr.flipX = false;
                 isWallJumping = true;
+                animator.SetBool("WallSlide", false);
                 StartCoroutine(DisableWallJumping());
             }
             else if (checkLeftWallLineCast() && !isWallJumping)
@@ -203,10 +345,20 @@ public class MovimientoPJ : MonoBehaviour
                 rb2D.velocity = new Vector2(jumpWallx, jumpWally);
                 sr.flipX = true;
                 isWallJumping = true;
+                animator.SetBool("WallSlide", false);
                 StartCoroutine(DisableWallJumping());
             }
         }
 
+        // Activar WallSlide cuando esté tocando la pared y cayendo
+        if (!checkGroundLineCast() && (checkRightWallLineCast() || checkLeftWallLineCast()) && rb2D.velocity.y < 0)
+        {
+            animator.SetBool("WallSlide", true);
+        }
+        else
+        {
+            animator.SetBool("WallSlide", false);
+        }
     }
 
     private IEnumerator DisableWallJumping()
@@ -222,7 +374,7 @@ public class MovimientoPJ : MonoBehaviour
             isDashing = true;
             canDash = false;
 
-            soundController?.PlayDashSound(); 
+            soundController?.PlayDashSound();
 
             rb2D.gravityScale = 0f;
             rb2D.velocity = new Vector2(horizontal * dashSpeed, 0f);
@@ -244,6 +396,7 @@ public class MovimientoPJ : MonoBehaviour
             SceneManager.LoadScene("MenuPrincipal");
         }
     }
+
     public void BossDoor()
     {
         if (bossDoor)
@@ -262,7 +415,6 @@ public class MovimientoPJ : MonoBehaviour
         {
             bossDoor = true;
         }
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -273,11 +425,11 @@ public class MovimientoPJ : MonoBehaviour
         }
     }
 
-
     private IEnumerator Knockback(float duration, float powerX, float powerY)
     {
         float timer = 0;
         isKnock = true;
+        animator.SetBool("Hurt", true);
 
         if (sr.flipX)
         {
@@ -295,6 +447,7 @@ public class MovimientoPJ : MonoBehaviour
         }
 
         isKnock = false;
+        animator.SetBool("Hurt", false);
     }
 
     public bool checkGroundLineCast()
@@ -328,7 +481,7 @@ public class MovimientoPJ : MonoBehaviour
         {
             if (hit.collider.CompareTag("Wall"))
             {
-                
+                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
                 return true;
             }
         }
@@ -337,7 +490,7 @@ public class MovimientoPJ : MonoBehaviour
         {
             if (hit.collider.CompareTag("Wall"))
             {
-                
+                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
                 return true;
             }
         }
@@ -354,7 +507,7 @@ public class MovimientoPJ : MonoBehaviour
         {
             if (hit.collider.CompareTag("Wall"))
             {
-                
+                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
                 return true;
             }
         }
@@ -363,7 +516,7 @@ public class MovimientoPJ : MonoBehaviour
         {
             if (hit.collider.CompareTag("Wall"))
             {
-             
+                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
                 return true;
             }
         }
@@ -373,9 +526,9 @@ public class MovimientoPJ : MonoBehaviour
 
     private IEnumerator ResetJumpAnimation()
     {
-        animator.SetBool("Jump", false); 
-        yield return null;               
-        animator.SetBool("Jump", true);  
+        animator.SetBool("Jump", false);
+        yield return null;
+        animator.SetBool("Jump", true);
     }
 
     private void OnDrawGizmos()
