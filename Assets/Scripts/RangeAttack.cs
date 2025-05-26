@@ -155,11 +155,11 @@ public class RangeAttack : MonoBehaviour
             // Posición por defecto del collider
             if (movimientoPj.isLeft)
             {
-                boxCollider.offset = new Vector2(-1.5f, boxCollider.offset.y);
+                boxCollider.offset = new Vector2(-0.50f, boxCollider.offset.y);
             }
             if (movimientoPj.isRight)
             {
-                boxCollider.offset = new Vector2(1.5f, boxCollider.offset.y);
+                boxCollider.offset = new Vector2(0.50f, boxCollider.offset.y);
             }
         }
     }

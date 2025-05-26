@@ -35,13 +35,13 @@ public class Hook : MonoBehaviour
 
         if (isGrappling)
         {
-            line.SetPosition(0, transform.position); 
+            line.SetPosition(0, transform.position + Vector3.up * 1.5f); 
         }
 
         if (retracting)
         {
             transform.position = Vector2.Lerp(transform.position, target, grappleSpeed * Time.deltaTime);
-            line.SetPosition(0, transform.position);
+            line.SetPosition(0, transform.position + Vector3.up * 1.5f);
             line.SetPosition(1, target);
 
             if (Vector2.Distance(transform.position, target) < 1.5f)
@@ -60,8 +60,8 @@ public class Hook : MonoBehaviour
         canHook = false;
         hitSomething = false;
 
-        Vector2 direction = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, maxDistance, grapplableMask);
+        Vector2 direction = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position + Vector2.up * 1.5f;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + Vector3.up * 1.5f, direction.normalized, maxDistance, grapplableMask);
 
         if (hit.collider != null)
         {
@@ -76,8 +76,8 @@ public class Hook : MonoBehaviour
         isGrappling = true;
         line.enabled = true;
         line.positionCount = 2;
-        line.SetPosition(0, transform.position);
-        line.SetPosition(1, transform.position);
+        line.SetPosition(0, transform.position + Vector3.up * 1.5f);
+        line.SetPosition(1, transform.position + Vector3.up * 1.5f);
 
         StartCoroutine(Grapple());
 
@@ -93,7 +93,7 @@ public class Hook : MonoBehaviour
         while (t < 1)
         {
             t += Time.deltaTime / duration;
-            Vector2 newPos = Vector2.Lerp(transform.position, target, t);
+            Vector2 newPos = Vector2.Lerp(transform.position + Vector3.up * 1.5f, target, t);
             line.SetPosition(1, newPos);
             yield return null;
         }

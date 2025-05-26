@@ -330,13 +330,15 @@ public class MovimientoPJ : MonoBehaviour
             {
                 rb2D.velocity = new Vector2(-jumpWallx, jumpWally);
                 isWallJumping = true;
+                sr.flipX = true;
                 animator.SetBool("WallSlide", false);
                 StartCoroutine(DisableWallJumping());
             }
             else if (checkLeftWallLineCast() && !isWallJumping)
             {
                 rb2D.velocity = new Vector2(jumpWallx, jumpWally);
-                isWallJumping = true;
+                isWallJumping = true; 
+                sr.flipX = false;
                 animator.SetBool("WallSlide", false);
                 StartCoroutine(DisableWallJumping());
             }
@@ -467,8 +469,8 @@ public class MovimientoPJ : MonoBehaviour
 
     private bool checkRightWallLineCast()
     {
-        RaycastHit2D[] hitsTop = Physics2D.LinecastAll(transform.position + Vector3.up * 1.5f, transform.position + Vector3.up * 1.5f + Vector3.right * 0.90f);
-        RaycastHit2D[] hitsBottom = Physics2D.LinecastAll(transform.position + Vector3.up * 0.60f, transform.position + Vector3.up * 0.60f + Vector3.right * 0.90f);
+        RaycastHit2D[] hitsTop = Physics2D.LinecastAll(transform.position + Vector3.up * 1.5f, transform.position + Vector3.up * 1.5f + Vector3.right * 0.75f);
+        RaycastHit2D[] hitsBottom = Physics2D.LinecastAll(transform.position + Vector3.up * 0.60f, transform.position + Vector3.up * 0.60f + Vector3.right * 0.75f);
 
         foreach (RaycastHit2D hit in hitsTop)
         {
@@ -493,8 +495,8 @@ public class MovimientoPJ : MonoBehaviour
 
     private bool checkLeftWallLineCast()
     {
-        RaycastHit2D[] hitsTop = Physics2D.LinecastAll(transform.position + Vector3.up * 1.5f, transform.position + Vector3.up * 1.5f + Vector3.left * 0.90f);
-        RaycastHit2D[] hitsBottom = Physics2D.LinecastAll(transform.position + Vector3.up * 0.60f, transform.position + Vector3.up * 0.60f + Vector3.left * 0.90f);
+        RaycastHit2D[] hitsTop = Physics2D.LinecastAll(transform.position + Vector3.up * 1.5f, transform.position + Vector3.up * 1.5f + Vector3.left * 0.75f);
+        RaycastHit2D[] hitsBottom = Physics2D.LinecastAll(transform.position + Vector3.up * 0.60f, transform.position + Vector3.up * 0.60f + Vector3.left * 0.75f);
 
         foreach (RaycastHit2D hit in hitsTop)
         {
@@ -530,9 +532,9 @@ public class MovimientoPJ : MonoBehaviour
         Gizmos.DrawLine(transform.position + Vector3.up * 0.5f + Vector3.right * 0.35f, transform.position + Vector3.right * 0.35f + Vector3.down * 0.15f);
         Gizmos.DrawLine(transform.position + Vector3.up * 0.5f + Vector3.left * 0.35f, transform.position + Vector3.left * 0.35f + Vector3.down * 0.15f);
         Gizmos.DrawLine(transform.position + Vector3.up * 0.5f , transform.position + Vector3.down * 0.15f);
-        Gizmos.DrawLine(transform.position + Vector3.up * 1.5f, transform.position + Vector3.up * 1.5f + Vector3.right * 0.90f);
-        Gizmos.DrawLine(transform.position + Vector3.up * 1.5f, transform.position + Vector3.up * 1.5f + Vector3.left * 0.90f);
-        Gizmos.DrawLine(transform.position + Vector3.up * 0.60f, transform.position + Vector3.up * 0.60f + Vector3.right * 0.90f);
-        Gizmos.DrawLine(transform.position + Vector3.up * 0.60f, transform.position + Vector3.up * 0.60f + Vector3.left * 0.90f);
+        Gizmos.DrawLine(transform.position + Vector3.up * 1.5f, transform.position + Vector3.up * 1.5f + Vector3.right * 0.75f);
+        Gizmos.DrawLine(transform.position + Vector3.up * 1.5f, transform.position + Vector3.up * 1.5f + Vector3.left * 0.75f);
+        Gizmos.DrawLine(transform.position + Vector3.up * 0.60f, transform.position + Vector3.up * 0.60f + Vector3.right * 0.75f);
+        Gizmos.DrawLine(transform.position + Vector3.up * 0.60f, transform.position + Vector3.up * 0.60f + Vector3.left * 0.75f);
     }
 }
