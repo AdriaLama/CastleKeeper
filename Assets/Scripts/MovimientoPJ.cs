@@ -37,8 +37,9 @@ public class MovimientoPJ : MonoBehaviour
     private bool wasInAir = false;
     public float coyoteTime;
     private float coyoteTimeCounter;
+    public ParticleSystem particulas;
 
-    // Sistema de Combo
+    
     [Header("Combat System")]
     public bool isAttacking = false;
     public int currentCombo = 0;
@@ -72,7 +73,6 @@ public class MovimientoPJ : MonoBehaviour
 
     void Update()
     {
-        // Input de movimiento (solo si no está atacando)
         if (!isWallJumping && !hk.isGrappling && !isAttacking)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
@@ -82,7 +82,7 @@ public class MovimientoPJ : MonoBehaviour
             horizontal = 0;
         }
 
-        // Lógica de suelo y aire
+      
         if (!checkGroundLineCast())
         {
             wasInAir = true;
@@ -100,7 +100,7 @@ public class MovimientoPJ : MonoBehaviour
             }
         }
 
-        // Dirección del personaje
+        
         if (horizontal > 0 && !isAttacking)
         {
             isRight = true;
@@ -114,32 +114,26 @@ public class MovimientoPJ : MonoBehaviour
             sr.flipX = true;
         }
 
-        // Salto y Wall Jump
+        
         if (!isDashing && !isKnock && !isAttacking)
         {
             Jump();
             WallJump();
         }
 
-        // Dash
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isKnock && !isAttacking)
         {
             StartCoroutine(Dash());
         }
 
-        // Sistema de Combo
+     
         HandleCombatInput();
 
-        // Animación de caminar/correr
-        if (horizontal == 0 || isAttacking)
-        {
-            animator.SetBool("Run", false);
-        }
 
-        // Actualizar parámetro de velocidad en Y para animaciones de aire
+
         animator.SetFloat("AirSpeedY", rb2D.velocity.y);
 
-        // Knockback del jugador
+     
         if (vi.playerHit && vi.vidasPlayer >= 1)
         {
             StartCoroutine(Knockback(0.6f, 5f, 3f));
@@ -152,7 +146,7 @@ public class MovimientoPJ : MonoBehaviour
 
     private void HandleCombatInput()
     {
-        // Input de ataque (Q key)
+    
         if (Input.GetKeyDown(KeyCode.Q) && canAttack && !isKnock && !isDashing)
         {
             PerformAttack();
@@ -161,26 +155,26 @@ public class MovimientoPJ : MonoBehaviour
 
     private void PerformAttack()
     {
-        // Detener el coroutine de reset si existe
+  
         if (comboResetCoroutine != null)
         {
             StopCoroutine(comboResetCoroutine);
         }
 
-        // Verificar si podemos continuar el combo
+
         if (Time.time - lastAttackTime > comboWindow)
         {
             currentCombo = 0;
         }
 
-        // Incrementar combo
+    
         currentCombo++;
         if (currentCombo > 3) currentCombo = 1;
 
-        // Resetear todas las animaciones de ataque primero
+      
         ResetAllAttackAnimations();
 
-        // Ejecutar ataque según el combo actual
+      
         switch (currentCombo)
         {
             case 1:
@@ -194,23 +188,22 @@ public class MovimientoPJ : MonoBehaviour
                 break;
         }
 
-        // Actualizar tiempo del último ataque
+        
         lastAttackTime = Time.time;
         canAttack = false;
 
-        // Reproducir sonido de ataque
+      
         soundController?.PlayAttackSound();
 
-        // Iniciar coroutine para resetear combo
         comboResetCoroutine = StartCoroutine(ResetComboAfterDelay());
 
-        // Cooldown de ataque
+      
         StartCoroutine(AttackCooldown());
     }
 
     private void ResetAllAttackAnimations()
     {
-        // Resetear todos los parámetros de ataque
+     
         animator.SetBool("Attack1", false);
         animator.SetBool("Attack2", false);
         animator.SetBool("Attack3", false);
@@ -218,19 +211,16 @@ public class MovimientoPJ : MonoBehaviour
 
     private void ExecuteAttack1()
     {
-        Debug.Log("Ejecutando Ataque 1");
         animator.SetBool("Attack1", true);
         isAttacking = true;
-
         StartCoroutine(EndAttackAfterDelay(0.5f, "Attack1"));
     }
 
     private void ExecuteAttack2()
     {
-        Debug.Log("Ejecutando Ataque 2");
+
         animator.SetBool("Attack2", true);
         isAttacking = true;
-
         StartCoroutine(EndAttackAfterDelay(0.6f, "Attack2"));
     }
 
@@ -262,14 +252,13 @@ public class MovimientoPJ : MonoBehaviour
         yield return new WaitForSeconds(comboWindow);
         currentCombo = 0;
         ResetAllAttackAnimations();
-        Debug.Log("Combo reseteado por tiempo");
+        
     }
 
     private IEnumerator ResetComboAfterAttack3()
     {
         yield return new WaitForSeconds(1.0f);
         currentCombo = 0;
-        Debug.Log("Combo completado - Reseteado");
     }
 
     public int GetCurrentCombo()
@@ -293,9 +282,14 @@ public class MovimientoPJ : MonoBehaviour
     private void Move()
     {
         rb2D.velocity = new Vector2(horizontal * movSpeed, rb2D.velocity.y);
-        if (horizontal != 0)
+        if (horizontal != 0 && checkGroundLineCast())
         {
             animator.SetBool("Run", true);
+            particulas.Play();
+        }
+        else
+        {
+            animator.SetBool("Run", false);
         }
     }
 
@@ -335,7 +329,6 @@ public class MovimientoPJ : MonoBehaviour
             if (checkRightWallLineCast() && !isWallJumping)
             {
                 rb2D.velocity = new Vector2(-jumpWallx, jumpWally);
-                sr.flipX = false;
                 isWallJumping = true;
                 animator.SetBool("WallSlide", false);
                 StartCoroutine(DisableWallJumping());
@@ -343,15 +336,14 @@ public class MovimientoPJ : MonoBehaviour
             else if (checkLeftWallLineCast() && !isWallJumping)
             {
                 rb2D.velocity = new Vector2(jumpWallx, jumpWally);
-                sr.flipX = true;
                 isWallJumping = true;
                 animator.SetBool("WallSlide", false);
                 StartCoroutine(DisableWallJumping());
             }
         }
 
-        // Activar WallSlide cuando esté tocando la pared y cayendo
-        if (!checkGroundLineCast() && (checkRightWallLineCast() || checkLeftWallLineCast()) && rb2D.velocity.y < 0)
+        
+        if (!checkGroundLineCast() && (checkRightWallLineCast() || checkLeftWallLineCast()))
         {
             animator.SetBool("WallSlide", true);
         }
@@ -452,13 +444,14 @@ public class MovimientoPJ : MonoBehaviour
 
     public bool checkGroundLineCast()
     {
-        RaycastHit2D[] hit1 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.right * 0.35f, transform.position + Vector3.right * 0.35f + Vector3.down * 1.75f);
-        RaycastHit2D[] hit2 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f + Vector3.left * 0.35f, transform.position + Vector3.left * 0.35f + Vector3.down * 1.75f);
-        RaycastHit2D[] hit3 = Physics2D.LinecastAll(transform.position + Vector3.down * 1f, transform.position + Vector3.down * 1.75f);
+        RaycastHit2D[] hit1 = Physics2D.LinecastAll(transform.position + Vector3.up * 0.5f + Vector3.right * 0.35f, transform.position + Vector3.right * 0.35f + Vector3.down * 0.15f);
+        RaycastHit2D[] hit2 = Physics2D.LinecastAll(transform.position + Vector3.up * 0.5f + Vector3.left * 0.35f, transform.position + Vector3.left * 0.35f + Vector3.down * 0.15f);
+        RaycastHit2D[] hit3 = Physics2D.LinecastAll(transform.position + Vector3.up * 0.5f , transform.position + Vector3.down * 0.15f);
 
         foreach (RaycastHit2D hit in hit1)
         {
             if (hit.collider.CompareTag("Floor")) return true;
+           
         }
         foreach (RaycastHit2D hit in hit2)
         {
@@ -474,14 +467,14 @@ public class MovimientoPJ : MonoBehaviour
 
     private bool checkRightWallLineCast()
     {
-        RaycastHit2D[] hitsTop = Physics2D.LinecastAll(transform.position, transform.position + Vector3.right * 0.90f);
-        RaycastHit2D[] hitsBottom = Physics2D.LinecastAll(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 0.80f + Vector3.right * 0.90f);
+        RaycastHit2D[] hitsTop = Physics2D.LinecastAll(transform.position + Vector3.up * 1.5f, transform.position + Vector3.up * 1.5f + Vector3.right * 0.90f);
+        RaycastHit2D[] hitsBottom = Physics2D.LinecastAll(transform.position + Vector3.up * 0.60f, transform.position + Vector3.up * 0.60f + Vector3.right * 0.90f);
 
         foreach (RaycastHit2D hit in hitsTop)
         {
             if (hit.collider.CompareTag("Wall"))
             {
-                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
+         
                 return true;
             }
         }
@@ -490,7 +483,7 @@ public class MovimientoPJ : MonoBehaviour
         {
             if (hit.collider.CompareTag("Wall"))
             {
-                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
+  
                 return true;
             }
         }
@@ -500,14 +493,14 @@ public class MovimientoPJ : MonoBehaviour
 
     private bool checkLeftWallLineCast()
     {
-        RaycastHit2D[] hitsTop = Physics2D.LinecastAll(transform.position, transform.position + Vector3.left * 0.90f);
-        RaycastHit2D[] hitsBottom = Physics2D.LinecastAll(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 0.80f + Vector3.left * 0.90f);
+        RaycastHit2D[] hitsTop = Physics2D.LinecastAll(transform.position + Vector3.up * 1.5f, transform.position + Vector3.up * 1.5f + Vector3.left * 0.90f);
+        RaycastHit2D[] hitsBottom = Physics2D.LinecastAll(transform.position + Vector3.up * 0.60f, transform.position + Vector3.up * 0.60f + Vector3.left * 0.90f);
 
         foreach (RaycastHit2D hit in hitsTop)
         {
             if (hit.collider.CompareTag("Wall"))
             {
-                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
+           
                 return true;
             }
         }
@@ -516,7 +509,7 @@ public class MovimientoPJ : MonoBehaviour
         {
             if (hit.collider.CompareTag("Wall"))
             {
-                vx.sharedMaterial = new PhysicsMaterial2D() { friction = 5f };
+               
                 return true;
             }
         }
@@ -534,12 +527,12 @@ public class MovimientoPJ : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.right * 0.35f, transform.position + Vector3.right * 0.35f + Vector3.down * 1.75f);
-        Gizmos.DrawLine(transform.position + Vector3.down * 1f + Vector3.left * 0.35f, transform.position + Vector3.left * 0.35f + Vector3.down * 1.75f);
-        Gizmos.DrawLine(transform.position + Vector3.down * 1f, transform.position + Vector3.down * 1.75f);
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.right * 0.90f);
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.left * 0.90f);
-        Gizmos.DrawLine(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 0.80f + Vector3.right * 0.90f);
-        Gizmos.DrawLine(transform.position + Vector3.down * 0.80f, transform.position + Vector3.down * 0.80f + Vector3.left * 0.90f);
+        Gizmos.DrawLine(transform.position + Vector3.up * 0.5f + Vector3.right * 0.35f, transform.position + Vector3.right * 0.35f + Vector3.down * 0.15f);
+        Gizmos.DrawLine(transform.position + Vector3.up * 0.5f + Vector3.left * 0.35f, transform.position + Vector3.left * 0.35f + Vector3.down * 0.15f);
+        Gizmos.DrawLine(transform.position + Vector3.up * 0.5f , transform.position + Vector3.down * 0.15f);
+        Gizmos.DrawLine(transform.position + Vector3.up * 1.5f, transform.position + Vector3.up * 1.5f + Vector3.right * 0.90f);
+        Gizmos.DrawLine(transform.position + Vector3.up * 1.5f, transform.position + Vector3.up * 1.5f + Vector3.left * 0.90f);
+        Gizmos.DrawLine(transform.position + Vector3.up * 0.60f, transform.position + Vector3.up * 0.60f + Vector3.right * 0.90f);
+        Gizmos.DrawLine(transform.position + Vector3.up * 0.60f, transform.position + Vector3.up * 0.60f + Vector3.left * 0.90f);
     }
 }
