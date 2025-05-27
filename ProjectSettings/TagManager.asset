@@ -30,6 +30,8 @@ TagManager:
   - DoorFinish
   - CameraSwitch
   - Key
+  - tpTuto
+  - keyDoor
   layers:
   - Default
   - TransparentFX

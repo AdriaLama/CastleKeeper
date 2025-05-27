@@ -6,6 +6,8 @@ using UnityEngine;
 public class KeyDoor : MonoBehaviour
 {
     public GameObject doorKey;
+    public bool hasKey = false;
+    public GameObject key;
     void Start()
     {
         
@@ -22,7 +24,8 @@ public class KeyDoor : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
-            Destroy(doorKey);
+            hasKey = true;
+            key.SetActive(true);
         }
     }
 }

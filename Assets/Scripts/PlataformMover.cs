@@ -18,7 +18,7 @@ public class PlatformMover : MonoBehaviour
     {
         velocidad0 = velocidadDefault;
         destino = puntoB.position;
-        canMove = true;
+        canMove = false;
     }
 
     void Update()
@@ -48,6 +48,7 @@ public class PlatformMover : MonoBehaviour
         {
             collision.transform.SetParent(transform);
             velocidad0 -= 2;
+            canMove = true;
            
         }
     }

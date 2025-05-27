@@ -11,6 +11,7 @@ public class MovimientoPJ : MonoBehaviour
     private PickItems pi;
     private Vidas vi;
     private Hook hk;
+    private KeyDoor kd;
     public SpriteRenderer sr;
     public Animator animator;
     public float movSpeed;
@@ -38,6 +39,7 @@ public class MovimientoPJ : MonoBehaviour
     public float coyoteTime;
     private float coyoteTimeCounter;
     public ParticleSystem particulas;
+    public GameObject key;
 
 
     [Header("Combat System")]
@@ -65,6 +67,7 @@ public class MovimientoPJ : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         hk = GetComponent<Hook>();
         animator = GetComponent<Animator>();
+        kd = FindObjectOfType<KeyDoor>();
         movSpeedDefault = movSpeed;
         
 
@@ -361,6 +364,7 @@ public class MovimientoPJ : MonoBehaviour
                 sr.flipX = true;
                 animator.SetBool("WallSlide", false);
                 StartCoroutine(DisableWallJumping());
+
             }
             else if (checkLeftWallLineCast() && !isWallJumping)
             {
@@ -436,6 +440,10 @@ public class MovimientoPJ : MonoBehaviour
         {
             bossDoor = true;
         }
+        if (collision.gameObject.CompareTag("tpTuto"))
+        {
+            transform.position = new Vector2(-2.67f, -4.05f);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -443,6 +451,16 @@ public class MovimientoPJ : MonoBehaviour
         if (collision.gameObject.CompareTag("Pinchos"))
         {
             vi.vidasPlayer = 0;
+        }
+        if (collision.gameObject.CompareTag("keyDoor") && kd.hasKey)
+        {
+            Destroy(collision.gameObject);
+
+            if (key.activeInHierarchy)
+            {
+                key.SetActive(false);
+            }
+            
         }
     }
 

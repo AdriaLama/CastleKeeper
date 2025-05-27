@@ -34,16 +34,16 @@ public class Hook : MonoBehaviour
 
         if (isGrappling)
         {
-            line.SetPosition(0, transform.position + Vector3.up * 1.5f);
+            line.SetPosition(0, transform.position + Vector3.up * 2f);
         }
 
         if (retracting)
         {
             transform.position = Vector2.Lerp(transform.position, target, grappleSpeed * Time.deltaTime);
-            line.SetPosition(0, transform.position + Vector3.up * 1.5f);
+            line.SetPosition(0, transform.position + Vector3.up * 2f);
             line.SetPosition(1, target);
 
-            if (Vector2.Distance(transform.position, target) < 1.5f)
+            if (Vector2.Distance(transform.position, target) < 2f)
             {
                 retracting = false;
                 isGrappling = false;
@@ -60,7 +60,7 @@ public class Hook : MonoBehaviour
         hitSomething = false;
 
         Vector2 mouseWorldPos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 hookStartPos = (Vector2)transform.position + Vector2.up * 1.5f;
+        Vector2 hookStartPos = (Vector2)transform.position + Vector2.up * 2f;
         Vector2 direction = mouseWorldPos - hookStartPos;
 
         RaycastHit2D hit = Physics2D.Raycast(hookStartPos, direction.normalized, maxDistance, grapplableMask);
@@ -88,7 +88,7 @@ public class Hook : MonoBehaviour
     {
         float t = 0;
         float duration = 0.3f;
-        Vector2 hookStartPos = (Vector2)transform.position + Vector2.up * 1.5f;
+        Vector2 hookStartPos = (Vector2)transform.position + Vector2.up * 2f;
 
         while (t < 1)
         {
