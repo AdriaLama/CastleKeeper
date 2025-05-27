@@ -69,7 +69,7 @@ public class MovimientoPJ : MonoBehaviour
         animator = GetComponent<Animator>();
         kd = FindObjectOfType<KeyDoor>();
         movSpeedDefault = movSpeed;
-        
+
 
         soundController = GetComponent<PlayerSoundController>();
 
@@ -81,10 +81,11 @@ public class MovimientoPJ : MonoBehaviour
 
     void Update()
     {
+        
         if (!isWallJumping && !hk.isGrappling)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
-        }   
+        }
 
         if (!checkGroundLineCast())
         {
@@ -103,20 +104,19 @@ public class MovimientoPJ : MonoBehaviour
             }
         }
 
-
-        if (horizontal > 0 && !isAttacking)
+       
+        if (horizontal > 0 && !isAttacking && !isWallJumping)
         {
             isRight = true;
             isLeft = false;
             sr.flipX = false;
         }
-        if (horizontal < 0 && !isAttacking)
+        if (horizontal < 0 && !isAttacking && !isWallJumping)
         {
             isLeft = true;
             isRight = false;
             sr.flipX = true;
         }
-
 
         if (!isDashing && !isKnock && !isAttacking)
         {
@@ -129,11 +129,9 @@ public class MovimientoPJ : MonoBehaviour
             StartCoroutine(Dash());
         }
 
-
         HandleCombatInput();
 
         animator.SetFloat("AirSpeedY", rb2D.velocity.y);
-
 
         if (vi.playerHit && vi.vidasPlayer >= 1)
         {
@@ -147,7 +145,7 @@ public class MovimientoPJ : MonoBehaviour
 
     private void HandleCombatInput()
     {
-        
+
         if (Input.GetKeyDown(KeyCode.Mouse0) && canAttack && !isKnock && !isDashing && !isComboOnCooldown)
         {
             PerformAttack();
@@ -156,26 +154,26 @@ public class MovimientoPJ : MonoBehaviour
 
     private void PerformAttack()
     {
-       
+
         if (comboResetCoroutine != null)
         {
             StopCoroutine(comboResetCoroutine);
         }
 
-        
+
         if (Time.time - lastAttackTime > comboWindow)
         {
             currentCombo = 0;
         }
 
-       
+
         currentCombo++;
         if (currentCombo > 3) currentCombo = 1;
 
-        
+
         ResetAllAttackAnimations();
 
-       
+
         switch (currentCombo)
         {
             case 1:
@@ -189,25 +187,25 @@ public class MovimientoPJ : MonoBehaviour
                 break;
         }
 
-       
+
         lastAttackTime = Time.time;
         canAttack = false;
 
-        
+
         soundController?.PlayAttackSound();
 
-        
+
         if (currentCombo == 3)
         {
             StartCoroutine(ComboCompleteCooldown());
         }
         else
         {
-            
+
             comboResetCoroutine = StartCoroutine(ResetComboAfterDelay());
         }
 
-        
+
         StartCoroutine(AttackCooldown());
     }
 
@@ -234,7 +232,7 @@ public class MovimientoPJ : MonoBehaviour
 
     private void ExecuteAttack3()
     {
-      
+
         animator.SetBool("Attack3", true);
         isAttacking = true;
         StartCoroutine(EndAttackAfterDelay(1.01f, "Attack3"));
@@ -260,24 +258,24 @@ public class MovimientoPJ : MonoBehaviour
         ResetAllAttackAnimations();
     }
 
-    
+
     private IEnumerator ComboCompleteCooldown()
     {
-      
+
         isComboOnCooldown = true;
 
-        
+
         yield return new WaitForSeconds(comboCompleteCooldown);
 
-        
+
         currentCombo = 0;
         isComboOnCooldown = false;
         ResetAllAttackAnimations();
 
-       
+
     }
 
-    
+
     public int GetCurrentCombo()
     {
         return currentCombo;
@@ -296,7 +294,7 @@ public class MovimientoPJ : MonoBehaviour
     public float GetComboCooldownTimeRemaining()
     {
         if (comboCooldownCoroutine != null && isComboOnCooldown)
-        {      
+        {
             return isComboOnCooldown ? -1f : 0f;
         }
         return 0f;
@@ -460,7 +458,7 @@ public class MovimientoPJ : MonoBehaviour
             {
                 key.SetActive(false);
             }
-            
+
         }
     }
 
