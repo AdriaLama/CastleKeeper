@@ -145,7 +145,7 @@ public class MovimientoPJ : MonoBehaviour
     private void HandleCombatInput()
     {
         
-        if (Input.GetKeyDown(KeyCode.Q) && canAttack && !isKnock && !isDashing && !isComboOnCooldown)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && canAttack && !isKnock && !isDashing && !isComboOnCooldown)
         {
             PerformAttack();
         }

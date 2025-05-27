@@ -108,7 +108,7 @@ MonoBehaviour:
   playerInRange: 0
   colision1: {fileID: 0}
   colision2: {fileID: 0}
-  vidasEnemigo: 2
+  vidasEnemigo: 4
   sr: {fileID: 0}
   rb: {fileID: 0}
 --- !u!61 &-3872585554782863825

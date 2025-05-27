@@ -11,7 +11,6 @@ public class Hook : MonoBehaviour
     public float maxDistance;
     public float grappleSpeed;
     public float grappleShootSpeed;
-    public float hookCD = 1.5f;
     private bool canHook = true;
     public bool isGrappling = false;
     private bool retracting = false;
@@ -28,9 +27,9 @@ public class Hook : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && !isGrappling && canHook && pi.hasHook)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !isGrappling && canHook && pi.hasHook)
         {
-            StartCoroutine(StartGrapple());
+            StartGrapple();
         }
 
         if (isGrappling)
@@ -55,7 +54,7 @@ public class Hook : MonoBehaviour
         }
     }
 
-    private IEnumerator StartGrapple()
+    private void StartGrapple()
     {
         canHook = false;
         hitSomething = false;
@@ -81,7 +80,6 @@ public class Hook : MonoBehaviour
 
         StartCoroutine(Grapple());
 
-        yield return new WaitForSeconds(hookCD);
         canHook = true;
     }
 
