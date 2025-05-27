@@ -234,7 +234,7 @@ public class MovimientoPJ : MonoBehaviour
       
         animator.SetBool("Attack3", true);
         isAttacking = true;
-        StartCoroutine(EndAttackAfterDelay(0.8f, "Attack3"));
+        StartCoroutine(EndAttackAfterDelay(1.01f, "Attack3"));
     }
 
     private IEnumerator EndAttackAfterDelay(float delay, string attackParam)
