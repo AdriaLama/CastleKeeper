@@ -34,7 +34,7 @@ public class Hook : MonoBehaviour
 
         if (isGrappling)
         {
-            line.SetPosition(0, transform.position + Vector3.up * 1.5f); 
+            line.SetPosition(0, transform.position + Vector3.up * 1.5f);
         }
 
         if (retracting)
@@ -59,8 +59,11 @@ public class Hook : MonoBehaviour
         canHook = false;
         hitSomething = false;
 
-        Vector2 direction = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)transform.position + Vector2.up * 1.5f;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + Vector3.up * 1.5f, direction.normalized, maxDistance, grapplableMask);
+        Vector2 mouseWorldPos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 hookStartPos = (Vector2)transform.position + Vector2.up * 1.5f;
+        Vector2 direction = mouseWorldPos - hookStartPos;
+
+        RaycastHit2D hit = Physics2D.Raycast(hookStartPos, direction.normalized, maxDistance, grapplableMask);
 
         if (hit.collider != null)
         {
@@ -69,29 +72,28 @@ public class Hook : MonoBehaviour
         }
         else
         {
-            target = (Vector2)transform.position + direction.normalized * maxDistance;
+            target = hookStartPos + direction.normalized * maxDistance;
         }
 
         isGrappling = true;
         line.enabled = true;
         line.positionCount = 2;
-        line.SetPosition(0, transform.position + Vector3.up * 1.5f);
-        line.SetPosition(1, transform.position + Vector3.up * 1.5f);
-
+        line.SetPosition(0, hookStartPos);
+        line.SetPosition(1, hookStartPos);
         StartCoroutine(Grapple());
-
         canHook = true;
     }
 
     private IEnumerator Grapple()
     {
         float t = 0;
-        float duration = 0.3f; 
+        float duration = 0.3f;
+        Vector2 hookStartPos = (Vector2)transform.position + Vector2.up * 1.5f;
 
         while (t < 1)
         {
             t += Time.deltaTime / duration;
-            Vector2 newPos = Vector2.Lerp(transform.position + Vector3.up * 1.5f, target, t);
+            Vector2 newPos = Vector2.Lerp(hookStartPos, target, t);
             line.SetPosition(1, newPos);
             yield return null;
         }
