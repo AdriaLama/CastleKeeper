@@ -13,6 +13,7 @@ public class tpPlayer : MonoBehaviour
     public float stairsY;
     public float stairs2X;
     public float stairs2Y;
+    public bool canMoveTp = true;
   
     void Start()
     {
@@ -28,13 +29,24 @@ public class tpPlayer : MonoBehaviour
         if (collision.gameObject.CompareTag("tp1"))
         {
             transform.position = new Vector2(stairsX, stairsY);
-            
+            isTp1 = true;
+            StartCoroutine(canMoveAfterTp());
+
         }
         if (collision.gameObject.CompareTag("tp2"))
         {
-            
+
             transform.position = new Vector2(stairs2X, stairs2Y);
-           
+            isTp2 = true;
+            StartCoroutine(canMoveAfterTp());
+
         }
+    }
+
+    private IEnumerator canMoveAfterTp()
+    {
+        canMoveTp = false;
+        yield return new WaitForSeconds(1.5f);
+        canMoveTp = true;
     }
 }

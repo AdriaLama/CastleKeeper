@@ -12,6 +12,7 @@ public class MovimientoPJ : MonoBehaviour
     private Vidas vi;
     private Hook hk;
     private KeyDoor kd;
+    private tpPlayer tp;
     public SpriteRenderer sr;
     public Animator animator;
     public float movSpeed;
@@ -40,6 +41,7 @@ public class MovimientoPJ : MonoBehaviour
     private float coyoteTimeCounter;
     public ParticleSystem particulas;
     public GameObject key;
+    public bool isBossScene = false;
 
 
     [Header("Combat System")]
@@ -68,6 +70,7 @@ public class MovimientoPJ : MonoBehaviour
         hk = GetComponent<Hook>();
         animator = GetComponent<Animator>();
         kd = FindObjectOfType<KeyDoor>();
+        tp = GetComponent<tpPlayer>();
         movSpeedDefault = movSpeed;
 
 
@@ -304,7 +307,15 @@ public class MovimientoPJ : MonoBehaviour
     {
         if (!isDashing && !isWallJumping && !isKnock)
         {
-            Move();
+            if (tp.canMoveTp)
+            {
+                Move();
+            }
+            else
+            {
+                
+                rb2D.velocity = new Vector2(0f, rb2D.velocity.y);
+            }
         }
     }
 
@@ -425,6 +436,7 @@ public class MovimientoPJ : MonoBehaviour
         if (bossDoor)
         {
             SceneManager.LoadScene("PruebaJefe");
+            isBossScene = true;
         }
     }
 
