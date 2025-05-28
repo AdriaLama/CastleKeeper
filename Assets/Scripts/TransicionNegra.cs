@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TransicionNegra : MonoBehaviour
 {
@@ -31,7 +32,7 @@ public class TransicionNegra : MonoBehaviour
         a = Mathf.Clamp(a, 0f, 1f);
         ChangeColor();
 
-        if (tp.isTp1 || tp.isTp2 || bs.isBossScene)
+        if (tp.isTp1 || tp.isTp2)
         {
             a += 1f;
             a = Mathf.Clamp(a, 0f, 1f);
@@ -45,10 +46,7 @@ public class TransicionNegra : MonoBehaviour
             {
                 StartCoroutine(falseIsTrue2());
             }
-            if (bs.isBossScene)
-            {
-                StartCoroutine(falseIsBossScene());
-            }
+           
         }
     }
 
@@ -68,10 +66,9 @@ public class TransicionNegra : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         tp.isTp2 = false;
     }
-    private IEnumerator falseIsBossScene()
-    {
-        yield return new WaitForSeconds(1.5f);
-        bs.isBossScene = false;
-    }
+
+
 }
+
+
 

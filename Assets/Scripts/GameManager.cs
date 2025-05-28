@@ -7,6 +7,13 @@ public class GameManager : MonoBehaviour
 {
     public bool isPaused = false;
     public GameObject pauseMenuUI;
+    private MovimientoPJ pj;
+    public Animator transitionAnimation;
+
+    private void Start()
+    {
+        pj = FindObjectOfType<MovimientoPJ>();
+    }
     public void Play()
     {
         SceneManager.LoadScene("Sala1");
@@ -50,6 +57,13 @@ public class GameManager : MonoBehaviour
 
                 }
             }
+
+        if (pj.bossTransition)
+        {
+            SceneManager.LoadScene("PruebaJefe");
+            transitionAnimation.SetTrigger("Begin");
+
+        }
     }
 
     public void Paused()

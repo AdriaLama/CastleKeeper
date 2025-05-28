@@ -41,7 +41,8 @@ public class MovimientoPJ : MonoBehaviour
     private float coyoteTimeCounter;
     public ParticleSystem particulas;
     public GameObject key;
-    public bool isBossScene = false;
+    public bool bossTransition = false;
+    
 
 
     [Header("Combat System")]
@@ -435,8 +436,7 @@ public class MovimientoPJ : MonoBehaviour
     {
         if (bossDoor)
         {
-            SceneManager.LoadScene("PruebaJefe");
-            isBossScene = true;
+            bossTransition = true;
         }
     }
 
