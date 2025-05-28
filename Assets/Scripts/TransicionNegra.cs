@@ -17,13 +17,16 @@ public class TransicionNegra : MonoBehaviour
 
     void Update()
     {
-       
-        if (tp.isTp1 || tp.isTp2)
+
+        if (tp.isTp1)
         {
             transicionAnimacion.SetTrigger("Begin");
-            tp.isTp1 = false;
-            tp.isTp2 = false;
-
+          
+        }
+        else if (tp.isTp2)
+        {
+            transicionAnimacion.SetTrigger("Begin");
+            
         }
     }
 

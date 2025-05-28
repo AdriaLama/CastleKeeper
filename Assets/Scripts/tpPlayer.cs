@@ -31,7 +31,7 @@ public class tpPlayer : MonoBehaviour
         {
             transform.position = new Vector2(stairsX, stairsY);
             isTp1 = true;
-            StartCoroutine(canMoveAfterTp());
+          
 
         }
         if (collision.gameObject.CompareTag("tp2"))
@@ -39,20 +39,29 @@ public class tpPlayer : MonoBehaviour
 
             transform.position = new Vector2(stairs2X, stairs2Y);
             isTp2 = true;
-            StartCoroutine(canMoveAfterTp());
+           
 
         }
-        if (SceneManager.GetActiveScene().name == "PruebaJefe")
+       
+       
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("tp1"))
         {
-            StartCoroutine(canMoveAfterTp());
+            
+            isTp1 = false;
+
+
         }
-        if (SceneManager.GetActiveScene().name == "Sala1")
+        if (collision.gameObject.CompareTag("tp2"))
         {
-            StartCoroutine(canMoveAfterTp());
-        }
-        if (SceneManager.GetActiveScene().name == "Tutorial")
-        {
-            StartCoroutine(canMoveAfterTp());
+
+            
+            isTp2 = false;
+
+
         }
     }
 

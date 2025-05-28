@@ -86,7 +86,7 @@ public class MovimientoPJ : MonoBehaviour
     void Update()
     {
         
-        if (!isWallJumping && !hk.isGrappling)
+        if (!isWallJumping && !hk.isGrappling && tp.canMoveTp)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
         }
@@ -142,6 +142,8 @@ public class MovimientoPJ : MonoBehaviour
             StartCoroutine(Knockback(0.6f, 5f, 3f));
             vi.playerHit = false;
         }
+
+
 
         DoorTutorial();
         BossDoor();
@@ -308,15 +310,8 @@ public class MovimientoPJ : MonoBehaviour
     {
         if (!isDashing && !isWallJumping && !isKnock)
         {
-            if (tp.canMoveTp)
-            {
-                Move();
-            }
-            else
-            {
-                
-                rb2D.velocity = new Vector2(0f, rb2D.velocity.y);
-            }
+             Move();
+            
         }
     }
 
