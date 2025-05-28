@@ -7,6 +7,7 @@ public class BossMagic : MonoBehaviour
     public float activeDuration = 2f;
     public Color warningColor = new Color(1f, 0.5f, 0.5f, 0.5f);
     public Color activeColor = new Color(1f, 0f, 0f, 1f);
+    private int j = 5;
 
     private Vidas vd;
     private bool isActive = false;
