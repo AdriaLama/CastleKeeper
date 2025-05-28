@@ -14,27 +14,21 @@ public class PlayerSoundController : MonoBehaviour
 
     public void PlayDashSound()
     {
-        Debug.Log("Dash sound trigger");
+       
         if (dashSound != null)
         {
             audioSource.PlayOneShot(dashSound);
         }
-        else
-        {
-            Debug.LogWarning("dashSound no asignado.");
-        }
+     
     }
 
     public void PlayAttackSound()
     {
-        Debug.Log("Attack sound trigger");
+       
         if (attackSound != null)
         {
             audioSource.PlayOneShot(attackSound);
         }
-        else
-        {
-            Debug.LogWarning("attackSound no asignado.");
-        }
+       
     }
 }

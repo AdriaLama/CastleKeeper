@@ -436,7 +436,7 @@ public class MovimientoPJ : MonoBehaviour
     {
         if (bossDoor)
         {
-            bossTransition = true;
+            SceneManager.LoadScene("PruebaJefe");
         }
     }
 

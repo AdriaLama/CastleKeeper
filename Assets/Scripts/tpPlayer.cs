@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class tpPlayer : MonoBehaviour
 {
@@ -41,12 +42,24 @@ public class tpPlayer : MonoBehaviour
             StartCoroutine(canMoveAfterTp());
 
         }
+        if (SceneManager.GetActiveScene().name == "PruebaJefe")
+        {
+            StartCoroutine(canMoveAfterTp());
+        }
+        if (SceneManager.GetActiveScene().name == "Sala1")
+        {
+            StartCoroutine(canMoveAfterTp());
+        }
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            StartCoroutine(canMoveAfterTp());
+        }
     }
 
     private IEnumerator canMoveAfterTp()
     {
         canMoveTp = false;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         canMoveTp = true;
     }
 }

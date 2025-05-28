@@ -13,6 +13,19 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         pj = FindObjectOfType<MovimientoPJ>();
+
+        if (SceneManager.GetActiveScene().name == "PruebaJefe")
+        {
+            transitionAnimation.SetTrigger("Begin");
+        }
+        if (SceneManager.GetActiveScene().name == "Sala1")
+        {
+            transitionAnimation.SetTrigger("Begin");
+        }
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            transitionAnimation.SetTrigger("Begin");
+        }
     }
     public void Play()
     {
@@ -58,14 +71,8 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-        if (pj.bossTransition)
-        {
-            SceneManager.LoadScene("PruebaJefe");
-            transitionAnimation.SetTrigger("Begin");
 
-        }
     }
-
     public void Paused()
     {
         pauseMenuUI.SetActive(true);
