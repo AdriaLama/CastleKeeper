@@ -9,23 +9,20 @@ public class GameManager : MonoBehaviour
     public GameObject pauseMenuUI;
     private MovimientoPJ pj;
     public Animator transitionAnimation;
+    public GameObject canvas;
+    public bool activarHud = false;
 
     private void Start()
     {
         pj = FindObjectOfType<MovimientoPJ>();
 
-        if (SceneManager.GetActiveScene().name == "PruebaJefe")
+        if (SceneManager.GetActiveScene().name == "PruebaJefe" || SceneManager.GetActiveScene().name == "Sala1" || SceneManager.GetActiveScene().name == "Tutorial")
         {
             transitionAnimation.SetTrigger("Begin");
+
+            StartCoroutine(activarHUD());
         }
-        if (SceneManager.GetActiveScene().name == "Sala1")
-        {
-            transitionAnimation.SetTrigger("Begin");
-        }
-        if (SceneManager.GetActiveScene().name == "Tutorial")
-        {
-            transitionAnimation.SetTrigger("Begin");
-        }
+      
     }
     public void Play()
     {
@@ -90,4 +87,10 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    public IEnumerator activarHUD()
+    {
+        yield return new WaitForSeconds(1f);
+        activarHud = true;
+        canvas.SetActive(true);
+    }
 }
