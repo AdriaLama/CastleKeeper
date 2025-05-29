@@ -20,11 +20,13 @@ public class TransicionNegra : MonoBehaviour
 
         if (tp.isTp1)
         {
+            transicionAnimacion.ResetTrigger("Begin");
             transicionAnimacion.SetTrigger("Begin");
           
         }
-        else if (tp.isTp2)
+        if (tp.isTp2)
         {
+            transicionAnimacion.ResetTrigger("Begin");
             transicionAnimacion.SetTrigger("Begin");
             
         }

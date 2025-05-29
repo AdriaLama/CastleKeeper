@@ -46,25 +46,7 @@ public class tpPlayer : MonoBehaviour
        
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("tp1"))
-        {
-            
-            isTp1 = false;
-
-
-        }
-        if (collision.gameObject.CompareTag("tp2"))
-        {
-
-            
-            isTp2 = false;
-
-
-        }
-    }
-
+   
     private IEnumerator canMoveAfterTp()
     {
         canMoveTp = false;
