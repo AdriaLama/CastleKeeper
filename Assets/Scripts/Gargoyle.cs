@@ -11,7 +11,13 @@ public class Gargoyle : MonoBehaviour
     public float TiempoDeUltimaBala;
     public GameObject balaEnemigo;
     public bool playerInRange = false;
+    public AudioClip attackSound;
+    private AudioSource audioSource;
 
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public void Update()
     {
@@ -30,7 +36,13 @@ public class Gargoyle : MonoBehaviour
     public void Disparar()
     {
         Instantiate(balaEnemigo, controladorDisparo.position, controladorDisparo.rotation);
+
+        if (attackSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(attackSound);
+        }
     }
+
 
     public void SetPlayerInRange(bool inRange)
     {

@@ -42,7 +42,11 @@ public class MovimientoPJ : MonoBehaviour
     public ParticleSystem particulas;
     public GameObject key;
     public bool bossTransition = false;
-    
+    private bool canPlayJumpSound = false;
+    private float jumpInputLockTime = 0.2f; 
+    private float jumpInputTimer = 0f;
+    private bool jumpInputReleased = false;
+
 
 
     [Header("Combat System")]
@@ -73,6 +77,8 @@ public class MovimientoPJ : MonoBehaviour
         kd = FindObjectOfType<KeyDoor>();
         tp = GetComponent<tpPlayer>();
         movSpeedDefault = movSpeed;
+        StartCoroutine(EnableJumpSoundDelay());
+        jumpInputTimer = jumpInputLockTime;
 
 
         soundController = GetComponent<PlayerSoundController>();
@@ -143,10 +149,19 @@ public class MovimientoPJ : MonoBehaviour
             vi.playerHit = false;
         }
 
+        if (jumpInputTimer > 0f)
+        {
+            jumpInputTimer -= Time.deltaTime;
+        }
 
 
         DoorTutorial();
         BossDoor();
+    }
+    private IEnumerator EnableJumpSoundDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
+        canPlayJumpSound = true;
     }
 
     private void HandleCombatInput()
@@ -198,18 +213,17 @@ public class MovimientoPJ : MonoBehaviour
         canAttack = false;
 
 
-        soundController?.PlayAttackSound();
-
-
         if (currentCombo == 3)
         {
+            soundController?.PlayHeavyAttackSound();
             StartCoroutine(ComboCompleteCooldown());
         }
         else
         {
-
+            soundController?.PlayAttackSound();
             comboResetCoroutine = StartCoroutine(ResetComboAfterDelay());
         }
+
 
 
         StartCoroutine(AttackCooldown());
@@ -340,6 +354,15 @@ public class MovimientoPJ : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
         }
 
+        // Marcar cuando el jugador suelta la tecla
+        if (Input.GetButtonUp("Jump"))
+        {
+            jumpInputReleased = true;
+        }
+
+        // Ignorar si la tecla no ha sido soltada todavía
+        if (!jumpInputReleased) return;
+
         if (Input.GetButtonDown("Jump"))
         {
             if (coyoteTimeCounter > 0f)
@@ -347,6 +370,7 @@ public class MovimientoPJ : MonoBehaviour
                 canDoubleJump = true;
                 rb2D.velocity = new Vector2(rb2D.velocity.x, jumpSpeed);
                 animator.SetBool("Jump", true);
+                soundController?.PlayJumpSound();
             }
             else if (canDoubleJump)
             {
@@ -354,9 +378,12 @@ public class MovimientoPJ : MonoBehaviour
                 canDoubleJump = false;
                 animator.SetBool("Jump", true);
                 coyoteTimeCounter = 0f;
+                soundController?.PlayDoubleJumpSound();
             }
         }
     }
+
+
 
     private void WallJump()
     {

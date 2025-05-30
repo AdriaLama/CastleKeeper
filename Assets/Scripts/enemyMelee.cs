@@ -24,7 +24,11 @@ public class enemyMelee : MonoBehaviour
     private BoxCollider2D bx;
     private float cdHitAnimation = 1.2f;
     private Vidas vd;
-    
+    public AudioClip attackSound;
+    public AudioClip hitSound;
+
+    private AudioSource audioSource;
+
 
 
 
@@ -40,8 +44,9 @@ public class enemyMelee : MonoBehaviour
        rb = GetComponent<Rigidbody2D>();
        bx = GetComponent<BoxCollider2D>();
        vd = FindObjectOfType<Vidas>();
-       
-       
+        audioSource = GetComponent<AudioSource>();
+
+
     }
 
     void Update()
@@ -67,9 +72,17 @@ public class enemyMelee : MonoBehaviour
 
             if (vd != null && vd.canHit)
             {
-                animator.SetBool("Attack", true);
+                if (!animator.GetBool("Attack"))
+                {
+                    animator.SetBool("Attack", true);
 
+                    if (attackSound != null && audioSource != null)
+                    {
+                        audioSource.PlayOneShot(attackSound);
+                    }
+                }
             }
+
             else
             {
                 animator.SetBool("Attack", false);
@@ -151,8 +164,15 @@ public class enemyMelee : MonoBehaviour
     public void ReceiveHit()
     {
         sr.color = Color.red;
+
+        if (hitSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(hitSound);
+        }
+
         StartCoroutine(ResetHitAnimation());
     }
+
 
     private IEnumerator ResetHitAnimation()
     {

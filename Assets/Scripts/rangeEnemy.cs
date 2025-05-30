@@ -22,6 +22,10 @@ public class rangeEnemy : MonoBehaviour
     private Vector2 direccionDisparo;
     private Animator animator;
     private float cdHitAnimation = 1.2f;
+    public AudioClip attackSound;
+    public AudioClip hitSound;
+
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -29,6 +33,7 @@ public class rangeEnemy : MonoBehaviour
         speedDefault = speed;
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -89,8 +94,15 @@ public class rangeEnemy : MonoBehaviour
     public void ReceiveHit()
     {
         sr.color = Color.red;
+
+        if (hitSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(hitSound);
+        }
+
         StartCoroutine(ResetHitAnimation());
     }
+
 
     private IEnumerator ResetHitAnimation()
     {
@@ -101,7 +113,13 @@ public class rangeEnemy : MonoBehaviour
     {
         GameObject nuevaBala = Instantiate(balaEnemigo, controladorDisparo.position, controladorDisparo.rotation);
         nuevaBala.GetComponent<BulletEnemyRange>().SetDireccion(direccionDisparo);
+
+        if (attackSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(attackSound);
+        }
     }
+
 
     public void SetPlayerInRange(bool inRange)
     {
