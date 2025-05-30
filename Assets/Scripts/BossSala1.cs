@@ -9,6 +9,7 @@ public class BossSala1 : MonoBehaviour
     public bool isRight = false;
     public bool isLeft = false;
     public float speed;
+    public int j = 5;
 
     public Transform transformPlayer;
     public bool playerInRange = false;
@@ -24,7 +25,6 @@ public class BossSala1 : MonoBehaviour
     public GameObject doorFinish;
     private bool doorSpawned = false;
 
-
     private float cdHitAnimation = 1.2f;
     private Vidas vd;
     private bool isDead = false;
@@ -35,6 +35,16 @@ public class BossSala1 : MonoBehaviour
     private bool useSpellAttack = false;
     public float castDuration;
     public float spellDuration;
+
+    
+    public float teleportCooldown = 4f; 
+    private float currentTeleportCooldown;
+    public float teleportChance = 0.4f; 
+    private bool isTeleporting = false;
+    public float teleportRange = 10f; 
+    public float vanishDuration = 1f; 
+    public float respawnDuration = 1f; 
+    private bool hasAttackedOnce = false; 
 
     void Start()
     {
@@ -58,9 +68,9 @@ public class BossSala1 : MonoBehaviour
             isRight = true;
         }
 
-
+        currentTeleportCooldown = teleportCooldown; 
+        hasAttackedOnce = false;
         ResetAllAnimations();
-
         animator.SetBool("IdleBoss", true);
     }
 
@@ -77,7 +87,7 @@ public class BossSala1 : MonoBehaviour
             return;
         }
 
-        if (animator.GetBool("HurtBoss"))
+        if (animator.GetBool("HurtBoss") || isTeleporting)
         {
             return;
         }
@@ -85,6 +95,11 @@ public class BossSala1 : MonoBehaviour
         if (currentAttackCooldown > 0)
         {
             currentAttackCooldown -= Time.deltaTime;
+        }
+
+        if (currentTeleportCooldown > 0)
+        {
+            currentTeleportCooldown -= Time.deltaTime;
         }
 
         if (transformPlayer != null)
@@ -118,19 +133,28 @@ public class BossSala1 : MonoBehaviour
                 float distanceToPlayer = Vector2.Distance(transform.position, transformPlayer.position);
                 if (distanceToPlayer < 5.0f && currentAttackCooldown <= 0)
                 {
-                    isAttacking = true;
-
-                    if (useSpellAttack)
+                    
+                    if (hasAttackedOnce && currentTeleportCooldown <= 0 && Random.Range(0f, 1f) < teleportChance)
                     {
-                        StartCoroutine(CastSpell());
+                        StartCoroutine(PerformTeleport());
                     }
                     else
                     {
-                        StartCoroutine(PerformAttack());
-                    }
+                        isAttacking = true;
+                        hasAttackedOnce = true; 
 
-                    useSpellAttack = !useSpellAttack;
-                    currentAttackCooldown = attackCooldown;
+                        if (useSpellAttack)
+                        {
+                            StartCoroutine(CastSpell());
+                        }
+                        else
+                        {
+                            StartCoroutine(PerformAttack());
+                        }
+
+                        useSpellAttack = !useSpellAttack;
+                        currentAttackCooldown = attackCooldown;
+                    }
                 }
             }
         }
@@ -169,7 +193,6 @@ public class BossSala1 : MonoBehaviour
                 }
             }
         }
-
     }
 
     private void ResetAllAnimations()
@@ -181,8 +204,83 @@ public class BossSala1 : MonoBehaviour
         animator.SetBool("DeathBoss", false);
         animator.SetBool("CastBoss", false);
         animator.SetBool("SpellBoss", false);
+        animator.SetBool("VanishBoss", false);
+        animator.SetBool("RespawnBoss", false);
     }
 
+    private IEnumerator PerformTeleport()
+    {
+        isTeleporting = true;
+        float originalSpeed = speed;
+        speed = 0;        
+        ResetAllAnimations();
+        animator.SetBool("VanishBoss", true);
+
+        yield return new WaitForSeconds(vanishDuration);
+        
+        Vector3 newPosition = CalculateTeleportPosition();
+        transform.position = newPosition;
+       
+        if (transformPlayer != null)
+        {
+            if (transformPlayer.position.x < transform.position.x)
+            {
+                sr.flipX = false;
+            }
+            else
+            {
+                sr.flipX = true;
+            }
+        }
+      
+        ResetAllAnimations();
+        animator.SetBool("RespawnBoss", true);
+
+        yield return new WaitForSeconds(respawnDuration);
+
+        ResetAllAnimations();
+        if (speed > 0)
+        {
+            animator.SetBool("WalkBoss", true);
+        }
+        else
+        {
+            animator.SetBool("IdleBoss", true);
+        }
+
+        speed = originalSpeed;
+        isTeleporting = false;
+        currentTeleportCooldown = teleportCooldown;
+    }
+
+    private Vector3 CalculateTeleportPosition()
+    {
+        Vector3 playerPos = transformPlayer.position;
+        Vector3 currentPos = transform.position;
+       
+        for (int i = 0; i < 10; i++)
+        {
+            
+            float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
+            float distance = Random.Range(3f, teleportRange);
+
+            Vector3 offset = new Vector3(
+            Mathf.Cos(angle) * distance, 0f, 0f);
+            Vector3 newPos = playerPos + offset;
+            newPos.y = currentPos.y; 
+            
+            if (Vector2.Distance(new Vector2(newPos.x, newPos.y), new Vector2(playerPos.x, playerPos.y)) > 2f)
+            {
+                return newPos;
+            }
+        }
+        
+        Vector3 fallbackPos = playerPos;
+        fallbackPos.x += (playerPos.x > currentPos.x) ? -5f : 5f;
+        fallbackPos.y = currentPos.y;
+
+        return fallbackPos;
+    }
 
     private IEnumerator PerformAttack()
     {
@@ -194,9 +292,7 @@ public class BossSala1 : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
 
-
         Collider2D[] objetos = Physics2D.OverlapCircleAll(controladorAtaque.position, radioAtaque);
-
 
         foreach (Collider2D collision in objetos)
         {
@@ -206,12 +302,8 @@ public class BossSala1 : MonoBehaviour
                 vd.StartCoroutine(vd.hit());
                 vd.desactivarVida(vd.vidasPlayer);
                 vd.playerHit = true;
-
-
             }
-
         }
-
 
         ResetAllAnimations();
         if (speed > 0)
@@ -236,7 +328,6 @@ public class BossSala1 : MonoBehaviour
         animator.SetBool("CastBoss", true);
 
         yield return new WaitForSeconds(castDuration);
-
 
         Vector3 targetPosition = transformPlayer.position;
         GameObject ability = Instantiate(magic, targetPosition, Quaternion.identity);
@@ -270,7 +361,7 @@ public class BossSala1 : MonoBehaviour
 
     public void ReceiveHit()
     {
-        if (isDead) return;
+        if (isDead || isTeleporting) return; 
 
         if (vidasEnemigo <= 0)
         {
@@ -285,14 +376,13 @@ public class BossSala1 : MonoBehaviour
 
     private IEnumerator SpawnDoorAfterDelay()
     {
-        yield return new WaitForSeconds(3f); 
+        yield return new WaitForSeconds(3f);
 
         if (doorFinish != null && !doorSpawned)
         {
             doorFinish.SetActive(true);
             doorSpawned = true;
         }
-
     }
 
     private IEnumerator ResetHitAnimation()
@@ -314,5 +404,12 @@ public class BossSala1 : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(controladorAtaque.position, radioAtaque);
+
+        
+        Gizmos.color = Color.blue;
+        if (transformPlayer != null)
+        {
+            Gizmos.DrawWireSphere(transformPlayer.position, teleportRange);
+        }
     }
 }
