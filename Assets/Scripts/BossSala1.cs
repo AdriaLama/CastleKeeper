@@ -9,6 +9,7 @@ public class BossSala1 : MonoBehaviour
     public bool isRight = false;
     public bool isLeft = false;
     public float speed;
+    public int j = 5;
 
     public Transform transformPlayer;
     public bool playerInRange = false;
