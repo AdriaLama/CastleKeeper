@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class TransicionNegra : MonoBehaviour
 {
     private tpPlayer tp;
     public Animator transicionAnimacion;
-
+    public Animator transicionAnimacion2;
 
     void Start()
     {
@@ -17,24 +13,15 @@ public class TransicionNegra : MonoBehaviour
 
     void Update()
     {
-
         if (tp.isTp1)
         {
-           
             transicionAnimacion.SetTrigger("Begin");
-            transicionAnimacion.ResetTrigger("Begin");
-
         }
+
         if (tp.isTp2)
         {
-            transicionAnimacion.SetTrigger("Begin");
             
+            transicionAnimacion2.SetTrigger("Begin");
         }
     }
-
- 
-
 }
-
-
-

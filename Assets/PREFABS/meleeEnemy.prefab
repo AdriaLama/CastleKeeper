@@ -111,6 +111,8 @@ MonoBehaviour:
   vidasEnemigo: 4
   sr: {fileID: 0}
   rb: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 2589ad6d86a79d74aa09deee2b6935e8, type: 3}
+  hitSound: {fileID: 8300000, guid: 377533ea0ec34544aaeea0825394e9c3, type: 3}
 --- !u!61 &-3872585554782863825
 BoxCollider2D:
   m_ObjectHideFlags: 0
