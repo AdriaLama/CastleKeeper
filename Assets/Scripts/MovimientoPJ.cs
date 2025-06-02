@@ -93,7 +93,7 @@ public class MovimientoPJ : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
-            transform.position = new Vector2(-28.42f, 4f);
+            transform.position = new Vector2(-28.42f, -4f);
         }
     }
 
