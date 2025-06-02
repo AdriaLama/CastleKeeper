@@ -18920,10 +18920,10 @@ AudioSource:
   m_GameObject: {fileID: 820939407}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4463542226149553651, guid: 3fc60f4bc7d60ed4e96d5917a277822f, type: 2}
   m_audioClip: {fileID: 8300000, guid: 5dbe229ff79f0bf4d99b3e3b2fd31251, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.115
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -20231,6 +20231,8 @@ MonoBehaviour:
   grappleSpeed: 10
   grappleShootSpeed: 20
   isGrappling: 0
+  audioSource: {fileID: 0}
+  hookSound: {fileID: 0}
 --- !u!120 &1117595774
 LineRenderer:
   serializedVersion: 2
@@ -29550,6 +29552,10 @@ PrefabInstance:
     - target: {fileID: -2739104005399475492, guid: 8026149ac5579e24fbb83c14fa1df524, type: 3}
       propertyPath: m_Offset.y
       value: 0.27555156
+      objectReference: {fileID: 0}
+    - target: {fileID: -2739104005399475492, guid: 8026149ac5579e24fbb83c14fa1df524, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -662100460527324912, guid: 8026149ac5579e24fbb83c14fa1df524, type: 3}
       propertyPath: sonidoHit

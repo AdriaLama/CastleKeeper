@@ -31,7 +31,7 @@ public class SistemaDialogo : MonoBehaviour
     void Start()
     {
         panelDialogo.SetActive(false);
-        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void IniciarConversacion()

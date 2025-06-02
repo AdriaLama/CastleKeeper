@@ -82,14 +82,6 @@ public class Vidas : MonoBehaviour
             playerHit = true;
 
         }
-        if (collision.gameObject.CompareTag("Boss") && canHit)
-        {
-            vidasPlayer--;
-            StartCoroutine(hit());
-            desactivarVida(vidasPlayer);
-            playerHit = true;
-
-        }
         if (collision.gameObject.CompareTag("CorazonExtra"))
         {
             if (vidasPlayer < 5)

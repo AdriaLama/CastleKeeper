@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
         tp = FindObjectOfType<tpPlayer>();
        
 
-        if (SceneManager.GetActiveScene().name == "PruebaJefe" || SceneManager.GetActiveScene().name == "Sala1" || SceneManager.GetActiveScene().name == "Tutorial")
+        if (SceneManager.GetActiveScene().name == "PruebaJefe" || SceneManager.GetActiveScene().name == "Sala1" || SceneManager.GetActiveScene().name == "Tutorial" || SceneManager.GetActiveScene().name == "Celda")
         {
             transitionAnimation.SetTrigger("Begin");
 
@@ -27,7 +27,10 @@ public class GameManager : MonoBehaviour
     }
     public void Play()
     {
-        CheckpointManager.Instance.ResetData();
+        if (CheckpointManager.Instance != null)
+        {
+            CheckpointManager.Instance.ResetData();
+        }
         SceneManager.LoadScene("Celda");
         Time.timeScale = 1f;
         if (tp != null)

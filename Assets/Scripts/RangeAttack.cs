@@ -21,6 +21,12 @@ public class RangeAttack : MonoBehaviour
     public float[] attackDamage = { };
     public float[] attackKnockback = { };
 
+    [Header("Directional Settings")]
+    public Vector2 rightOffset = new Vector2(0.5f, 0f); // Offset cuando mira a la derecha
+    public Vector2 leftOffset = new Vector2(-0.5f, 0f); // Offset cuando mira a la izquierda
+    private Vector2 originalPosition;
+    private bool lastFacingRight = true;
+
     // Variables para controlar el daño
     private bool[] hasDealtDamage = { false, false, false };
     private int lastComboProcessed = 0;
@@ -32,15 +38,29 @@ public class RangeAttack : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         movimientoPj = GetComponentInParent<MovimientoPJ>();
         soundController = GetComponent<PlayerSoundController>();
+
+      
+        originalPosition = transform.localPosition;
+
+       
+        lastFacingRight = movimientoPj.isRight;
+        UpdateColliderPosition();
     }
 
     private void Update()
     {
+        
+        if (movimientoPj.isRight != lastFacingRight)
+        {
+            lastFacingRight = movimientoPj.isRight;
+            UpdateColliderPosition();
+        }
+
         if (movimientoPj.IsAttacking())
         {
             int currentCombo = movimientoPj.GetCurrentCombo();
 
-            // Aplicar efectos de ataque solo si es un combo nuevo
+            
             if (currentCombo != lastComboProcessed && currentCombo >= 1 && currentCombo <= 3)
             {
                 ApplyAttackEffects(currentCombo);
@@ -50,12 +70,26 @@ public class RangeAttack : MonoBehaviour
         }
         else
         {
-            // Resetear cuando termine el ataque
+           
             if (lastComboProcessed > 0)
             {
                 ResetDamageFlags();
                 lastComboProcessed = 0;
             }
+        }
+    }
+
+    private void UpdateColliderPosition()
+    {
+        if (movimientoPj.isRight)
+        {
+            
+            transform.localPosition = originalPosition + rightOffset;
+        }
+        else
+        {
+            
+            transform.localPosition = originalPosition + leftOffset;
         }
     }
 
@@ -73,28 +107,28 @@ public class RangeAttack : MonoBehaviour
 
         int index = comboStep - 1;
 
-        // Prevenir daño múltiple
+       
         if (hasDealtDamage[index]) return;
 
-        // Aplicar daño a enemigo melee
+       
         if (isTrue && enemy != null && em != null && em.vidasEnemigo > 0)
         {
             ApplyDamageToMeleeEnemy(index);
         }
 
-        // Aplicar daño a boss
+    
         if (isTrue && boss != null && te != null && te.vidasEnemigo > 0)
         {
             ApplyDamageToBoss(index);
         }
 
-        // Aplicar daño a enemigo de rango
+      
         if (isTrueRange && enemyRange != null && re != null && re.vidasEnemigo > 0)
         {
             ApplyDamageToRangeEnemy(index);
         }
 
-        // Activar jaula
+        
         if (isJaula)
         {
             JaulaFall = true;
@@ -115,7 +149,6 @@ public class RangeAttack : MonoBehaviour
             else
                 em.rb.velocity = new Vector2(-knockbackForce, 2);
         }
-
 
         if (em.vidasEnemigo <= 0)
         {
