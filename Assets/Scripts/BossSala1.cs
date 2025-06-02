@@ -269,7 +269,7 @@ public class BossSala1 : MonoBehaviour
             Vector3 newPos = playerPos + offset;
             newPos.y = currentPos.y; 
             
-            if (Vector2.Distance(new Vector2(newPos.x, newPos.y), new Vector2(playerPos.x, playerPos.y)) > 2f)
+            if (Vector2.Distance(new Vector2(newPos.x, newPos.y), new Vector2(playerPos.x, playerPos.y)) > 2f && newPos.x > 0 && newPos.x < 23)
             {
                 return newPos;
             }

@@ -374,7 +374,7 @@ Transform:
   - {fileID: 4762935602038675918}
   - {fileID: 4354514397971755917}
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4449432422590987358
 SpriteRenderer:
@@ -1122,7 +1122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1775391306002268352, guid: c52fe853a2424a646940109d8d15357b, type: 3}
       propertyPath: m_Size.y
-      value: 13.717459
+      value: 28.97784
       objectReference: {fileID: 0}
     - target: {fileID: 1775391306002268352, guid: c52fe853a2424a646940109d8d15357b, type: 3}
       propertyPath: m_Offset.x
@@ -1130,7 +1130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1775391306002268352, guid: c52fe853a2424a646940109d8d15357b, type: 3}
       propertyPath: m_Offset.y
-      value: -7.5366545
+      value: -13.98892
       objectReference: {fileID: 0}
     - target: {fileID: 4643507839265135992, guid: c52fe853a2424a646940109d8d15357b, type: 3}
       propertyPath: m_Name
