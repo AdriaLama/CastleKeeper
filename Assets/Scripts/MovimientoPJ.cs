@@ -395,6 +395,7 @@ public class MovimientoPJ : MonoBehaviour
                 isWallJumping = true;
                 sr.flipX = true;
                 animator.SetBool("WallSlide", false);
+                soundController?.PlayJumpSound();
                 StartCoroutine(DisableWallJumping());
 
             }
@@ -404,6 +405,7 @@ public class MovimientoPJ : MonoBehaviour
                 isWallJumping = true;
                 sr.flipX = false;
                 animator.SetBool("WallSlide", false);
+                soundController?.PlayDoubleJumpSound();
                 StartCoroutine(DisableWallJumping());
             }
         }
