@@ -44,7 +44,14 @@ public class BossSala1 : MonoBehaviour
     public float teleportRange = 10f; 
     public float vanishDuration = 1f; 
     public float respawnDuration = 1f; 
-    private bool hasAttackedOnce = false; 
+    private bool hasAttackedOnce = false;
+    public AudioClip sonidoAtaque;
+    public AudioClip sonidoHechizo;
+    public AudioClip sonidoTeleport;
+    public AudioClip sonidoMuerte;
+    public AudioClip sonidoHit;
+
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -72,6 +79,13 @@ public class BossSala1 : MonoBehaviour
         hasAttackedOnce = false;
         ResetAllAnimations();
         animator.SetBool("IdleBoss", true);
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
     }
 
     void Update()
@@ -216,6 +230,10 @@ public class BossSala1 : MonoBehaviour
         ResetAllAnimations();
         animator.SetBool("VanishBoss", true);
 
+        if (sonidoTeleport != null)
+            audioSource.PlayOneShot(sonidoTeleport);
+
+
         yield return new WaitForSeconds(vanishDuration);
         
         Vector3 newPosition = CalculateTeleportPosition();
@@ -290,6 +308,9 @@ public class BossSala1 : MonoBehaviour
         ResetAllAnimations();
         animator.SetBool("AttackBoss", true);
 
+        if (sonidoAtaque != null)
+            audioSource.PlayOneShot(sonidoAtaque);
+
         yield return new WaitForSeconds(1.0f);
 
         Collider2D[] objetos = Physics2D.OverlapCircleAll(controladorAtaque.position, radioAtaque);
@@ -327,6 +348,9 @@ public class BossSala1 : MonoBehaviour
         ResetAllAnimations();
         animator.SetBool("CastBoss", true);
 
+        if (sonidoHechizo != null)
+            audioSource.PlayOneShot(sonidoHechizo);
+
         yield return new WaitForSeconds(castDuration);
 
         Vector3 targetPosition = transformPlayer.position;
@@ -357,11 +381,17 @@ public class BossSala1 : MonoBehaviour
         speed = 0;
         bx.enabled = false;
         rb.bodyType = RigidbodyType2D.Static;
+        if (sonidoMuerte != null)
+            audioSource.PlayOneShot(sonidoMuerte);
+
     }
 
     public void ReceiveHit()
     {
-        if (isDead || isTeleporting) return; 
+        if (isDead || isTeleporting) return;
+
+        if (sonidoHit != null)
+            audioSource.PlayOneShot(sonidoHit);
 
         if (vidasEnemigo <= 0)
         {
