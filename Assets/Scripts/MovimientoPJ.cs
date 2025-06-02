@@ -90,19 +90,17 @@ public class MovimientoPJ : MonoBehaviour
         {
             transform.position = new Vector2(-9.63f, 16.7f);
         }
-<<<<<<< Updated upstream
-       
+
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
             transform.position = new Vector2(-28.42f, -4f);
         }
-=======
+
         if (SceneManager.GetActiveScene().name == "Celda")
         {
             puedeMoverse = false;
         }
 
->>>>>>> Stashed changes
     }
 
     void Update()
