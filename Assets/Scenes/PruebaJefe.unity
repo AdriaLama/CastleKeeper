@@ -29553,7 +29553,7 @@ PrefabInstance:
     - target: {fileID: -662100460527324912, guid: 8026149ac5579e24fbb83c14fa1df524, type: 3}
       propertyPath: transformPlayer
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1117595778}
     - target: {fileID: -662100460527324912, guid: 8026149ac5579e24fbb83c14fa1df524, type: 3}
       propertyPath: controladorAtaque
       value: 
