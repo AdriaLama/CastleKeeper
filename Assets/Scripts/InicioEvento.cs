@@ -14,7 +14,7 @@ public class InicioEvento : MonoBehaviour
 
     IEnumerator EsperarYEjecutar()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2.5f);
         sistemaDialogo.IniciarConversacion();
     }
 }
