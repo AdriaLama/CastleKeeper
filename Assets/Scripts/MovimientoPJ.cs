@@ -383,14 +383,12 @@ public class MovimientoPJ : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
         }
 
-        // Marcar cuando el jugador suelta la tecla
+    
         if (Input.GetButtonUp("Jump"))
         {
             jumpInputReleased = true;
         }
 
-        // Ignorar si la tecla no ha sido soltada todavía
-        if (!jumpInputReleased) return;
 
         if (Input.GetButtonDown("Jump"))
         {

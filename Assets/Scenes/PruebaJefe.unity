@@ -352,7 +352,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.22421397}
   m_AnchorMax: {x: 1, y: 0.35578606}
-  m_AnchoredPosition: {x: 1.5773239, y: 1.800003}
+  m_AnchoredPosition: {x: 1.5773239, y: 0}
   m_SizeDelta: {x: 113.803314, y: 29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &316096609
@@ -719,8 +719,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 370634780}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.3232, y: 6.5502, z: 0}
-  m_LocalScale: {x: 72.638504, y: 49.903454, z: 26.840565}
+  m_LocalPosition: {x: 9.4126, y: 7.1356, z: 0}
+  m_LocalScale: {x: 97.62134, y: 58.35811, z: 26.840565}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -974,7 +974,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2638882, y: 0.19263235}
   m_AnchorMax: {x: 0.73988837, y: 0.37}
-  m_AnchoredPosition: {x: -0.4671631, y: -1}
+  m_AnchoredPosition: {x: -0.4671631, y: 0}
   m_SizeDelta: {x: 152.84497, y: 29.317947}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &589377570
@@ -18923,7 +18923,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5dbe229ff79f0bf4d99b3e3b2fd31251, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.033
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -19349,7 +19349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.38245147, y: 0.19700001}
   m_AnchorMax: {x: 0.6162742, y: 0.7252477}
-  m_AnchoredPosition: {x: 1.618103, y: -0.000030517578}
+  m_AnchoredPosition: {x: 1.618103, y: 0}
   m_SizeDelta: {x: -209.51166, y: -259.3647}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1021231258
@@ -20507,7 +20507,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.19584474, y: 0.71651053}
   m_AnchorMax: {x: 0.8321117, y: 0.93663234}
-  m_AnchoredPosition: {x: -0.69999695, y: -1.5}
+  m_AnchoredPosition: {x: -0.69999695, y: 0}
   m_SizeDelta: {x: -5.1114006, y: -2.9615998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1141838895
@@ -28730,7 +28730,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5543582}
   m_AnchorMax: {x: 1, y: 0.7471443}
-  m_AnchoredPosition: {x: -0.710701, y: 5.699646}
+  m_AnchoredPosition: {x: -0.710701, y: 0}
   m_SizeDelta: {x: 110.23749, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1827117390
@@ -28864,7 +28864,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2638882, y: 0.45236772}
   m_AnchorMax: {x: 0.73988837, y: 0.643}
-  m_AnchoredPosition: {x: -0.4671631, y: 0.5}
+  m_AnchoredPosition: {x: -0.4671631, y: 0}
   m_SizeDelta: {x: 152.84497, y: 25.317947}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1840507402
@@ -28999,7 +28999,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.30200002, y: 0.3033966}
   m_AnchorMax: {x: 0.69520384, y: 0.6953391}
-  m_AnchoredPosition: {x: 0.81799316, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0.81799316, y: 0}
   m_SizeDelta: {x: -342.13086, y: -191.61066}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1845857470
@@ -29656,9 +29656,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4233983095465251904, guid: 8026149ac5579e24fbb83c14fa1df524, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2062413607}
-    - targetCorrespondingSourceObject: {fileID: 4233983095465251904, guid: 8026149ac5579e24fbb83c14fa1df524, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2062413606}
     - targetCorrespondingSourceObject: {fileID: 4233983095465251904, guid: 8026149ac5579e24fbb83c14fa1df524, type: 3}
       insertIndex: -1
@@ -29695,7 +29692,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 8017946131804744855, guid: 3fc60f4bc7d60ed4e96d5917a277822f, type: 2}
   m_audioClip: {fileID: 8300000, guid: 6e53fca1443f8684fb2ec38ddb611fd9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.48
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -29791,7 +29788,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 8017946131804744855, guid: 3fc60f4bc7d60ed4e96d5917a277822f, type: 2}
   m_audioClip: {fileID: 8300000, guid: 76093639c3f6dfc43a22e1bcf9dc1c54, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.36
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -29887,7 +29884,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 8017946131804744855, guid: 3fc60f4bc7d60ed4e96d5917a277822f, type: 2}
   m_audioClip: {fileID: 8300000, guid: ca56d94a65b24db4bb415b4438cc05b2, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.44
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -29983,7 +29980,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 8017946131804744855, guid: 3fc60f4bc7d60ed4e96d5917a277822f, type: 2}
   m_audioClip: {fileID: 8300000, guid: dcb5de8d64d3c0442b581db76f13bc3b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.39
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -30079,103 +30076,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 8017946131804744855, guid: 3fc60f4bc7d60ed4e96d5917a277822f, type: 2}
   m_audioClip: {fileID: 8300000, guid: db2fd231b1fe3d84ea8ea5a2550ce89e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!82 &2062413607
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062413601}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.34
   m_Pitch: 1
   Loop: 0
   Mute: 0

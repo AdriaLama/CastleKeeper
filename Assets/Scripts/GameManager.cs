@@ -28,15 +28,15 @@ public class GameManager : MonoBehaviour
     public void Play()
     {
         CheckpointManager.Instance.ResetData();
-        SceneManager.LoadScene("Sala1");
+        SceneManager.LoadScene("Celda");
         Time.timeScale = 1f;
         if (tp != null)
         {
             tp.isTp1 = false;
             tp.isTp2 = false;
         }
-      
     }
+
 
     public void GoToTutorial()
     {
