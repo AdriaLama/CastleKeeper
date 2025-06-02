@@ -47,6 +47,7 @@ public class MovimientoPJ : MonoBehaviour
     private float jumpInputLockTime = 0.2f; 
     private float jumpInputTimer = 0f;
     private bool jumpInputReleased = false;
+    public bool puedeMoverse = true;
 
 
 
@@ -89,16 +90,31 @@ public class MovimientoPJ : MonoBehaviour
         {
             transform.position = new Vector2(-9.63f, 16.7f);
         }
+<<<<<<< Updated upstream
        
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
             transform.position = new Vector2(-28.42f, -4f);
         }
+=======
+        if (SceneManager.GetActiveScene().name == "Celda")
+        {
+            puedeMoverse = false;
+        }
+
+>>>>>>> Stashed changes
     }
 
     void Update()
     {
-        
+        if (!puedeMoverse)
+        {
+            horizontal = 0;
+            animator.SetBool("Run", false);
+            return;
+        }
+
+
         if (!isWallJumping && !hk.isGrappling && tp.canMoveTp)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
@@ -329,18 +345,24 @@ public class MovimientoPJ : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!puedeMoverse) return;
+
         if (!isDashing && !isWallJumping && !isKnock)
         {
-             Move();
-            
+            Move();
         }
     }
+
+
 
     private void Move()
     {
         rb2D.velocity = new Vector2(horizontal * movSpeed, rb2D.velocity.y);
-        if (horizontal != 0 && checkGroundLineCast())
+        float velocidadHorizontal = Mathf.Abs(rb2D.velocity.x);
+
+        if (velocidadHorizontal > 0.1f && checkGroundLineCast())
         {
+            Debug.Log("Entrando en animación de correr");
             animator.SetBool("Run", true);
             particulas.Play();
         }
@@ -348,6 +370,8 @@ public class MovimientoPJ : MonoBehaviour
         {
             animator.SetBool("Run", false);
         }
+
+
     }
 
     private void Jump()
