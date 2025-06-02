@@ -18,7 +18,7 @@ public class tpPlayer : MonoBehaviour
   
     void Start()
     {
-      
+        
     }
 
     void Update()

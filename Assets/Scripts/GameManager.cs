@@ -7,14 +7,15 @@ public class GameManager : MonoBehaviour
 {
     public bool isPaused = false;
     public GameObject pauseMenuUI;
-    private MovimientoPJ pj;
+    private tpPlayer tp;
     public Animator transitionAnimation;
     public GameObject canvas;
     public bool activarHud = false;
 
     private void Start()
     {
-        pj = FindObjectOfType<MovimientoPJ>();
+        tp = FindObjectOfType<tpPlayer>();
+       
 
         if (SceneManager.GetActiveScene().name == "PruebaJefe" || SceneManager.GetActiveScene().name == "Sala1" || SceneManager.GetActiveScene().name == "Tutorial")
         {
@@ -26,8 +27,15 @@ public class GameManager : MonoBehaviour
     }
     public void Play()
     {
+        CheckpointManager.Instance.ResetData();
         SceneManager.LoadScene("Sala1");
         Time.timeScale = 1f;
+        if (tp != null)
+        {
+            tp.isTp1 = false;
+            tp.isTp2 = false;
+        }
+      
     }
 
     public void GoToTutorial()
@@ -40,6 +48,10 @@ public class GameManager : MonoBehaviour
     {
         CheckpointManager.Instance.ResetData(); 
         SceneManager.LoadScene("MenuPrincipal");
+        tp.isTp1 = false;
+        tp.isTp2 = false;
+
+
     }
     public void Quit()
     {

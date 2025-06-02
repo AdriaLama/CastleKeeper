@@ -227,6 +227,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3333476923168717877, guid: 41c8d40ca4965ec4da545f45c3d5b166, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6956402926940582923, guid: 41c8d40ca4965ec4da545f45c3d5b166, type: 3}
       propertyPath: m_Name
       value: Cornisa (2)
@@ -1139,6 +1143,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3333476923168717877, guid: 41c8d40ca4965ec4da545f45c3d5b166, type: 3}
       propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333476923168717877, guid: 41c8d40ca4965ec4da545f45c3d5b166, type: 3}
+      propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6956402926940582923, guid: 41c8d40ca4965ec4da545f45c3d5b166, type: 3}
@@ -19201,6 +19209,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3333476923168717877, guid: 41c8d40ca4965ec4da545f45c3d5b166, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6956402926940582923, guid: 41c8d40ca4965ec4da545f45c3d5b166, type: 3}
       propertyPath: m_Name
       value: Cornisa (3)
@@ -21700,7 +21712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPaused: 0
-  pauseMenuUI: {fileID: 0}
+  pauseMenuUI: {fileID: 1021231256}
   transitionAnimation: {fileID: 702423806}
   canvas: {fileID: 1942307809}
   activarHud: 0
@@ -22054,6 +22066,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3333476923168717877, guid: 41c8d40ca4965ec4da545f45c3d5b166, type: 3}
       propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333476923168717877, guid: 41c8d40ca4965ec4da545f45c3d5b166, type: 3}
+      propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6956402926940582923, guid: 41c8d40ca4965ec4da545f45c3d5b166, type: 3}
@@ -29766,3 +29782,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36760fb5dab67084097a7958093d2e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finished: 0

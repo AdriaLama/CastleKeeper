@@ -13,6 +13,7 @@ public class MovimientoPJ : MonoBehaviour
     private Hook hk;
     private KeyDoor kd;
     private tpPlayer tp;
+    private DoorFinish df;
     public SpriteRenderer sr;
     public Animator animator;
     public float movSpeed;
@@ -75,6 +76,7 @@ public class MovimientoPJ : MonoBehaviour
         hk = GetComponent<Hook>();
         animator = GetComponent<Animator>();
         kd = FindObjectOfType<KeyDoor>();
+        df = FindObjectOfType<DoorFinish>();
         tp = GetComponent<tpPlayer>();
         movSpeedDefault = movSpeed;
         StartCoroutine(EnableJumpSoundDelay());
@@ -87,10 +89,7 @@ public class MovimientoPJ : MonoBehaviour
         {
             transform.position = new Vector2(-9.63f, 16.7f);
         }
-        if (SceneManager.GetActiveScene().name == "Sala1")
-        {
-            transform.position = new Vector2(-193.871f, 2.924f);
-        }
+       
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
             transform.position = new Vector2(-28.42f, -4f);
