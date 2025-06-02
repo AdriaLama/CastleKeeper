@@ -7,15 +7,20 @@ public class Hook : MonoBehaviour
     private LineRenderer line;
     private Rigidbody2D rb2D;
     private PickItems pi;
+
     public LayerMask grapplableMask;
     public float maxDistance;
     public float grappleSpeed;
     public float grappleShootSpeed;
+
     private bool canHook = true;
     public bool isGrappling = false;
     private bool retracting = false;
     private bool hitSomething = false;
     private Vector2 target;
+
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip hookSound;
 
     void Start()
     {
@@ -58,6 +63,11 @@ public class Hook : MonoBehaviour
     {
         canHook = false;
         hitSomething = false;
+
+        if (audioSource != null && hookSound != null)
+        {
+            audioSource.PlayOneShot(hookSound);
+        }
 
         Vector2 mouseWorldPos = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 hookStartPos = (Vector2)transform.position + Vector2.up * 2f;

@@ -7,6 +7,10 @@ public class Jaula : MonoBehaviour
     private Rigidbody2D rb;
     private RangeAttack ra;
     private BoxCollider2D bx;
+
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip caidaClip;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -14,7 +18,6 @@ public class Jaula : MonoBehaviour
         bx = GetComponent<BoxCollider2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (ra.JaulaFall)
@@ -27,6 +30,11 @@ public class Jaula : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Floor"))
         {
+            if (audioSource != null && caidaClip != null)
+            {
+                audioSource.PlayOneShot(caidaClip);
+            }
+
             bx.enabled = !bx.enabled;
             rb.bodyType = RigidbodyType2D.Static;
         }
